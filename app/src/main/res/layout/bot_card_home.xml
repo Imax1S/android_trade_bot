@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="16dp"
+    app:cardBackgroundColor="@color/bot_card_background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/bot_name"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+            app:layout_constraintEnd_toStartOf="@id/bot_switch"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Bot name" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/bot_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            app:layout_constraintBottom_toBottomOf="@+id/bot_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/bot_yield"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bot_name"
+            tools:textColor="@color/yield_plus"
+            tools:text="+7%" />
+
+        <TextView
+            android:id="@+id/bot_instruments"
+            tools:text="$APPL • $YNDX • $GOOG • $MTA"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/bot_yield"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/bot_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Bot with works as anti hamster"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            app:layout_constraintTop_toBottomOf="@id/bot_instruments"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

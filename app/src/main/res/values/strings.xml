@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Trade Bot</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="home_empty">Create new bot</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="done">Done</string>
+    <string name="sell_conditions_headline">Sell conditions</string>
+    <string name="enter_percentages_text">Enter percentages</string>
+    <string name="sell_conditions_subtitle_drop">Sell all if price dropped more than:</string>
+    <string name="buy_conditions_subtitle_drop">Buy all if price dropped more than:</string>
+    <string name="sell_conditions_subtitle_increase">Sell all if price increased more than</string>
+    <string name="buy_conditions_headline">Buy conditions</string>
+</resources>
