@@ -1,7 +1,7 @@
 package com.ioline.tradebot.data.models
 
-enum class OperationMode {
-    AUTO,
-    SEMI_AUTO,
-    MANUAL
+enum class OperationMode(val value: String) {
+    AUTO("auto"),
+    SEMI_AUTO("semi auto"),
+    MANUAL("manual")
 }

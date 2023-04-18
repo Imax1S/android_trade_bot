@@ -1,26 +1,31 @@
 package com.ioline.tradebot.ui.bot.creation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.ioline.tradebot.R
+import com.ioline.tradebot.data.models.Bot
+import com.ioline.tradebot.data.models.MarketEnvironment
+import com.ioline.tradebot.data.models.OperationMode
+import com.ioline.tradebot.databinding.FragmentBotCreationBinding
+import com.ioline.tradebot.ui.home.HomeViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [BotCreationFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class BotCreationFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private var _binding: FragmentBotCreationBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,28 +38,45 @@ class BotCreationFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bot_creation, container, false)
-    }
+    ): View {
+        _binding = FragmentBotCreationBinding.inflate(inflater, container, false)
+        val homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment BotCreationFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            BotCreationFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        val root: View = binding.root
+
+
+        val marketEnvironmentArrayAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_dropdown_item,
+            MarketEnvironment.values().map {
+                it.toString()
+            })
+
+        val operationModeArrayAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_dropdown_item,
+            OperationMode.values().map {
+                it.toString()
+            })
+
+        binding.environmentSpinner.adapter = marketEnvironmentArrayAdapter
+        binding.modeSpinner.adapter = operationModeArrayAdapter
+
+        binding.buttonDone.setOnClickListener {
+            val bot = Bot(
+                name = binding.botNameTextField.text.toString(),
+                mode = enumValueOf(binding.modeSpinner.selectedItem.toString()),
+                environment = enumValueOf(binding.environmentSpinner.selectedItem.toString()),
+                instruments = homeViewModel.getInstruments(binding.instrumentsTextField.text.toString())
+            )
+            val botBundle = bundleOf("bot" to bot)
+
+            findNavController().navigate(
+                R.id.action_botCreationFragment_to_strategySetUpFragment,
+                botBundle
+            )
+        }
+
+        return root
     }
 }

@@ -13,4 +13,6 @@
     <string name="buy_conditions_subtitle_drop">Buy all if price dropped more than:</string>
     <string name="sell_conditions_subtitle_increase">Sell all if price increased more than</string>
     <string name="buy_conditions_headline">Buy conditions</string>
+    <string name="creation_bot_hint_name">Enter bot\'s name</string>
+    <string name="bot_creation_instruments_hint">Enter instruments</string>
 </resources>

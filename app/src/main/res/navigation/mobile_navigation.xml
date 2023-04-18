@@ -9,7 +9,12 @@
         android:id="@+id/navigation_home"
         android:name="com.ioline.tradebot.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_botCreationFragment"
+            app:destination="@id/botCreationFragment"
+            app:launchSingleTop="false" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -22,4 +27,30 @@
         android:name="com.ioline.tradebot.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/botCreationFragment"
+        android:name="com.ioline.tradebot.ui.bot.creation.BotCreationFragment"
+        android:label="Bot creation"
+        tools:layout="@layout/fragment_bot_creation" >
+        <action
+            android:id="@+id/action_botCreationFragment_to_strategySetUpFragment"
+            app:destination="@id/strategySetUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/strategySetUpFragment"
+        android:name="com.ioline.tradebot.ui.bot.creation.StrategySetUpFragment"
+        android:label="fragment_strategy_set_up"
+        tools:layout="@layout/fragment_strategy_set_up" >
+        <action
+            android:id="@+id/action_strategySetUpFragment_to_sellBuyConditionsFragment"
+            app:destination="@id/sellBuyConditionsFragment" />
+        <action
+            android:id="@+id/action_strategySetUpFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/sellBuyConditionsFragment"
+        android:name="com.ioline.tradebot.ui.bot.creation.SellBuyConditionsFragment"
+        android:label="fragment_sell_buy_conditions"
+        tools:layout="@layout/fragment_sell_buy_conditions" />
 </navigation>

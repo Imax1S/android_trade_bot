@@ -1,7 +1,7 @@
 package com.ioline.tradebot.data.models
 
-enum class MarketEnvironment {
-    MARKET,
-    SANDBOX,
-    HISTORICAL_DATA
+enum class MarketEnvironment(val value: String) {
+    MARKET("market"),
+    SANDBOX("sandbox"),
+    HISTORICAL_DATA("historical data")
 }

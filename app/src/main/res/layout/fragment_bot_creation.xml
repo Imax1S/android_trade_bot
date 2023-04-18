@@ -12,13 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/button_done"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/bot_name_text_field"
+            android:hint="@string/creation_bot_hint_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -41,13 +42,13 @@
             android:id="@+id/instruments_text_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/bot_creation_instruments_hint"
             android:layout_marginTop="16dp"/>
-
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_done"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/done"
