@@ -5,11 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.ioline.tradebot.R
 import com.ioline.tradebot.data.models.Bot
 import com.ioline.tradebot.data.models.MarketEnvironment
 import com.ioline.tradebot.data.models.OperationMode
@@ -21,6 +18,12 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class BotCreationFragment : Fragment() {
+    companion object {
+        @JvmStatic
+        fun newInstance() =
+            BotCreationFragment()
+    }
+
     private var param1: String? = null
     private var param2: String? = null
 
@@ -63,18 +66,22 @@ class BotCreationFragment : Fragment() {
         binding.modeSpinner.adapter = operationModeArrayAdapter
 
         binding.buttonDone.setOnClickListener {
+
+            val instrumentsString = binding.instrumentsTextField.text.toString()
+
             val bot = Bot(
                 name = binding.botNameTextField.text.toString(),
                 mode = enumValueOf(binding.modeSpinner.selectedItem.toString()),
-                environment = enumValueOf(binding.environmentSpinner.selectedItem.toString()),
-                instruments = homeViewModel.getInstruments(binding.instrumentsTextField.text.toString())
+                environment = enumValueOf(binding.environmentSpinner.selectedItem.toString())
             )
-            val botBundle = bundleOf("bot" to bot)
 
-            findNavController().navigate(
-                R.id.action_botCreationFragment_to_strategySetUpFragment,
-                botBundle
-            )
+            parentFragmentManager.beginTransaction()
+                .replace(
+                    ((view as ViewGroup).parent as View).id,
+                    StrategySetUpFragment.newInstance(bot, instrumentsString)
+                )
+                .addToBackStack(null)
+                .commit()
         }
 
         return root

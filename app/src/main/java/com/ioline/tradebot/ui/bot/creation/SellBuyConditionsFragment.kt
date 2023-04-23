@@ -5,56 +5,61 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import com.ioline.tradebot.R
+import com.ioline.tradebot.data.models.Instrument
+import com.ioline.tradebot.data.models.StrategyManual
+import com.ioline.tradebot.databinding.FragmentSellBuyConditionsBinding
+import com.ioline.tradebot.databinding.FragmentStrategySetUpBinding
+import com.ioline.tradebot.getInstrumentSerializable
+import java.io.Serializable
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SellBuyConditionsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SellBuyConditionsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    companion object {
+        private const val ARG_INSTRUMENT = "instrument"
+        const val ARG_STRATEGY = "strategy"
+        const val RESULT_STRATEGY = "result_strategy"
+
+        @JvmStatic
+        fun newInstance(instrument: Serializable) =
+            SellBuyConditionsFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable(ARG_INSTRUMENT, instrument)
+                }
+            }
+    }
+    private var _binding: FragmentSellBuyConditionsBinding? = null
+    private val binding get() = _binding!!
+    private var instrument: Instrument? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            instrument = it.getInstrumentSerializable(ARG_INSTRUMENT)
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sell_buy_conditions, container, false)
+    ): View {
+        _binding = FragmentSellBuyConditionsBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+        binding.buttonDone.setOnClickListener {
+            val strategy = StrategyManual(
+                binding.sellDropPerc.text.toString().toDouble(),
+                binding.sellIncreasePerc.text.toString().toDouble(),
+                binding.buyDropPerc.text.toString().toDouble()
+            )
+            // Use the Kotlin extension in the fragment-ktx artifact
+            setFragmentResult(RESULT_STRATEGY, bundleOf(ARG_STRATEGY to strategy))
+            parentFragmentManager.popBackStack()
+
+        }
+        return root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SellBuyConditionsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SellBuyConditionsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

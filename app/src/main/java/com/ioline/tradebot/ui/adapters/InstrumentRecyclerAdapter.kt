@@ -8,16 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ioline.tradebot.data.models.Instrument
 import com.ioline.tradebot.databinding.InstrumentItemBinding
 
-class InstrumentRecyclerAdapter() :
+class InstrumentRecyclerAdapter(val setupInstrument: (Instrument) -> Unit) :
     ListAdapter<Instrument, InstrumentRecyclerAdapter.InstrumentViewHolder>(DiffCallback) {
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<Instrument>() {
             override fun areItemsTheSame(oldItem: Instrument, newItem: Instrument): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem == newItem
             }
 
             override fun areContentsTheSame(oldItem: Instrument, newItem: Instrument): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem.uid == newItem.uid
             }
         }
     }
@@ -27,19 +27,26 @@ class InstrumentRecyclerAdapter() :
             InstrumentItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent, false
-            )
+            ),
+            setupInstrument
         )
     }
 
     override fun onBindViewHolder(holder: InstrumentViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position) ?: return)
     }
 
-    inner class InstrumentViewHolder(private val binding: InstrumentItemBinding) :
+    inner class InstrumentViewHolder(
+        private val binding: InstrumentItemBinding,
+        setupInstrument: (Instrument) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(instrument: Instrument) {
-            binding.instrumentName.text = instrument.id
-            binding.instrumentPrice.text = instrument.price.toString()
+            binding.instrumentName.text = instrument.name
+            binding.instrumentPrice.text = instrument.ticker
+            binding.instrumentSetupButton.setOnClickListener {
+                setupInstrument(instrument)
+            }
         }
     }
 }

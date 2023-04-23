@@ -1,22 +1,31 @@
 package com.ioline.tradebot.ui.home
 
+import android.app.Application
+import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.ioline.tradebot.App
 import com.ioline.tradebot.data.models.Bot
 import com.ioline.tradebot.data.models.Instrument
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(application: Application) : AndroidViewModel(application) {
     companion object {
         const val INSTRUMENT_DELIMITER = " "
     }
 
-    private val instruments = mutableListOf(Instrument("APPL"), Instrument("YANDX"))
+    private val repository = (application as App).repository
+
     private val _bots = MutableLiveData<MutableList<Bot>>().apply {
-        value = mutableListOf(
-//            Bot("Richest bot", OperationMode.MANUAL, MarketEnvironment.HISTORICAL_DATA, instruments)
-        )
+        value = mutableListOf()
     }
+    val instruments = MutableLiveData<List<Instrument?>>().apply {
+        value = mutableListOf()
+    }
+
     val bots: LiveData<MutableList<Bot>> = _bots
 
     fun saveBot(bot: Bot?) {
@@ -25,9 +34,15 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun getInstruments(instruments: String): List<Instrument> {
-        return instruments.split(INSTRUMENT_DELIMITER).map {
-            Instrument(it)
+    fun setupInstruments(instrumentsString: String?) {
+        instrumentsString ?: return
+        viewModelScope.launch(Dispatchers.IO) {
+            val newInstruments = instrumentsString.split(INSTRUMENT_DELIMITER).map {
+                val instrument = repository.findInstrument(it)
+                Log.d("TAGA", instrument.toString())
+                instrument
+            }
+            instruments.postValue(newInstruments)
         }
     }
 }
