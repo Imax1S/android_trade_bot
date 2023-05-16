@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ioline.tradebot.databinding.FragmentHomeBinding
+import com.ioline.tradebot.ui.adapters.HomeBotRecyclerAdapter
 import com.ioline.tradebot.ui.bot.creation.BotCreationFragment
 
 class HomeFragment : Fragment() {
@@ -30,13 +32,28 @@ class HomeFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+
+        val botAdapter = HomeBotRecyclerAdapter(
+            {
+                homeViewModel.runBot(it.copy(isActive = true))
+            },
+            {
+                homeViewModel.runBot(it.copy(isActive = true))
+
+            }
+        )
+
         homeViewModel.bots.observe(viewLifecycleOwner) {
             binding.buttonHome.visibility = if (it.isEmpty()) {
                 View.VISIBLE
             } else {
                 View.GONE
             }
+            botAdapter.submitList(it)
         }
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        binding.recyclerView.adapter = botAdapter
 
         return root
     }

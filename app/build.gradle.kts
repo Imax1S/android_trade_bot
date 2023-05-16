@@ -53,6 +53,8 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.android)
 
     //test
     testImplementation(libs.junit)

@@ -2,6 +2,7 @@ package com.ioline.tradebot.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -43,7 +44,9 @@ class InstrumentRecyclerAdapter(val setupInstrument: (Instrument) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(instrument: Instrument) {
             binding.instrumentName.text = instrument.name
-            binding.instrumentPrice.text = instrument.ticker
+            binding.instrumentPrice.text = instrument.price.toString()
+
+            binding.instrumentSetupButton.isVisible = false
             binding.instrumentSetupButton.setOnClickListener {
                 setupInstrument(instrument)
             }

@@ -15,4 +15,7 @@
     <string name="buy_conditions_headline">Buy conditions</string>
     <string name="creation_bot_hint_name">Enter bot\'s name</string>
     <string name="bot_creation_instruments_hint">Enter instruments</string>
+    <string name="enter_param_1">Enter param 1</string>
+    <string name="enter_param_2">Enter param 2</string>
+    <string name="enter_number">Enter Number</string>
 </resources>

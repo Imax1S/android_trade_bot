@@ -15,7 +15,8 @@ data class Instrument(
     val positionUid: String,
     val ticker: String,
     val uid: String,
-    val weekendFlag: Boolean
+    val weekendFlag: Boolean,
+    val price: Double = 0.0
 ): Serializable  {
     companion object {
         const val serialVersionUID = 123L

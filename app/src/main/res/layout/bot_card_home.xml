@@ -38,8 +38,16 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/bot_name"
-            tools:textColor="@color/yield_plus"
             tools:text="+7%" />
+
+        <TextView
+            android:id="@+id/bot_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bot_yield"
+            tools:text="100000" />
 
         <TextView
             android:id="@+id/bot_instruments"
@@ -47,7 +55,7 @@
             android:textAppearance="@style/TextAppearance.Material3.BodySmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/bot_yield"
+            app:layout_constraintTop_toBottomOf="@id/bot_balance"
             app:layout_constraintStart_toStartOf="parent"
             />
 

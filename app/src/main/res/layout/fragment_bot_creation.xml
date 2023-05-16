@@ -19,33 +19,31 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/bot_name_text_field"
-            android:hint="@string/creation_bot_hint_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"
+            android:hint="@string/creation_bot_hint_name" />
 
         <Spinner
             android:id="@+id/mode_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"/>
-
+            android:layout_marginTop="16dp" />
 
         <Spinner
             android:id="@+id/environment_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp" />
 
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/instruments_text_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/bot_creation_instruments_hint"
-            android:layout_marginTop="16dp"/>
-
+            android:layout_marginTop="16dp"
+            android:hint="@string/bot_creation_instruments_hint" />
     </LinearLayout>
+
 
     <Button
         android:id="@+id/button_done"

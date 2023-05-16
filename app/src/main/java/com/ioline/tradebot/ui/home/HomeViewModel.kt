@@ -3,7 +3,6 @@ package com.ioline.tradebot.ui.home
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ioline.tradebot.App
@@ -26,11 +25,15 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         value = mutableListOf()
     }
 
-    val bots: LiveData<MutableList<Bot>> = _bots
+    val bots: MutableLiveData<MutableList<Bot>> = _bots
 
     fun saveBot(bot: Bot?) {
         if (bot != null) {
-            _bots.value?.add(bot)
+            val list = _bots.value
+            list?.add(bot)
+            list?.let {
+                bots.postValue(it)
+            }
         }
     }
 
@@ -39,10 +42,45 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) {
             val newInstruments = instrumentsString.split(INSTRUMENT_DELIMITER).map {
                 val instrument = repository.findInstrument(it)
+                val price = repository.getPrice(instrument?.figi ?: "")
                 Log.d("TAGA", instrument.toString())
-                instrument
+                instrument?.copy(
+                    price = price
+                )
             }
             instruments.postValue(newInstruments)
+        }
+    }
+
+    fun createBot(bot: Bot?) {
+        bot ?: return
+        viewModelScope.launch(Dispatchers.IO) {
+            val newBot = bot.copy(
+//                id = UUID.randomUUID().toString()
+
+                instrumentsFIGI = listOf(instruments.value?.map { it?.figi ?: "" }?.first() ?: "") ?: listOf()
+            )
+            repository.createBot(newBot)
+            val list = _bots.value
+            list?.add(newBot)
+            list?.let {
+                bots.postValue(it)
+            }
+        }
+    }
+
+    fun runBot(bot: Bot) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = repository.runBot(bot)
+            result ?: return@launch
+            val newBot = bot.copy(
+                result = result
+            )
+            val list = _bots.value
+            list?.add(newBot)
+            list?.let {
+                bots.postValue(mutableListOf(newBot))
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ import com.ioline.tradebot.data.models.Bot
 import com.ioline.tradebot.data.models.MarketEnvironment
 import com.ioline.tradebot.data.models.OperationMode
 import com.ioline.tradebot.databinding.FragmentBotCreationBinding
+import com.ioline.tradebot.ui.HistoryStrategySetupFragment
 import com.ioline.tradebot.ui.home.HomeViewModel
 
 
@@ -47,7 +48,47 @@ class BotCreationFragment : Fragment() {
 
         val root: View = binding.root
 
+        setupSpinners()
 
+        binding.buttonDone.setOnClickListener {
+
+            val instrumentsString = binding.instrumentsTextField.text.toString()
+
+            val environment: MarketEnvironment = enumValueOf(binding.environmentSpinner.selectedItem.toString())
+            val bot = Bot(
+                name = binding.botNameTextField.text.toString(),
+//                mode = enumValueOf(binding.modeSpinner.selectedItem.toString()),
+                marketEnvironment = environment
+            )
+
+            when (environment) {
+                MarketEnvironment.MARKET, MarketEnvironment.SANDBOX -> {
+                    parentFragmentManager.beginTransaction()
+                        .replace(
+                            ((view as ViewGroup).parent as View).id,
+                            StrategySetUpFragment.newInstance(bot, instrumentsString)
+                        )
+                        .addToBackStack(null)
+                        .commit()
+                }
+                MarketEnvironment.HISTORICAL_DATA -> {
+                    parentFragmentManager.beginTransaction()
+                        .replace(
+                            ((view as ViewGroup).parent as View).id,
+                            HistoryStrategySetupFragment.newInstance(bot, instrumentsString)
+                        )
+                        .addToBackStack(null)
+                        .commit()
+                }
+            }
+        }
+
+        return root
+    }
+
+
+
+    private fun setupSpinners() {
         val marketEnvironmentArrayAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_dropdown_item,
@@ -64,26 +105,5 @@ class BotCreationFragment : Fragment() {
 
         binding.environmentSpinner.adapter = marketEnvironmentArrayAdapter
         binding.modeSpinner.adapter = operationModeArrayAdapter
-
-        binding.buttonDone.setOnClickListener {
-
-            val instrumentsString = binding.instrumentsTextField.text.toString()
-
-            val bot = Bot(
-                name = binding.botNameTextField.text.toString(),
-                mode = enumValueOf(binding.modeSpinner.selectedItem.toString()),
-                environment = enumValueOf(binding.environmentSpinner.selectedItem.toString())
-            )
-
-            parentFragmentManager.beginTransaction()
-                .replace(
-                    ((view as ViewGroup).parent as View).id,
-                    StrategySetUpFragment.newInstance(bot, instrumentsString)
-                )
-                .addToBackStack(null)
-                .commit()
-        }
-
-        return root
     }
 }
