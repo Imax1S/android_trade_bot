@@ -10,11 +10,11 @@ class BotRepositoryImpl @Inject constructor(
     private val localDataSource: LocalBotDataSource,
     private val remoteDataSource: RemoteBotDataSource
 ) : BotRepository {
-    override fun getBot(botId: String): Flow<WorkResult<Bot>> {
+    override fun getBot(botId: String): Flow<Bot> {
         return localDataSource.getBot()
     }
 
-    override fun getBots(): Flow<WorkResult<List<Bot>>> {
+    override fun getBots(): Flow<List<Bot>> {
         return localDataSource.getBots()
     }
 
@@ -27,7 +27,7 @@ class BotRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateBot(bot: Bot) {
+    override suspend fun updateBot(bot: Bot): Bot {
         TODO("Not yet implemented")
     }
 
