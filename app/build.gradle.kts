@@ -1,11 +1,21 @@
 plugins {
-    alias(libs.plugins.com.android.application)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("com.google.dagger.hilt.android")
+    kotlin("kapt")
 }
 
 android {
     namespace = "com.ioline.tradebot"
     compileSdk = 33
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.4.3"
+    }
 
     defaultConfig {
         applicationId = "com.ioline.tradebot"
@@ -49,6 +59,15 @@ dependencies {
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
 
+    //hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+
+
+    //elmslie
+    implementation(libs.elmslie.core)
+    implementation(libs.elmslie.android)
+
     //api
     implementation(libs.gson)
     implementation(libs.retrofit)
@@ -56,8 +75,16 @@ dependencies {
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.android)
 
+    //compose
+    val composeBom = platform("androidx.compose:compose-bom:2023.03.00")
+    implementation(composeBom)
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    debugImplementation("androidx.compose.ui:ui-tooling")
+
     //test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(composeBom)
 }
