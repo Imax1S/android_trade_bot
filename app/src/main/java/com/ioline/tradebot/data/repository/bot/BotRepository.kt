@@ -1,4 +1,4 @@
-package com.ioline.tradebot.data.repository
+package com.ioline.tradebot.data.repository.bot
 
 import com.ioline.tradebot.data.models.Bot
 import kotlinx.coroutines.flow.Flow

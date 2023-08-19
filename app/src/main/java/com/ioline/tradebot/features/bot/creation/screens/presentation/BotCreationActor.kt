@@ -1,0 +1,28 @@
+package com.ioline.tradebot.features.bot.creation.screens.presentation
+
+import com.ioline.tradebot.data.repository.instrument.InstrumentRepository
+import vivid.money.elmslie.core.store.Actor
+import com.ioline.tradebot.features.bot.creation.screens.presentation.BotCreationEvent.Domain
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
+
+internal class BotCreationActor @Inject constructor(
+    private val instrumentRepository: InstrumentRepository
+) : Actor<BotCreationCommand, Domain>() {
+
+    override fun execute(
+        command: BotCreationCommand
+    ): Flow<Domain> = when(command) {
+        is BotCreationCommand.SearchInstrument -> searchInstrument(command.text)
+    }
+
+    private fun searchInstrument(text: String): Flow<Domain> {
+        return flow {
+            instrumentRepository.searchInstrument(text)
+                .catch { emit(Domain.SearchInstrumentError) }
+                .collect { emit(Domain.SearchInstrumentResult(it)) }
+        }
+    }
+}

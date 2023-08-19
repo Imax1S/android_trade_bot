@@ -2,7 +2,7 @@ package com.ioline.tradebot.features.home.presentation.homescreen
 
 import com.ioline.tradebot.data.models.Bot
 import com.ioline.tradebot.data.models.MarketEnvironment
-import com.ioline.tradebot.data.repository.BotRepository
+import com.ioline.tradebot.data.repository.bot.BotRepository
 import com.ioline.tradebot.features.home.presentation.homescreen.HomeCommand
 import vivid.money.elmslie.core.store.Actor
 import com.ioline.tradebot.features.home.presentation.homescreen.HomeCommand as Command
