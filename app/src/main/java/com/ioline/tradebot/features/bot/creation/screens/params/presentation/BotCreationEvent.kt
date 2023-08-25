@@ -1,4 +1,4 @@
-package com.ioline.tradebot.features.bot.creation.screens.presentation
+package com.ioline.tradebot.features.bot.creation.screens.params.presentation
 
 import com.ioline.tradebot.data.models.Instrument
 import com.ioline.tradebot.data.models.MarketEnvironment

@@ -1,8 +1,8 @@
-package com.ioline.tradebot.features.bot.creation.screens.presentation
+package com.ioline.tradebot.features.bot.creation.screens.params.presentation
 
 import com.ioline.tradebot.data.repository.instrument.InstrumentRepository
 import vivid.money.elmslie.core.store.Actor
-import com.ioline.tradebot.features.bot.creation.screens.presentation.BotCreationEvent.Domain
+import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationEvent.Domain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow

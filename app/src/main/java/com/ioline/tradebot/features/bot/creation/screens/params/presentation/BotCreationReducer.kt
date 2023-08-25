@@ -1,11 +1,11 @@
-package com.ioline.tradebot.features.bot.creation.screens.presentation
+package com.ioline.tradebot.features.bot.creation.screens.params.presentation
 
 import com.ioline.tradebot.data.repository.instrument.SearchResult
-import com.ioline.tradebot.features.bot.creation.screens.presentation.BotCreationEvent.Domain
-import com.ioline.tradebot.features.bot.creation.screens.presentation.BotCreationEvent.Ui
-import com.ioline.tradebot.features.bot.creation.screens.presentation.BotCreationEvent as Event
-import com.ioline.tradebot.features.bot.creation.screens.presentation.BotCreationCommand as Command
-import com.ioline.tradebot.features.bot.creation.screens.presentation.BotCreationEffect as Effect
+import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationEvent.Domain
+import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationEvent.Ui
+import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationEvent as Event
+import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationCommand as Command
+import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationEffect as Effect
 import vivid.money.elmslie.core.store.dsl.ScreenDslReducer
 
 internal object BotCreationReducer :
