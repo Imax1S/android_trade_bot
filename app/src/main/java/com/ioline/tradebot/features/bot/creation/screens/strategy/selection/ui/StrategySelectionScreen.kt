@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.ioline.tradebot.data.models.Strategy
-import com.ioline.tradebot.data.models.StrategyType
+import com.ioline.tradebot.data.models.strategy.Strategy
+import com.ioline.tradebot.data.models.strategy.StrategyType
 
 @Composable
 fun StrategySelectionScreen(strategies: List<Strategy>) {

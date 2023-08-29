@@ -6,7 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import com.ioline.tradebot.data.models.Bot
 import com.ioline.tradebot.data.models.Instrument
-import com.ioline.tradebot.data.models.StrategyManual
+import com.ioline.tradebot.data.models.strategy.StrategyManual
 
 
 fun Bundle.getBotSerializable(key: String) =

@@ -1,5 +1,6 @@
 package com.ioline.tradebot.data.models
 
+import com.ioline.tradebot.data.models.strategy.Strategy
 import java.io.Serializable
 
 data class Bot(

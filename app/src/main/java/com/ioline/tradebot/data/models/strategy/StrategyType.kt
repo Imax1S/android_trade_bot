@@ -1,4 +1,4 @@
-package com.ioline.tradebot.data.models
+package com.ioline.tradebot.data.models.strategy
 
 enum class StrategyType {
     EMA,

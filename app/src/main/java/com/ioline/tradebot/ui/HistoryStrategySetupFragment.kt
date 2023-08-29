@@ -12,8 +12,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ioline.tradebot.data.models.Bot
 import com.ioline.tradebot.data.models.CandleInterval
-import com.ioline.tradebot.data.models.Strategy
-import com.ioline.tradebot.data.models.StrategyType
+import com.ioline.tradebot.data.models.strategy.Strategy
+import com.ioline.tradebot.data.models.strategy.StrategyType
 import com.ioline.tradebot.data.models.TimePeriod
 import com.ioline.tradebot.data.models.TimeSettings
 import com.ioline.tradebot.databinding.FragmentHistoryStrategySetupBinding

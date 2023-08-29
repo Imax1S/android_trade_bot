@@ -7,11 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
-import com.ioline.tradebot.R
 import com.ioline.tradebot.data.models.Instrument
-import com.ioline.tradebot.data.models.StrategyManual
+import com.ioline.tradebot.data.models.strategy.StrategyManual
 import com.ioline.tradebot.databinding.FragmentSellBuyConditionsBinding
-import com.ioline.tradebot.databinding.FragmentStrategySetUpBinding
 import com.ioline.tradebot.getInstrumentSerializable
 import java.io.Serializable
 
