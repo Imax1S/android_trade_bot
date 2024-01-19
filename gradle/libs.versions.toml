@@ -1,25 +1,23 @@
 [versions]
-com-android-application = "8.1.0"
-dagger = "2.46.1"
+com-android-application = "8.2.1"
 elmslie = "3.0.0-alpha09"
 gson = "2.10.1"
 hilt-android = "2.44"
-java-sdk-core = "1.3"
 ktor-client-android = "2.3.2"
 ktor-client-core = "2.3.2"
-org-jetbrains-kotlin-android = "1.8.10"
+org-jetbrains-kotlin-android = "1.9.22"
 com-google-dagger-hilt-android = "2.44"
-core-ktx = "1.10.1"
+core-ktx = "1.12.0"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 appcompat = "1.6.1"
-material = "1.9.0"
+material = "1.11.0"
 constraintlayout = "2.1.4"
-lifecycle-livedata-ktx = "2.6.1"
-lifecycle-viewmodel-ktx = "2.6.1"
-navigation-fragment-ktx = "2.5.3"
-navigation-ui-ktx = "2.5.3"
+lifecycle-livedata-ktx = "2.7.0"
+lifecycle-viewmodel-ktx = "2.7.0"
+navigation-fragment-ktx = "2.7.6"
+navigation-ui-ktx = "2.7.6"
 retrofit = "2.9.0"
 
 [libraries]
@@ -30,7 +28,6 @@ elmslie-core = { module = "com.github.vivid-money.elmslie:elmslie-core", version
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt-android" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt-android" }
-java-sdk-core = { module = "ru.tinkoff.piapi:java-sdk-core", version.ref = "java-sdk-core" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }

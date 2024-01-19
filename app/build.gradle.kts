@@ -7,20 +7,20 @@ plugins {
 
 android {
     namespace = "com.ioline.tradebot"
-    compileSdk = 33
+    compileSdk = 34
 
     buildFeatures {
         compose = true
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.5.8"
     }
 
     defaultConfig {
         applicationId = "com.ioline.tradebot"
         minSdk = 29
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -68,7 +68,7 @@ dependencies {
     implementation(libs.elmslie.core)
     implementation(libs.elmslie.android)
 
-    //api
+    //network
     implementation(libs.gson)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
