@@ -4,18 +4,18 @@ import com.ioline.tradebot.data.models.Bot
 import com.ioline.tradebot.data.models.MarketEnvironment
 import com.ioline.tradebot.data.repository.bot.BotRepository
 import com.ioline.tradebot.features.home.presentation.homescreen.HomeCommand
-import vivid.money.elmslie.core.store.Actor
 import com.ioline.tradebot.features.home.presentation.homescreen.HomeCommand as Command
 import com.ioline.tradebot.features.home.presentation.homescreen.HomeEvent.Domain as DomainEvent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import vivid.money.elmslie.coroutines.Actor
 import javax.inject.Inject
 
 
 internal class HomeActor @Inject constructor(
     private val botRepository: BotRepository
-) : Actor<Command, DomainEvent>() {
+) : Actor<Command, DomainEvent> {
     override fun execute(
         command: Command
     ): Flow<DomainEvent> = when (command) {

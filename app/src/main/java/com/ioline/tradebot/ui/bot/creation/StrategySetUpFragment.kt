@@ -12,7 +12,6 @@ import com.ioline.tradebot.data.models.Bot
 import com.ioline.tradebot.databinding.FragmentStrategySetUpBinding
 import com.ioline.tradebot.getBotSerializable
 import com.ioline.tradebot.ui.adapters.InstrumentRecyclerAdapter
-import com.ioline.tradebot.ui.home.HomeFragment
 import com.ioline.tradebot.ui.home.HomeViewModel
 import java.io.Serializable
 
@@ -61,11 +60,7 @@ class StrategySetUpFragment : Fragment() {
 
         binding.buttonDone.setOnClickListener {
             homeViewModel.saveBot(bot)
-            val newFragment = HomeFragment()
-            parentFragmentManager.beginTransaction()
-                .replace(((view as ViewGroup).parent as View).id, newFragment)
-                .addToBackStack(null)
-                .commit()
+            //navigate to home
         }
 
         return root

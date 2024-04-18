@@ -1,9 +1,9 @@
 package com.ioline.tradebot.features.home.presentation.homescreen
 
+import vivid.money.elmslie.core.store.dsl_reducer.ScreenDslReducer
 import com.ioline.tradebot.features.home.presentation.homescreen.HomeEvent as Event
 import com.ioline.tradebot.features.home.presentation.homescreen.HomeCommand as Command
 import com.ioline.tradebot.features.home.presentation.homescreen.HomeEffect as Effect
-import vivid.money.elmslie.core.store.dsl.ScreenDslReducer
 
 internal object HomeReducer :
     ScreenDslReducer<Event, Event.Ui, Event.Domain, HomeState, Effect, Command>(

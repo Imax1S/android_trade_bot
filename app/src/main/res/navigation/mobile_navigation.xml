@@ -6,17 +6,6 @@
     app:startDestination="@+id/navigation_home">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.ioline.tradebot.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_navigation_home_to_botCreationFragment"
-            app:destination="@id/botCreationFragment"
-            app:launchSingleTop="false" />
-    </fragment>
-
-    <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.ioline.tradebot.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"

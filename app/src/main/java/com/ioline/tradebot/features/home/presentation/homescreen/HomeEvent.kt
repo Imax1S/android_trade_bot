@@ -5,12 +5,12 @@ import com.ioline.tradebot.data.models.Bot
 internal sealed class HomeEvent {
 
     sealed class Ui : HomeEvent() {
-        object Init : Ui()
-        object ReloadClick : Ui()
+        data object Init : Ui()
+        data object ReloadClick : Ui()
         data class OpenBot(val botId: String) : Ui()
         data class SwitchBotModeClick(val botId: String, val isWorking: Boolean) : Ui()
-        object CreateNewBotClick : Ui()
-        object OpenAccount : Ui()
+        data object CreateNewBotClick : Ui()
+        data object OpenAccount : Ui()
     }
 
     sealed class Domain : HomeEvent() {

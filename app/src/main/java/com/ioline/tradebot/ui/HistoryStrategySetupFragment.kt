@@ -19,7 +19,6 @@ import com.ioline.tradebot.data.models.TimeSettings
 import com.ioline.tradebot.databinding.FragmentHistoryStrategySetupBinding
 import com.ioline.tradebot.getBotSerializable
 import com.ioline.tradebot.ui.adapters.InstrumentRecyclerAdapter
-import com.ioline.tradebot.ui.home.HomeFragment
 import com.ioline.tradebot.ui.home.HomeViewModel
 import java.io.Serializable
 
@@ -134,11 +133,7 @@ class HistoryStrategySetupFragment : Fragment() {
                 timeSettings = timeSettings
             )
             homeViewModel.createBot(bot)
-            val newFragment = HomeFragment()
-            parentFragmentManager.beginTransaction()
-                .replace(((view as ViewGroup).parent as View).id, newFragment)
-                .addToBackStack(null)
-                .commit()
+            //navigate to home
 
         }
         return root

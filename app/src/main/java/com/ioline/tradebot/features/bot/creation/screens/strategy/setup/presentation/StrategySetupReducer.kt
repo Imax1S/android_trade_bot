@@ -7,7 +7,7 @@ import com.ioline.tradebot.features.bot.creation.screens.strategy.setup.presenta
 import com.ioline.tradebot.features.bot.creation.screens.strategy.setup.presentation.StrategySetupEvent.Internal
 import com.ioline.tradebot.features.bot.creation.screens.strategy.setup.presentation.StrategySetupState as State
 import com.ioline.tradebot.features.bot.creation.screens.strategy.setup.presentation.StrategySetupEffect as Effect
-import vivid.money.elmslie.core.store.dsl.ScreenDslReducer
+import vivid.money.elmslie.core.store.dsl_reducer.ScreenDslReducer
 
 internal object StrategySetupReducer :
     ScreenDslReducer<Event, Ui, Internal, State, Effect, Command>(Ui::class, Internal::class) {
@@ -19,9 +19,14 @@ internal object StrategySetupReducer :
                 StrategyType.CUSTOM -> TODO()
             }
         }
+
+        Ui.Click.Create -> TODO()
+        Ui.Click.Launch -> TODO()
+        Ui.Click.ShowHint -> TODO()
     }
 
     override fun Result.internal(event: Internal) = when (event) {
 
+        else -> {}
     }
 }

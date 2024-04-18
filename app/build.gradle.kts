@@ -27,6 +27,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    kapt {
+        correctErrorTypes = true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -56,17 +60,21 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
+
+    //navigation
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
+    implementation(libs.androidx.navigation.compose)
 
     //hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
 
-
     //elmslie
     implementation(libs.elmslie.core)
     implementation(libs.elmslie.android)
+    implementation (libs.elmslie.compose)
+    implementation (libs.elmslie.coroutines)
 
     //network
     implementation(libs.gson)
@@ -78,7 +86,7 @@ dependencies {
     //compose
     val composeBom = platform("androidx.compose:compose-bom:2023.03.00")
     implementation(composeBom)
-    implementation("androidx.compose.material3:material3")
+    implementation(libs.androidx.material3)
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
 
