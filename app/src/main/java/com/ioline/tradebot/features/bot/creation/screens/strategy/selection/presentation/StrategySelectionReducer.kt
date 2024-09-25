@@ -3,7 +3,7 @@ package com.ioline.tradebot.features.bot.creation.screens.strategy.selection.pre
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionEvent.Domain
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionEvent.Ui
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionEffect as Effect
-import vivid.money.elmslie.core.store.dsl.ScreenDslReducer
+import vivid.money.elmslie.core.store.dsl_reducer.ScreenDslReducer
 
 internal object StrategySelectionReducer : ScreenDslReducer<StrategySelectionEvent, Ui, Domain, StrategySelectionState,
         Effect, StrategySelectionCommand>(Ui::class, Domain::class) {

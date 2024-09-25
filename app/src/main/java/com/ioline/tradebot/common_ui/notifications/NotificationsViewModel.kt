@@ -1,4 +1,4 @@
-package com.ioline.tradebot.ui.notifications
+package com.ioline.tradebot.common_ui.notifications
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

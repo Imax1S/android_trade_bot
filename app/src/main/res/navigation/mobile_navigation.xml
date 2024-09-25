@@ -7,18 +7,18 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.ioline.tradebot.ui.dashboard.DashboardFragment"
+        android:name="com.ioline.tradebot.common_ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.ioline.tradebot.ui.notifications.NotificationsFragment"
+        android:name="com.ioline.tradebot.common_ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/botCreationFragment"
-        android:name="com.ioline.tradebot.ui.bot.creation.BotCreationFragment"
+        android:name="com.ioline.tradebot.common_ui.bot.creation.BotCreationFragment"
         android:label="Bot creation"
         tools:layout="@layout/fragment_bot_creation" >
         <action
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/strategySetUpFragment"
-        android:name="com.ioline.tradebot.ui.bot.creation.StrategySetUpFragment"
+        android:name="com.ioline.tradebot.common_ui.bot.creation.StrategySetUpFragment"
         android:label="fragment_strategy_set_up"
         tools:layout="@layout/fragment_strategy_set_up" >
         <action
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/sellBuyConditionsFragment"
-        android:name="com.ioline.tradebot.ui.bot.creation.SellBuyConditionsFragment"
+        android:name="com.ioline.tradebot.common_ui.bot.creation.SellBuyConditionsFragment"
         android:label="fragment_sell_buy_conditions"
         tools:layout="@layout/fragment_sell_buy_conditions" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.ioline.tradebot.ui.adapters
+package com.ioline.tradebot.common_ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

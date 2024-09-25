@@ -12,7 +12,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun UserInput(label: String, placeholder: String) {
     val text = remember {

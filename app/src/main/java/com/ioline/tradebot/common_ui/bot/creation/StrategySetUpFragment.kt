@@ -1,4 +1,4 @@
-package com.ioline.tradebot.ui.bot.creation
+package com.ioline.tradebot.common_ui.bot.creation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ioline.tradebot.data.models.Bot
 import com.ioline.tradebot.databinding.FragmentStrategySetUpBinding
 import com.ioline.tradebot.getBotSerializable
-import com.ioline.tradebot.ui.adapters.InstrumentRecyclerAdapter
-import com.ioline.tradebot.ui.home.HomeViewModel
+import com.ioline.tradebot.common_ui.adapters.InstrumentRecyclerAdapter
+import com.ioline.tradebot.common_ui.home.HomeViewModel
 import java.io.Serializable
 
 

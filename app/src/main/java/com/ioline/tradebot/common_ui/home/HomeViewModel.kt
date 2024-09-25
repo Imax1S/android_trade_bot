@@ -1,4 +1,4 @@
-package com.ioline.tradebot.ui.home
+package com.ioline.tradebot.common_ui.home
 
 import android.app.Application
 import android.util.Log

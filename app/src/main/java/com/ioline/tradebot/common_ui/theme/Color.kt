@@ -1,4 +1,4 @@
-package com.ioline.tradebot.ui.theme
+package com.ioline.tradebot.common_ui.theme
 
 import androidx.compose.ui.graphics.Color
 

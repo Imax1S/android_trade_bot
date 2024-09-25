@@ -1,4 +1,4 @@
-package com.ioline.tradebot.ui.dashboard
+package com.ioline.tradebot.common_ui.dashboard
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

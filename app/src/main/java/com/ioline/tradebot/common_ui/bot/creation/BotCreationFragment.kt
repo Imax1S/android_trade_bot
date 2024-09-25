@@ -1,4 +1,4 @@
-package com.ioline.tradebot.ui.bot.creation
+package com.ioline.tradebot.common_ui.bot.creation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +11,8 @@ import com.ioline.tradebot.data.models.Bot
 import com.ioline.tradebot.data.models.MarketEnvironment
 import com.ioline.tradebot.data.models.OperationMode
 import com.ioline.tradebot.databinding.FragmentBotCreationBinding
-import com.ioline.tradebot.ui.HistoryStrategySetupFragment
-import com.ioline.tradebot.ui.home.HomeViewModel
+import com.ioline.tradebot.common_ui.HistoryStrategySetupFragment
+import com.ioline.tradebot.common_ui.home.HomeViewModel
 
 
 private const val ARG_PARAM1 = "param1"

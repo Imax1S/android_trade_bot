@@ -1,4 +1,4 @@
-package com.ioline.tradebot.ui.bot.creation
+package com.ioline.tradebot.common_ui.bot.creation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -1,4 +1,4 @@
-package com.ioline.tradebot.ui
+package com.ioline.tradebot.common_ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,8 +18,8 @@ import com.ioline.tradebot.data.models.TimePeriod
 import com.ioline.tradebot.data.models.TimeSettings
 import com.ioline.tradebot.databinding.FragmentHistoryStrategySetupBinding
 import com.ioline.tradebot.getBotSerializable
-import com.ioline.tradebot.ui.adapters.InstrumentRecyclerAdapter
-import com.ioline.tradebot.ui.home.HomeViewModel
+import com.ioline.tradebot.common_ui.adapters.InstrumentRecyclerAdapter
+import com.ioline.tradebot.common_ui.home.HomeViewModel
 import java.io.Serializable
 
 
