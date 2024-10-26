@@ -7,19 +7,19 @@ com-google-dagger-hilt-android = "2.50"
 
 ktor-client-android = "2.3.2"
 ktor-client-core = "2.3.2"
-material3 = "1.2.1"
+material3 = "1.3.0"
 org-jetbrains-kotlin-android = "1.9.22"
-core-ktx = "1.12.0"
+core-ktx = "1.13.1"
 junit = "4.13.2"
-androidx-test-ext-junit = "1.1.5"
-espresso-core = "3.5.1"
-appcompat = "1.6.1"
-material = "1.11.0"
+androidx-test-ext-junit = "1.2.1"
+espresso-core = "3.6.1"
+appcompat = "1.7.0"
+material = "1.12.0"
 constraintlayout = "2.1.4"
-lifecycle-livedata-ktx = "2.7.0"
-lifecycle-viewmodel-ktx = "2.7.0"
-navigation-fragment-ktx = "2.7.7"
-navigation-ui-ktx = "2.7.7"
+lifecycle-livedata-ktx = "2.8.6"
+lifecycle-viewmodel-ktx = "2.8.6"
+navigation-fragment-ktx = "2.8.3"
+navigation-ui-ktx = "2.8.3"
 retrofit = "2.9.0"
 org-jetbrains-kotlin-jvm = "1.9.22"
 
@@ -27,6 +27,8 @@ org-jetbrains-kotlin-jvm = "1.9.22"
 #android
 androidx-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-fragment-ktx" }
+androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 
