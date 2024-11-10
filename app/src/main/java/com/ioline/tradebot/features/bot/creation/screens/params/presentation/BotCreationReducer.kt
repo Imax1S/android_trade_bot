@@ -8,7 +8,7 @@ import com.ioline.tradebot.features.bot.creation.screens.params.presentation.Bot
 import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationEffect as Effect
 import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationEvent as Event
 
-internal object BotCreationReducer :
+internal class BotCreationReducer :
     ScreenDslReducer<Event, Ui, Domain, BotCreationState, Effect, Command>(
         Ui::class, Domain::class
     ) {

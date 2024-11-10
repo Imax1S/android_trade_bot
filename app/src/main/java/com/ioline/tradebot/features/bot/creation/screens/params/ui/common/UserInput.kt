@@ -1,9 +1,8 @@
 package com.ioline.tradebot.features.bot.creation.screens.params.ui.common
 
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,7 +26,7 @@ internal fun UserInput(label: String, placeholder: String) {
         ),
         label = { Text(text = label, fontFamily = FontFamily.Monospace) },
         placeholder = { Text(text = placeholder, fontFamily = FontFamily.Monospace) },
-        shape = TextFieldDefaults.outlinedShape
+        shape = OutlinedTextFieldDefaults.shape
     )
 }
 

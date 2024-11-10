@@ -1,12 +1,13 @@
 package com.ioline.tradebot.features.bot.creation.screens.strategy.selection.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -21,14 +22,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ioline.tradebot.data.models.strategy.Strategy
 import com.ioline.tradebot.data.models.strategy.StrategyType
+import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionEvent
 
 @Composable
-fun StrategyItem(strategy: Strategy) {
+internal fun StrategyItem(strategy: Strategy, onEvent: (StrategySelectionEvent) -> Unit) {
     Card(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable { onEvent(StrategySelectionEvent.Ui.Click.OpenStrategy(strategy.type.name)) },
     ) {
-        Row( verticalAlignment = Alignment.CenterVertically) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             Column(modifier = Modifier.padding(vertical = 12.dp, horizontal = 16.dp)) {
                 Text(
                     text = strategy.type.name,
@@ -47,7 +50,7 @@ fun StrategyItem(strategy: Strategy) {
             Spacer(modifier = Modifier.weight(1f))
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
-                    Icons.Default.ArrowForward,
+                    Icons.AutoMirrored.Filled.ArrowForward,
                     null
                 )
             }
@@ -61,5 +64,5 @@ fun StrategyItem(strategy: Strategy) {
 fun StrategyItemPreview() {
     StrategyItem(
         Strategy(StrategyType.EMA, "", "")
-    )
+    ) {}
 }
