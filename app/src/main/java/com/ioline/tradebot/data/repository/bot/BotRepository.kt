@@ -8,7 +8,6 @@ interface BotRepository {
     fun getBots(): Flow<List<Bot>>
     suspend fun createBot(bot: Bot)
     suspend fun deleteBot(bot: Bot)
-    suspend fun updateBot(bot: Bot) : Bot
+    suspend fun changeBotStatus(botId: String, isActive: Boolean): Bot?
     suspend fun refreshBots()
-
 }

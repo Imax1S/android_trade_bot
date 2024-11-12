@@ -27,8 +27,8 @@ class BotRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateBot(bot: Bot): Bot {
-        TODO("Not yet implemented")
+    override suspend fun changeBotStatus(botId: String, isActive: Boolean): Bot? {
+        return localDataSource.changeBotStatus(botId, isActive)
     }
 
     override suspend fun refreshBots() {

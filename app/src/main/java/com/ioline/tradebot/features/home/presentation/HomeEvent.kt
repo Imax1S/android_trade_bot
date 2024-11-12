@@ -1,4 +1,4 @@
-package com.ioline.tradebot.features.home.presentation.homescreen
+package com.ioline.tradebot.features.home.presentation
 
 import com.ioline.tradebot.data.models.Bot
 
@@ -15,6 +15,7 @@ internal sealed class HomeEvent {
 
     sealed class Domain : HomeEvent() {
         data class LoadData(val bots: List<Bot>) : Domain()
+        data class UpdateBot(val bot: Bot) : Domain()
         data class Error(val error: Throwable) : Domain()
     }
 }

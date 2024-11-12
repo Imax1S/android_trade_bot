@@ -1,9 +1,11 @@
-package com.ioline.tradebot.features.home.presentation.homescreen
+package com.ioline.tradebot.features.home.presentation
 
+import com.ioline.tradebot.data.models.Bot
+import com.ioline.tradebot.features.home.presentation.HomeEvent
 import vivid.money.elmslie.core.store.dsl_reducer.ScreenDslReducer
-import com.ioline.tradebot.features.home.presentation.homescreen.HomeCommand as Command
-import com.ioline.tradebot.features.home.presentation.homescreen.HomeEffect as Effect
-import com.ioline.tradebot.features.home.presentation.homescreen.HomeEvent as Event
+import com.ioline.tradebot.features.home.presentation.HomeCommand as Command
+import com.ioline.tradebot.features.home.presentation.HomeEffect as Effect
+import com.ioline.tradebot.features.home.presentation.HomeEvent as Event
 
 internal class HomeReducer :
     ScreenDslReducer<Event, Event.Ui, Event.Domain, HomeState, Effect, Command>(
@@ -18,7 +20,7 @@ internal class HomeReducer :
             Event.Ui.OpenAccount -> effects { +Effect.NavigateToAccount }
             is Event.Ui.OpenBot -> effects { +Effect.NavigateToBot(event.botId) }
             is Event.Ui.SwitchBotModeClick -> commands {
-                +Command.SwitchBotWorking(
+                +Command.ChangeBotStatus(
                     event.botId,
                     event.isWorking
                 )
@@ -35,7 +37,13 @@ internal class HomeReducer :
             }
 
             is Event.Domain.LoadData -> state {
-                copy(data = event.bots)
+                copy(data = event.bots.toMutableList(), isLoading = false)
+            }
+            is HomeEvent.Domain.UpdateBot -> state {
+                val updatedBots: MutableList<Bot> = state.data.map { bot ->
+                    if (bot.id == event.bot.id) event.bot else bot
+                }.toMutableList()
+                copy(data = updatedBots)
             }
         }
     }

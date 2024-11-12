@@ -8,4 +8,5 @@ interface LocalBotDataSource {
     fun getBots(): Flow<List<Bot>>
     suspend fun setBots(bots: List<Bot>)
     suspend fun addBot(bot: Bot)
+    suspend fun changeBotStatus(botId: String, isActive: Boolean): Bot?
 }

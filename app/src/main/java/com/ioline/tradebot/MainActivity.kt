@@ -19,7 +19,7 @@ import com.ioline.tradebot.features.bot.creation.screens.params.BotCreationScree
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.StrategySelectionScreen
 import com.ioline.tradebot.features.bot.creation.screens.strategy.setup.StrategySetupScreen
 import com.ioline.tradebot.features.bot.review.BotReviewScreen
-import com.ioline.tradebot.features.home.ui.HomeScreen
+import com.ioline.tradebot.features.home.HomeScreen
 import com.ioline.tradebot.features.settings.SettingsScreen
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package com.ioline.tradebot.features.home.ui
+package com.ioline.tradebot.features.home
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -9,10 +9,12 @@ import com.ioline.tradebot.common_ui.navigation.NavItem
 import com.ioline.tradebot.data.models.Bot
 import com.ioline.tradebot.data.models.MarketEnvironment
 import com.ioline.tradebot.data.repository.bot.BotRepository
-import com.ioline.tradebot.features.home.presentation.homescreen.HomeActor
-import com.ioline.tradebot.features.home.presentation.homescreen.HomeEffect
-import com.ioline.tradebot.features.home.presentation.homescreen.HomeReducer
-import com.ioline.tradebot.features.home.presentation.homescreen.HomeState
+import com.ioline.tradebot.features.home.presentation.HomeActor
+import com.ioline.tradebot.features.home.presentation.HomeEffect
+import com.ioline.tradebot.features.home.presentation.HomeEvent
+import com.ioline.tradebot.features.home.presentation.HomeReducer
+import com.ioline.tradebot.features.home.presentation.HomeState
+import com.ioline.tradebot.features.home.ui.HomeView
 import vivid.money.elmslie.coroutines.ElmStoreCompat
 import vivid.money.elmslie.coroutines.effects
 import vivid.money.elmslie.coroutines.states
@@ -20,7 +22,7 @@ import vivid.money.elmslie.coroutines.states
 @Composable
 fun HomeScreen(botRepository: BotRepository, navigate: (String) -> Unit) {
     val initialState = HomeState(
-        data = listOf(
+        data = mutableListOf(
             Bot(
                 id = "eleifend",
                 name = "Lyle Wiggins",
@@ -33,7 +35,7 @@ fun HomeScreen(botRepository: BotRepository, navigate: (String) -> Unit) {
             )
         ),
         isError = false,
-        isLoading = false
+        isLoading = true
     )
     val store = remember {
         ElmStoreCompat(
@@ -57,6 +59,10 @@ fun HomeScreen(botRepository: BotRepository, navigate: (String) -> Unit) {
                 HomeEffect.NavigateToBotCreation -> navigate(NavItem.BotCreation.route)
             }
         }
+    }
+
+    LaunchedEffect(Unit) {
+        store.accept(HomeEvent.Ui.Init)
     }
 
     HomeView(state) {

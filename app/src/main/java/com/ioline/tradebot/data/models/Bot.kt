@@ -6,6 +6,7 @@ import java.io.Serializable
 data class Bot(
     val id: String = "0",
     val name: String,
+    val description: String = "",
     val strategy: Strategy? = null,
     var isActive: Boolean = false,
     val instrumentsFIGI: List<String> = emptyList(),
