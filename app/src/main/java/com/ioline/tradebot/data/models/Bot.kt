@@ -12,7 +12,7 @@ data class Bot(
     val instrumentsFIGI: List<String> = emptyList(),
     val marketEnvironment: MarketEnvironment,
     val timeSettings: TimeSettings? = null,
-//    val mode: OperationMode,
+    val mode: OperationMode = OperationMode.MANUAL,
     val result: HistoricalResult? = null
 ) : Serializable {
     companion object {

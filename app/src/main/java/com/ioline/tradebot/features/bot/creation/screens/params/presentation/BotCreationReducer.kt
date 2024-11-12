@@ -1,5 +1,8 @@
 package com.ioline.tradebot.features.bot.creation.screens.params.presentation
 
+import com.ioline.tradebot.data.models.Bot
+import com.ioline.tradebot.data.models.MarketEnvironment
+import com.ioline.tradebot.data.models.OperationMode
 import com.ioline.tradebot.data.repository.instrument.SearchResult
 import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationEvent.Domain
 import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationEvent.Ui
@@ -14,38 +17,72 @@ internal class BotCreationReducer :
     ) {
     override fun Result.ui(event: Ui) = when (event) {
         Ui.System.Init -> TODO()
-        Ui.Click.Next -> effects { +Effect.OpenStrategySelection }
+        Ui.Click.Next -> effects {
+            +Effect.OpenStrategySelection(
+                Bot(
+                    name = state.name,
+                    description = state.description,
+                    isActive = false,
+                    instrumentsFIGI = state.selectedInstruments.map { it.figi },
+                    marketEnvironment = state.marketEnvironment,
+                    mode = state.mode
+                )
+            )
+        }
         is Ui.Click.SearchInstrument -> commands {
+            state { copy(searchInstrumentsLoading = true) }
             +Command.SearchInstrument(event.text)
         }
+        Ui.Click.RetrySearchInstrument -> TODO()
 
         is Ui.Click.SelectInstrument -> state {
             copy(
                 selectedInstruments = (selectedInstruments +
-                        searchInstruments.find { it.figi == event.figi })
+                        searchInstruments.find { it.ticker == event.ticker })
                     .filterNotNull()
             )
         }
-
         is Ui.Click.RemoveInstrument -> state {
             copy(
-                selectedInstruments = selectedInstruments.filterNot { it.figi == event.figi }
+                selectedInstruments = selectedInstruments.filterNot { it.ticker == event.ticker }
             )
         }
 
-        is Ui.SetDescription -> state { copy(description = event.text) }
-        is Ui.Click.SetEnvironment -> state { copy(marketEnvironment = event.environment) }
-        is Ui.Click.SetMode -> state { copy(mode = event.mode) }
-        is Ui.SetName -> state { copy(name = event.text) }
         Ui.Click.Close -> effects { +Effect.Close }
+        is Ui.ChangeBotName -> state { copy(name = event.name) }
+        is Ui.ChangeBotDescription -> state { copy(name = event.description) }
+        is Ui.ChangeMarket -> state {
+            copy(marketEnvironment = MarketEnvironment.entries.find {
+                it.value == event.value
+            } ?: MarketEnvironment.HISTORICAL_DATA)
+        }
+        is Ui.ChangeMode -> state {
+            copy(mode = OperationMode.entries.find { it.value == event.value }
+                ?: OperationMode.MANUAL)
+        }
     }
 
     override fun Result.internal(event: Domain) = when (event) {
         Domain.SearchInstrumentError -> state { copy(searchInstrumentError = true) }
         is Domain.SearchInstrumentResult -> when (event.searchResult) {
-            is SearchResult.Error -> state { copy(searchInstrumentError = true) }
-            SearchResult.NoResult -> state { copy(searchInstruments = emptyList()) }
-            is SearchResult.Success -> state { copy(searchInstruments = event.searchResult.data) }
+            is SearchResult.Error -> state {
+                copy(
+                    searchInstrumentsLoading = false,
+                    searchInstrumentError = true
+                )
+            }
+            SearchResult.NoResult -> state {
+                copy(
+                    searchInstrumentsLoading = false,
+                    searchInstruments = emptyList()
+                )
+            }
+            is SearchResult.Success -> state {
+                copy(
+                    searchInstrumentsLoading = false,
+                    searchInstruments = event.searchResult.data
+                )
+            }
         }
     }
 }

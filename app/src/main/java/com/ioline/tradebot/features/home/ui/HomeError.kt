@@ -42,7 +42,6 @@ internal fun HomeError(onEvent: (HomeEvent) -> Unit) {
             Text(stringResource(R.string.error_try))
         }
     }
-
 }
 
 @Preview

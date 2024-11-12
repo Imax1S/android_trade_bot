@@ -1,36 +1,36 @@
 package com.ioline.tradebot.features.bot.creation.screens.params.presentation
 
 import com.ioline.tradebot.data.models.Instrument
-import com.ioline.tradebot.data.models.MarketEnvironment
-import com.ioline.tradebot.data.models.OperationMode
 import com.ioline.tradebot.data.repository.instrument.SearchResult
 
 internal sealed class BotCreationEvent {
     sealed class Domain : BotCreationEvent() {
-        data class SearchInstrumentResult(val searchResult: SearchResult<List<Instrument>>) : Domain()
-        object SearchInstrumentError : Domain()
+        data class SearchInstrumentResult(
+            val searchResult: SearchResult<List<Instrument>>
+        ) : Domain()
+
+        data object SearchInstrumentError : Domain()
     }
 
     sealed class Ui : BotCreationEvent() {
-        object System {
-            object Init : Ui()
-        }
+        data class ChangeBotName(val name: String) : Ui()
+        data class ChangeBotDescription(val description: String) : Ui()
+        data class ChangeMarket(val value: String) : Ui()
+        data class ChangeMode(val value: String) : Ui()
 
-        data class SetName(val text: String) : Ui()
-        data class SetDescription(val text: String) : Ui()
+        object System {
+            data object Init : Ui()
+        }
 
         object Click {
-            data class SetMode(val mode: OperationMode) : Ui()
-            data class SetEnvironment(val environment: MarketEnvironment) : Ui()
             data class SearchInstrument(val text: String) : Ui()
-            data class SelectInstrument(val figi: String) : Ui()
-            data class RemoveInstrument(val figi: String) : Ui()
-            object Next : Ui()
-            object Close : Ui()
-        }
+            data object RetrySearchInstrument : Ui()
 
-        object Action {
-            // your code
+            data class SelectInstrument(val ticker: String) : Ui()
+            data class RemoveInstrument(val ticker: String) : Ui()
+
+            data object Next : Ui()
+            data object Close : Ui()
         }
     }
 }

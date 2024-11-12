@@ -24,7 +24,7 @@ fun BotCreationScreen(
     navigate: (String) -> Unit
 ) {
     val initState = BotCreationState(
-        name = "Diana Flores",
+        name = "",
         description = "hendrerit",
         marketEnvironment = MarketEnvironment.MARKET,
         mode = OperationMode.MANUAL,
@@ -52,7 +52,7 @@ fun BotCreationScreen(
         LaunchedEffect(it) {
             when (it) {
                 BotCreationEffect.Close -> TODO()
-                BotCreationEffect.OpenStrategySelection -> navigate(NavItem.StrategySelection.route)
+                is BotCreationEffect.OpenStrategySelection -> navigate(NavItem.StrategySelection.route)
             }
         }
     }

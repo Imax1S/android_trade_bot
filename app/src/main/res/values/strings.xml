@@ -22,4 +22,12 @@
     <string name="enter_number">Enter Number</string>
     <string name="add_a_bot">Add a bot</string>
     <string name="error_try">Try</string>
+    <string name="bot_creation_title">Create bot</string>
+    <string name="market_drop_down_label">Market</string>
+    <string name="mode_drop_down_label">Mode</string>
+    <string name="bots_name_label">Bot\'s name</string>
+    <string name="search_tickets_no_results">No results</string>
+    <string name="search_tickets_label">Search tickets</string>
+    <string name="bot_description_label">Bot\'s description</string>
+    <string name="button_next">Next</string>
 </resources>
