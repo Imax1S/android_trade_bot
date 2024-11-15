@@ -41,7 +41,7 @@ internal fun StrategyItem(strategy: Strategy, onEvent: (StrategySelectionEvent) 
                     )
                 )
                 Text(
-                    text = "Description",
+                    text = strategy.description,
                     style = TextStyle(
                         fontFamily = FontFamily.Monospace
                     )
@@ -63,6 +63,6 @@ internal fun StrategyItem(strategy: Strategy, onEvent: (StrategySelectionEvent) 
 @Composable
 fun StrategyItemPreview() {
     StrategyItem(
-        Strategy(StrategyType.EMA, "", "")
+        Strategy(StrategyType.EMA, "", "", "")
     ) {}
 }

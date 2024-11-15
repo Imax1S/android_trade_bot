@@ -2,8 +2,8 @@ package com.ioline.tradebot.features.bot.creation.screens.strategy.selection.pre
 
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionEvent.Domain
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionEvent.Ui
-import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionEffect as Effect
 import vivid.money.elmslie.core.store.dsl_reducer.ScreenDslReducer
+import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionEffect as Effect
 
 internal object StrategySelectionReducer : ScreenDslReducer<StrategySelectionEvent, Ui, Domain, StrategySelectionState,
         Effect, StrategySelectionCommand>(Ui::class, Domain::class) {
@@ -15,6 +15,7 @@ internal object StrategySelectionReducer : ScreenDslReducer<StrategySelectionEve
         Ui.Click.BackToPreviousScreen -> effects { +Effect.OpenPreviousScreen }
         is Ui.Click.OpenStrategy -> effects { +Effect.OpenStrategy(state.bot, event.strategyId) }
         is Ui.Click.ShowStrategyHint -> effects { +Effect.ShowStrategyHint(event.strategyId) }
+        Ui.Click.SaveSettings -> TODO()
     }
 
     override fun Result.internal(event: Domain) = when (event) {

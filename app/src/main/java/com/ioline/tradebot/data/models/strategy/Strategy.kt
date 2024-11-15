@@ -5,6 +5,7 @@ import java.io.Serializable
 
 data class Strategy(
     val type: StrategyType,
+    val description: String,
     val param1: String,
     val param2: String,
 ) : Serializable {

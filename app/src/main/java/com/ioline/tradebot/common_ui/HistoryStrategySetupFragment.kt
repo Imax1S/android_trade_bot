@@ -10,16 +10,16 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ioline.tradebot.data.models.Bot
-import com.ioline.tradebot.data.models.CandleInterval
-import com.ioline.tradebot.data.models.strategy.Strategy
-import com.ioline.tradebot.data.models.strategy.StrategyType
-import com.ioline.tradebot.data.models.TimePeriod
-import com.ioline.tradebot.data.models.TimeSettings
-import com.ioline.tradebot.databinding.FragmentHistoryStrategySetupBinding
-import com.ioline.tradebot.getBotSerializable
 import com.ioline.tradebot.common_ui.adapters.InstrumentRecyclerAdapter
 import com.ioline.tradebot.common_ui.home.HomeViewModel
+import com.ioline.tradebot.data.models.Bot
+import com.ioline.tradebot.data.models.CandleInterval
+import com.ioline.tradebot.data.models.TimePeriod
+import com.ioline.tradebot.data.models.TimeSettings
+import com.ioline.tradebot.data.models.strategy.Strategy
+import com.ioline.tradebot.data.models.strategy.StrategyType
+import com.ioline.tradebot.databinding.FragmentHistoryStrategySetupBinding
+import com.ioline.tradebot.getBotSerializable
 import java.io.Serializable
 
 
@@ -110,6 +110,7 @@ class HistoryStrategySetupFragment : Fragment() {
                         binding.param2.hint = "Slow Period"
                     }
                     StrategyType.CUSTOM -> {}
+                    StrategyType.MA -> TODO()
                 }
             }
 
@@ -119,6 +120,7 @@ class HistoryStrategySetupFragment : Fragment() {
         binding.buttonDone.setOnClickListener {
             val strategy = Strategy(
                 type = enumValueOf(binding.strategyTypeSpinner.selectedItem.toString()),
+                description = "",
                 param1 = binding.param1.text.toString(),
                 param2 = binding.param2.text.toString(),
             )

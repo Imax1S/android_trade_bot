@@ -90,6 +90,11 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     debugImplementation(libs.androidx.ui.tooling)
 
+    //charts
+    implementation(libs.vico.compose)
+    implementation(libs.vico.compose.m3)
+    implementation(libs.vico.core)
+
     //test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

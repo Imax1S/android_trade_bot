@@ -10,8 +10,9 @@ internal sealed class StrategySelectionEvent {
 
         object Click {
             data class OpenStrategy(val strategyId: String) : Ui()
-            object BackToPreviousScreen : Ui()
+            data object BackToPreviousScreen : Ui()
             data class ShowStrategyHint(val strategyId: String) : Ui()
+            data object SaveSettings : Ui()
         }
     }
 }

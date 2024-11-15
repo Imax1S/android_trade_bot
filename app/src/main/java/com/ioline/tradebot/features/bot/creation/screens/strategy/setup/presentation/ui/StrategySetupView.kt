@@ -115,6 +115,7 @@ private fun StrategySetupPreview() {
         state = StrategySetupState(
             strategy = Strategy(
                 type = StrategyType.EMA,
+                description = "",
                 param1 = "interdum",
                 param2 = "graeco"
             )

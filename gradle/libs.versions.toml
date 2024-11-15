@@ -1,5 +1,6 @@
 [versions]
 com-android-application = "8.2.2"
+vico = "2.0.0-beta.2"
 elmslie = "2.1.1"
 gson = "2.10.1"
 hilt-android = "2.50"
@@ -29,6 +30,10 @@ androidx-material3 = { module = "androidx.compose.material3:material3", version.
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-fragment-ktx" }
 androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+vico-compose = { group = "com.patrykandpatrick.vico", name = "compose", version.ref = "vico" }
+vico-compose-m3 = { group = "com.patrykandpatrick.vico", name = "compose-m3", version.ref = "vico" }
+vico-core = { group = "com.patrykandpatrick.vico", name = "core", version.ref = "vico" }
+
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 

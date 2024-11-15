@@ -33,7 +33,7 @@ fun StrategySelectionScreen(navigateTo: (String) -> Unit) {
             result = null
         ),
         strategies = StrategyType.entries.map {
-            Strategy(it, "", "")
+            Strategy(it, "", "", "")
         }
     )
 

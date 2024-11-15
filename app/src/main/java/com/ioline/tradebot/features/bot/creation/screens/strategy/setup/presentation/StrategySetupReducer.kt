@@ -17,6 +17,7 @@ internal object StrategySetupReducer :
                 StrategyType.EMA -> TODO()
                 StrategyType.RSI -> TODO()
                 StrategyType.CUSTOM -> TODO()
+                StrategyType.MA -> TODO()
             }
         }
 

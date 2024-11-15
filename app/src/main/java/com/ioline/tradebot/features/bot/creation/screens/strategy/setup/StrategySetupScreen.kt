@@ -22,6 +22,7 @@ fun StrategySetupScreen(navigate: (String) -> Unit) {
     val initialState = StrategySetupState(
         strategy = Strategy(
             type = StrategyType.EMA,
+            description = "",
             param1 = "dico",
             param2 = "sociis"
         )

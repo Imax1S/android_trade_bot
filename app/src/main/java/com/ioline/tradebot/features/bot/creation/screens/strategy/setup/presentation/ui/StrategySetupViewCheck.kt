@@ -1,4 +1,4 @@
-package com.ioline.tradebot.features.bot.creation.screens.strategy.selection.ui
+package com.ioline.tradebot.features.bot.creation.screens.strategy.setup.presentation.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -36,29 +36,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ioline.tradebot.R
-import com.ioline.tradebot.data.models.strategy.Strategy
 import com.ioline.tradebot.data.models.strategy.StrategyType
-import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionEvent
-import kotlin.random.Random
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun StrategySelectionView(
-    strategies: List<Strategy>,
-    onEvent: (StrategySelectionEvent) -> Unit
-) {
+fun StrategyParametersScreen() {
     var selectedStrategy by remember { mutableStateOf(StrategyType.EMA) }
-    var period1 by remember { mutableFloatStateOf(10f) }
-    var period2 by remember { mutableFloatStateOf(80f) }
+    val strategies = StrategyType.entries
+    var period by remember { mutableFloatStateOf(14f) }
     var overboughtThreshold by remember { mutableIntStateOf(70) }
     var oversoldThreshold by remember { mutableIntStateOf(30) }
     var crossoverEnabled by remember { mutableStateOf(false) }
-    val prices = remember {
-        List(100) {
-            Random.nextInt(50)
-        }
-    }
 
     Scaffold(
         topBar = {
@@ -79,8 +67,8 @@ internal fun StrategySelectionView(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             Text(stringResource(R.string.select_strategy_title))
             Row(
@@ -89,81 +77,40 @@ internal fun StrategySelectionView(
             ) {
                 strategies.forEach { strategy ->
                     Button(
-                        onClick = { selectedStrategy = strategy.type },
+                        onClick = { selectedStrategy = strategy },
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = if (selectedStrategy == strategy.type) {
+                            containerColor = if (selectedStrategy == strategy) {
                                 MaterialTheme.colorScheme.primary
                             } else {
                                 MaterialTheme.colorScheme.secondary
                             }
                         )
                     ) {
-                        Text(strategy.type.name, maxLines = 1)
+                        Text(strategy.name)
                     }
                 }
             }
 
-            Text(stringResource(R.string.strategy_selection_description))
+            Text("Description")
             when (selectedStrategy) {
-                StrategyType.EMA -> Text(stringResource(R.string.ema_description))
-                StrategyType.RSI -> Text(stringResource(R.string.rsi_description))
-                StrategyType.CUSTOM -> Text(stringResource(R.string.custom_description))
-                StrategyType.MA -> Text(stringResource(R.string.ma_description))
+                StrategyType.EMA -> Text("EMA is ...")
+                StrategyType.RSI -> Text("RSI is ...")
+                StrategyType.CUSTOM -> Text("Custom is ...")
+                StrategyType.MA -> Text("Ma is ...")
             }
 
-            // Graph preview placeholder
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(300.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                when (selectedStrategy) {
-                    StrategyType.EMA -> {
-                        StrategyMAVisualizationGraph(
-                            prices = prices,
-                            periodForFirstEMA = period1,
-                            periodForSecondEMA = period2,
-                            isExponential = true
-                        )
-                    }
-                    StrategyType.MA -> {
-                        StrategyMAVisualizationGraph(
-                            prices = prices,
-                            periodForSecondEMA = period2,
-                            isExponential = false,
-                            periodForFirstEMA = period1
-                        )
-                    }
-                    StrategyType.RSI -> {
-                        StrategyRSIVisualizationChart(
-                            prices = prices,
-                            periodForFirstEMA = period1,
-                            periodForSecondEMA = period2,
-                        )
-                    }
-                    StrategyType.CUSTOM -> {
-
-                    }
-                }
-            }
-
+            // Parameter Settings
             when (selectedStrategy) {
                 StrategyType.EMA, StrategyType.MA -> {
-                    Text("Period: ${period1.toInt()}", fontSize = 18.sp)
+                    // Period Slider
+                    Text("Period: ${period.toInt()}", fontSize = 18.sp)
                     Slider(
-                        value = period1,
-                        onValueChange = { period1 = it },
+                        value = period,
+                        onValueChange = { period = it },
                         valueRange = 1f..100f
                     )
 
-                    Text("Period: ${period2.toInt()}", fontSize = 18.sp)
-                    Slider(
-                        value = period2,
-                        onValueChange = { period2 = it },
-                        valueRange = 1f..100f
-                    )
-
+                    // Crossover toggle
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(10.dp)
@@ -176,13 +123,15 @@ internal fun StrategySelectionView(
                     }
                 }
                 StrategyType.RSI -> {
-                    Text("RSI Period: ${period1.toInt()}", fontSize = 18.sp)
+                    // RSI-specific settings
+                    Text("RSI Period: ${period.toInt()}", fontSize = 18.sp)
                     Slider(
-                        value = oversoldThreshold.toFloat(),
-                        onValueChange = { period1 = it },
+                        value = period,
+                        onValueChange = { period = it },
                         valueRange = 1f..100f
                     )
 
+                    // Overbought and Oversold Thresholds
                     Text("Overbought Threshold: $overboughtThreshold", fontSize = 18.sp)
                     Slider(
                         value = overboughtThreshold.toFloat(),
@@ -198,43 +147,37 @@ internal fun StrategySelectionView(
                     )
                 }
                 StrategyType.CUSTOM -> {
-                    var stopLoss by remember { mutableFloatStateOf(0f) }
-                    var stopGrowth by remember { mutableFloatStateOf(0f) }
 
-                    Text("Set Stop Loss: ${stopLoss.toInt()}%", fontSize = 18.sp)
-                    Slider(
-                        value = stopLoss,
-                        onValueChange = { stopLoss = it },
-                        valueRange = 0f..100f
-                    )
-
-                    Text("Set Stop Growth: ${stopGrowth.toInt()}%", fontSize = 18.sp)
-                    Slider(
-                        value = stopGrowth,
-                        onValueChange = { stopGrowth = it },
-                        valueRange = 0f..100f
-                    )
                 }
             }
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            Button(
-                onClick = { onEvent(StrategySelectionEvent.Ui.Click.SaveSettings) },
+            // Graph preview placeholder
+            Box(
                 modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
                     .fillMaxWidth()
+                    .height(200.dp),
+                contentAlignment = Alignment.Center
             ) {
-                Text("Save bot")
+                Text("Graph Preview", fontSize = 16.sp)
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // Save Button
+            Button(
+                onClick = { /* Save the settings */ },
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            ) {
+                Text("Save Settings")
             }
         }
     }
 }
 
-@Preview()
+@Preview
 @Composable
-fun StrategySelectionScreenPreview() {
-    StrategySelectionView(strategies = StrategyType.entries.map {
-        Strategy(it, "description of $it", "", "")
-    }, onEvent = {})
+private fun Preview() {
+    StrategyParametersScreen()
 }

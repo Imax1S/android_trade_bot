@@ -30,4 +30,11 @@
     <string name="search_tickets_label">Search tickets</string>
     <string name="bot_description_label">Bot\'s description</string>
     <string name="button_next">Next</string>
+    <string name="set_up_strategy_title">Set up strategy</string>
+    <string name="select_strategy_title">Select Strategy</string>
+    <string name="strategy_selection_description">Description</string>
+    <string name="ema_description">A smooth average that considers recent price changes, helping to track the trend</string>
+    <string name="rsi_description">An indicator that reveals whether an asset is overbought or oversold.</string>
+    <string name="custom_description">Create your own strategy with personalized settings.</string>
+    <string name="ma_description">A simple average that shows the general trend without accounting for recent fluctuations.</string>
 </resources>
