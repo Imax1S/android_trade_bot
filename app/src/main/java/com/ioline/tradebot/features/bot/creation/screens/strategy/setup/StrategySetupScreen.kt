@@ -5,7 +5,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import com.ioline.tradebot.common_ui.navigation.NavItem
 import com.ioline.tradebot.data.models.strategy.Strategy
 import com.ioline.tradebot.data.models.strategy.StrategyType
 import com.ioline.tradebot.features.bot.creation.screens.strategy.setup.presentation.StrategySetupActor
@@ -13,6 +12,7 @@ import com.ioline.tradebot.features.bot.creation.screens.strategy.setup.presenta
 import com.ioline.tradebot.features.bot.creation.screens.strategy.setup.presentation.StrategySetupReducer
 import com.ioline.tradebot.features.bot.creation.screens.strategy.setup.presentation.StrategySetupState
 import com.ioline.tradebot.features.bot.creation.screens.strategy.setup.presentation.ui.StrategySetupView
+import com.ioline.tradebot.navigation.NavItem
 import vivid.money.elmslie.coroutines.ElmStoreCompat
 import vivid.money.elmslie.coroutines.effects
 import vivid.money.elmslie.coroutines.states

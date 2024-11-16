@@ -1,4 +1,4 @@
-package com.ioline.tradebot.common_ui.navigation
+package com.ioline.tradebot.navigation
 
 sealed class NavItem(val route: String) {
     data object HomeScreen : NavItem("home_screen")

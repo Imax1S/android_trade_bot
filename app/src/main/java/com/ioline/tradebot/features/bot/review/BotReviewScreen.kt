@@ -5,7 +5,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import com.ioline.tradebot.common_ui.navigation.NavItem
 import com.ioline.tradebot.data.models.Bot
 import com.ioline.tradebot.data.models.MarketEnvironment
 import com.ioline.tradebot.features.bot.review.presenation.BotReviewActor
@@ -13,6 +12,7 @@ import com.ioline.tradebot.features.bot.review.presenation.BotReviewEffect
 import com.ioline.tradebot.features.bot.review.presenation.BotReviewReducer
 import com.ioline.tradebot.features.bot.review.presenation.BotReviewState
 import com.ioline.tradebot.features.bot.review.ui.BotReviewView
+import com.ioline.tradebot.navigation.NavItem
 import vivid.money.elmslie.coroutines.ElmStoreCompat
 import vivid.money.elmslie.coroutines.effects
 import vivid.money.elmslie.coroutines.states

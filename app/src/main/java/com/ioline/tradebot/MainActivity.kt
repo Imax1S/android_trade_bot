@@ -11,7 +11,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.ioline.tradebot.common_ui.navigation.NavItem
 import com.ioline.tradebot.common_ui.theme.TradeBotTheme
 import com.ioline.tradebot.data.repository.bot.BotRepository
 import com.ioline.tradebot.data.repository.instrument.InstrumentRepository
@@ -22,6 +21,7 @@ import com.ioline.tradebot.features.bot.creation.screens.strategy.setup.Strategy
 import com.ioline.tradebot.features.bot.review.BotReviewScreen
 import com.ioline.tradebot.features.home.HomeScreen
 import com.ioline.tradebot.features.settings.SettingsScreen
+import com.ioline.tradebot.navigation.NavItem
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

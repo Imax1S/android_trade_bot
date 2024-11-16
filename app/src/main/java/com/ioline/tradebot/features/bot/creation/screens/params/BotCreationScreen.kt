@@ -5,7 +5,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import com.ioline.tradebot.common_ui.navigation.NavItem
 import com.ioline.tradebot.data.models.MarketEnvironment
 import com.ioline.tradebot.data.models.OperationMode
 import com.ioline.tradebot.data.repository.instrument.InstrumentRepository
@@ -14,6 +13,7 @@ import com.ioline.tradebot.features.bot.creation.screens.params.presentation.Bot
 import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationReducer
 import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationState
 import com.ioline.tradebot.features.bot.creation.screens.params.ui.BotCreationView
+import com.ioline.tradebot.navigation.NavItem
 import vivid.money.elmslie.coroutines.ElmStoreCompat
 import vivid.money.elmslie.coroutines.effects
 import vivid.money.elmslie.coroutines.states
