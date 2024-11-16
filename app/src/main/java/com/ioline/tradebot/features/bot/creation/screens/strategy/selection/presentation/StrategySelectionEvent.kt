@@ -12,7 +12,7 @@ internal sealed class StrategySelectionEvent {
             data class OpenStrategy(val strategyId: String) : Ui()
             data object BackToPreviousScreen : Ui()
             data class ShowStrategyHint(val strategyId: String) : Ui()
-            data object SaveSettings : Ui()
+            data object Next : Ui()
         }
     }
 }

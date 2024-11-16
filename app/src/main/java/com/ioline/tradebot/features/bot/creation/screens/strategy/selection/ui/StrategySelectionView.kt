@@ -220,7 +220,7 @@ internal fun StrategySelectionView(
             Spacer(modifier = Modifier.height(20.dp))
 
             Button(
-                onClick = { onEvent(StrategySelectionEvent.Ui.Click.SaveSettings) },
+                onClick = { onEvent(StrategySelectionEvent.Ui.Click.Next) },
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .fillMaxWidth()

@@ -15,6 +15,7 @@ import com.ioline.tradebot.common_ui.navigation.NavItem
 import com.ioline.tradebot.common_ui.theme.TradeBotTheme
 import com.ioline.tradebot.data.repository.bot.BotRepository
 import com.ioline.tradebot.data.repository.instrument.InstrumentRepository
+import com.ioline.tradebot.features.bot.creation.screens.environment.EnvironmentSettingsScreen
 import com.ioline.tradebot.features.bot.creation.screens.params.BotCreationScreen
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.StrategySelectionScreen
 import com.ioline.tradebot.features.bot.creation.screens.strategy.setup.StrategySetupScreen
@@ -98,6 +99,13 @@ class MainActivity : ComponentActivity() {
             composable(NavItem.Settings.route) {
                 SettingsScreen { screenName ->
                     navController.navigate(screenName)
+                }
+            }
+            composable(NavItem.EnvironmentSettings.route) {
+                EnvironmentSettingsScreen { screenName ->
+                    navController.navigate(screenName.route) {
+                        popUpTo(screenName.route) { inclusive = true }
+                    }
                 }
             }
         }

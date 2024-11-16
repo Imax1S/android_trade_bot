@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.tooling.preview.Preview
 import com.ioline.tradebot.common_ui.navigation.NavItem
 import com.ioline.tradebot.data.models.Bot
 import com.ioline.tradebot.data.models.MarketEnvironment
@@ -55,7 +56,7 @@ fun StrategySelectionScreen(navigateTo: (String) -> Unit) {
         LaunchedEffect(it) {
             when (it) {
                 StrategySelectionEffect.OpenPreviousScreen -> TODO()
-                is StrategySelectionEffect.OpenStrategy -> navigateTo(NavItem.StrategySettings.route)
+                is StrategySelectionEffect.Next -> navigateTo(NavItem.EnvironmentSettings.route)
                 is StrategySelectionEffect.ShowStrategyHint -> TODO()
             }
         }
@@ -64,4 +65,10 @@ fun StrategySelectionScreen(navigateTo: (String) -> Unit) {
     StrategySelectionView(initialState.strategies) { event ->
         store.accept(event)
     }
+}
+
+@Preview
+@Composable
+private fun StrategySelectionScreenPreview() {
+    StrategySelectionScreen { }
 }

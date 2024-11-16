@@ -17,12 +17,17 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,6 +39,8 @@ import com.ioline.tradebot.features.settings.presentation.SettingsState
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SettingsView(state: SettingsState) {
+    var token by remember { mutableStateOf("") }
+    var tokenError by remember { mutableStateOf(false) }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -86,11 +93,22 @@ internal fun SettingsView(state: SettingsState) {
                 Spacer(Modifier.weight(1f))
                 Icon(
                     Icons.Default.AccountCircle,
-                    "Hamster icon",
+                    "Avatar icon",
                     modifier = Modifier.size(36.dp)
                 )
             }
 
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = "Token",
+                fontWeight = FontWeight.Bold
+            )
+            OutlinedTextField(
+                value = token,
+                onValueChange = { token = it; tokenError = false },
+                label = { Text("token") },
+                isError = tokenError
+            )
             Spacer(modifier = Modifier.weight(1f))
             AuthButton()
         }
