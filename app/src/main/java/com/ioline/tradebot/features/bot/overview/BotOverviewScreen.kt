@@ -1,4 +1,4 @@
-package com.ioline.tradebot.features.bot.review
+package com.ioline.tradebot.features.bot.overview
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -6,12 +6,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import com.ioline.tradebot.data.models.Bot
+import com.ioline.tradebot.data.models.HistoricalResult
 import com.ioline.tradebot.data.models.MarketEnvironment
-import com.ioline.tradebot.features.bot.review.presenation.BotReviewActor
-import com.ioline.tradebot.features.bot.review.presenation.BotReviewEffect
-import com.ioline.tradebot.features.bot.review.presenation.BotReviewReducer
-import com.ioline.tradebot.features.bot.review.presenation.BotReviewState
-import com.ioline.tradebot.features.bot.review.ui.BotReviewView
+import com.ioline.tradebot.features.bot.overview.presenation.BotOverviewActor
+import com.ioline.tradebot.features.bot.overview.presenation.BotOverviewEvent
+import com.ioline.tradebot.features.bot.overview.presenation.BotOverviewReducer
+import com.ioline.tradebot.features.bot.overview.presenation.BotReviewEffect
+import com.ioline.tradebot.features.bot.overview.presenation.BotReviewState
+import com.ioline.tradebot.features.bot.overview.ui.BotOverviewView
+import com.ioline.tradebot.mockDeals
+import com.ioline.tradebot.mockInstruments
+import com.ioline.tradebot.mockNumbers
 import com.ioline.tradebot.navigation.NavItem
 import vivid.money.elmslie.coroutines.ElmStoreCompat
 import vivid.money.elmslie.coroutines.effects
@@ -28,14 +33,18 @@ fun BotReviewScreen(navigateTo: (NavItem) -> Unit) {
             instrumentsFIGI = listOf(),
             marketEnvironment = MarketEnvironment.MARKET,
             timeSettings = null,
-            result = null
+            result = HistoricalResult(
+                finalBalance = 36.37, yield = 38.39, history = mockNumbers
+            ),
+            deals = mockDeals,
+            assets = mockInstruments
         )
     )
     val store = remember {
         ElmStoreCompat(
             initialState,
-            BotReviewReducer,
-            BotReviewActor()
+            BotOverviewReducer,
+            BotOverviewActor()
         )
     }
 
@@ -54,7 +63,11 @@ fun BotReviewScreen(navigateTo: (NavItem) -> Unit) {
         }
     }
 
-    BotReviewView(state) { event ->
+    LaunchedEffect(Unit) {
+        store.accept(BotOverviewEvent.Ui.System.Init(initialState.bot))
+    }
+
+    BotOverviewView(state) { event ->
         store.accept(event)
     }
 }

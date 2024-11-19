@@ -1,12 +1,12 @@
-package com.ioline.tradebot.features.bot.review.presenation
+package com.ioline.tradebot.features.bot.overview.presenation
 
-import com.ioline.tradebot.features.bot.review.presenation.BotReviewEvent.Internal
+import com.ioline.tradebot.features.bot.overview.presenation.BotOverviewEvent.Internal
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import vivid.money.elmslie.coroutines.Actor
 import javax.inject.Inject
 
-internal class BotReviewActor @Inject constructor(
+internal class BotOverviewActor @Inject constructor(
     // your dependencies
 ) : Actor<BotReviewCommand, Internal> {
 
@@ -14,7 +14,8 @@ internal class BotReviewActor @Inject constructor(
         command: BotReviewCommand
     ): Flow<Internal> = flow {
         when (command) {
-            else -> {}
+            is BotReviewCommand.Init -> {
+            }
         }
     }
 }

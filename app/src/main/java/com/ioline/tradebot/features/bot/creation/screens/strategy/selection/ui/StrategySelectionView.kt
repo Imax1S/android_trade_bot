@@ -104,12 +104,9 @@ internal fun StrategySelectionView(
             }
 
             Text(stringResource(R.string.strategy_selection_description))
-            when (selectedStrategy) {
-                StrategyType.EMA -> Text(stringResource(R.string.ema_description))
-                StrategyType.RSI -> Text(stringResource(R.string.rsi_description))
-                StrategyType.CUSTOM -> Text(stringResource(R.string.custom_description))
-                StrategyType.MA -> Text(stringResource(R.string.ma_description))
-            }
+            Text(
+                getStrategyDescription(selectedStrategy)
+            )
 
             // Graph preview placeholder
             Box(
@@ -230,6 +227,15 @@ internal fun StrategySelectionView(
         }
     }
 }
+
+@Composable
+private fun getStrategyDescription(selectedStrategy: StrategyType) =
+    when (selectedStrategy) {
+        StrategyType.EMA -> stringResource(R.string.ema_description)
+        StrategyType.RSI -> stringResource(R.string.rsi_description)
+        StrategyType.CUSTOM -> stringResource(R.string.custom_description)
+        StrategyType.MA -> stringResource(R.string.ma_description)
+    }
 
 @Preview()
 @Composable

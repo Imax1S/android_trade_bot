@@ -1,4 +1,5 @@
 [versions]
+coil-compose = "2.3.0"
 com-android-application = "8.2.2"
 vico = "2.0.0-beta.2"
 elmslie = "2.1.1"
@@ -30,6 +31,9 @@ androidx-material3 = { module = "androidx.compose.material3:material3", version.
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-fragment-ktx" }
 androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+
+#chart
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil-compose" }
 vico-compose = { group = "com.patrykandpatrick.vico", name = "compose", version.ref = "vico" }
 vico-compose-m3 = { group = "com.patrykandpatrick.vico", name = "compose-m3", version.ref = "vico" }
 vico-core = { group = "com.patrykandpatrick.vico", name = "core", version.ref = "vico" }

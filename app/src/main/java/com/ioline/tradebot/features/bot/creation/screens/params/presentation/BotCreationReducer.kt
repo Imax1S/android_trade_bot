@@ -50,7 +50,7 @@ internal class BotCreationReducer :
 
         Ui.Click.Close -> effects { +Effect.Close }
         is Ui.ChangeBotName -> state { copy(name = event.name) }
-        is Ui.ChangeBotDescription -> state { copy(name = event.description) }
+        is Ui.ChangeBotDescription -> state { copy(description = event.description) }
         is Ui.ChangeMarket -> state {
             copy(marketEnvironment = MarketEnvironment.entries.find {
                 it.value == event.value

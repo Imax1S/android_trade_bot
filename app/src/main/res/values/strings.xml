@@ -37,4 +37,5 @@
     <string name="rsi_description">An indicator that reveals whether an asset is overbought or oversold.</string>
     <string name="custom_description">Create your own strategy with personalized settings.</string>
     <string name="ma_description">A simple average that shows the general trend without accounting for recent fluctuations.</string>
+    <string name="bots_review_yield_title">Bot’s yield</string>
 </resources>

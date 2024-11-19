@@ -88,6 +88,7 @@ dependencies {
     implementation(composeBom)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.coil.compose)
     debugImplementation(libs.androidx.ui.tooling)
 
     //charts

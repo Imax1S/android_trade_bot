@@ -13,7 +13,9 @@ data class Bot(
     val marketEnvironment: MarketEnvironment,
     val timeSettings: TimeSettings? = null,
     val mode: OperationMode = OperationMode.MANUAL,
-    val result: HistoricalResult? = null
+    val result: HistoricalResult? = null,
+    val deals: List<Deal> = emptyList(),
+    val assets: List<Instrument> = emptyList()
 ) : Serializable {
     companion object {
         const val serialVersionUID = 123L
