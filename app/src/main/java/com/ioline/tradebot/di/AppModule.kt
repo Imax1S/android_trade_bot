@@ -8,6 +8,8 @@ import com.ioline.tradebot.data.source.local.LocalBotDataSource
 import com.ioline.tradebot.data.source.local.LocalBotDataSourceImpl
 import com.ioline.tradebot.data.source.remote.RemoteBotDataSource
 import com.ioline.tradebot.data.source.remote.RemoteBotDataSourceImpl
+import com.ioline.tradebot.domain.RetrofitHelper
+import com.ioline.tradebot.domain.TradeBotApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,8 +34,13 @@ object AppModule {
     fun provideLocalBotDataSource(): LocalBotDataSource = LocalBotDataSourceImpl()
 
     @Provides
-    fun provideRemoteBotDataSource(): RemoteBotDataSource = RemoteBotDataSourceImpl()
+    fun provideRemoteBotDataSource(tradeBotApi: TradeBotApi): RemoteBotDataSource =
+        RemoteBotDataSourceImpl(tradeBotApi)
 
     @Provides
     fun provideInstrumentRepository(): InstrumentRepository = InstrumentRepositoryImpl()
+
+    @Provides
+    fun provideTradeBotApi(): TradeBotApi =
+        RetrofitHelper.getInstance().create(TradeBotApi::class.java)
 }

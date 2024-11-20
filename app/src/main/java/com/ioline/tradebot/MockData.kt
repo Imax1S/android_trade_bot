@@ -1,7 +1,7 @@
 package com.ioline.tradebot
 
-import com.ioline.tradebot.data.models.Deal
 import com.ioline.tradebot.data.models.Instrument
+import com.ioline.tradebot.data.models.Operation
 import com.ioline.tradebot.data.models.OrderType
 
 val mockNumbers = listOf(
@@ -11,20 +11,16 @@ val mockNumbers = listOf(
     4.3873, -3.3048, 5.9953, 0.0137, -0.7031, -8.6189, 0.4413, 7.5607, 8.4054, -4.6039
 )
 val mockBaseInstrument = Instrument(
-    name = "Apple",
-    ticker = "TICKER92",
-    price = 4513.12,
     classCode = "lorem",
     figi = "omnesque",
     first1dayCandleDate = "civibus",
     first1minCandleDate = "inceptos",
     forIisFlag = false,
-    instrumentKind = "adversarium",
     instrumentType = "viderer",
-    isin = "tempus",
-    positionUid = "iusto",
+    name = "Apple",
+    ticker = "TICKER92",
     uid = "saperet",
-    weekendFlag = false
+    price = 4513.12
 )
 
 val mockInstruments = listOf(
@@ -39,15 +35,65 @@ val mockInstruments = listOf(
     mockBaseInstrument.copy(name = "Intel", price = 386.80, ticker = "TICKER45")
 )
 
-val mockDeals = listOf(
-    Deal(type = OrderType.SELL, asset = mockInstruments[0], price = 1968.89, date = "2024-11-19"),
-    Deal(type = OrderType.SELL, asset = mockInstruments[2], price = 4365.52, date = "2024-11-10"),
-    Deal(type = OrderType.SELL, asset = mockInstruments[1], price = 1413.71, date = "2024-11-06"),
-    Deal(type = OrderType.SELL, asset = mockInstruments[3], price = 1778.08, date = "2024-11-17"),
-    Deal(type = OrderType.SELL, asset = mockInstruments[5], price = 2786.24, date = "2024-11-05"),
-    Deal(type = OrderType.BUY, asset = mockInstruments[1], price = 719.86, date = "2024-10-23"),
-    Deal(type = OrderType.SELL, asset = mockInstruments[4], price = 1853.42, date = "2024-11-17"),
-    Deal(type = OrderType.SELL, asset = mockInstruments[2], price = 2433.08, date = "2024-11-16"),
-    Deal(type = OrderType.SELL, asset = mockInstruments[1], price = 1967.27, date = "2024-11-01"),
-    Deal(type = OrderType.BUY, asset = mockInstruments[0], price = 3036.49, date = "2024-10-30")
+val mockOperations = listOf(
+    Operation(
+        type = OrderType.SELL,
+        asset = mockInstruments[0],
+        price = 1968.89,
+        date = "2024-11-19"
+    ),
+    Operation(
+        type = OrderType.SELL,
+        asset = mockInstruments[2],
+        price = 4365.52,
+        date = "2024-11-10"
+    ),
+    Operation(
+        type = OrderType.SELL,
+        asset = mockInstruments[1],
+        price = 1413.71,
+        date = "2024-11-06"
+    ),
+    Operation(
+        type = OrderType.SELL,
+        asset = mockInstruments[3],
+        price = 1778.08,
+        date = "2024-11-17"
+    ),
+    Operation(
+        type = OrderType.SELL,
+        asset = mockInstruments[5],
+        price = 2786.24,
+        date = "2024-11-05"
+    ),
+    Operation(
+        type = OrderType.BUY,
+        asset = mockInstruments[1],
+        price = 719.86,
+        date = "2024-10-23"
+    ),
+    Operation(
+        type = OrderType.SELL,
+        asset = mockInstruments[4],
+        price = 1853.42,
+        date = "2024-11-17"
+    ),
+    Operation(
+        type = OrderType.SELL,
+        asset = mockInstruments[2],
+        price = 2433.08,
+        date = "2024-11-16"
+    ),
+    Operation(
+        type = OrderType.SELL,
+        asset = mockInstruments[1],
+        price = 1967.27,
+        date = "2024-11-01"
+    ),
+    Operation(
+        type = OrderType.BUY,
+        asset = mockInstruments[0],
+        price = 3036.49,
+        date = "2024-10-30"
+    )
 )

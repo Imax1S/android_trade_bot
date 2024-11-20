@@ -10,16 +10,19 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 
-interface TinkoffApi {
+interface TradeBotApi {
     @GET("/findInstrument/{id}")
     suspend fun findInstrument(@Path("id") id: String): Response<Instrument?>
 
     @GET("/getPrice/{id}")
     suspend fun getPrice(@Path("id") id: String): Response<String>
 
-    @POST("/tradeBot/createBot")
+    @POST("/createBot")
     suspend fun createBot(@Body bot: Bot): Response<Bot>
 
-    @POST("/tradeBot/run/{id}")
+    @POST("/run/{id}")
     suspend fun runBot(@Path("id") id: String): Response<HistoricalResult>
+
+    @GET("/tradeBot/allBots")
+    suspend fun getAllBots(): Response<List<Bot>>
 }

@@ -42,9 +42,9 @@ import coil.request.ImageRequest
 import coil.transform.CircleCropTransformation
 import com.ioline.tradebot.R
 import com.ioline.tradebot.data.models.Bot
-import com.ioline.tradebot.data.models.Deal
 import com.ioline.tradebot.data.models.Instrument
 import com.ioline.tradebot.data.models.MarketEnvironment
+import com.ioline.tradebot.data.models.Operation
 import com.ioline.tradebot.data.models.OrderType
 import com.ioline.tradebot.data.models.strategy.StrategyType
 import com.ioline.tradebot.features.bot.overview.presenation.BotOverviewEvent
@@ -93,7 +93,7 @@ internal fun BotOverviewView(state: BotReviewState, onEvent: (BotOverviewEvent) 
 
             item {
                 ExpandableLastDeals(
-                    deals = state.bot.deals,
+                    operations = state.bot.operations,
                     onViewFullHistoryClick = { /* Переход на полную историю сделок */ }
                 )
             }
@@ -151,7 +151,7 @@ fun StrategyBanner(strategyName: String, strategyDescription: String, onStrategy
 private const val AMOUNT_OPERATIONS_TO_SHOW = 3
 
 @Composable
-fun ExpandableLastDeals(deals: List<Deal>, onViewFullHistoryClick: () -> Unit) {
+fun ExpandableLastDeals(operations: List<Operation>, onViewFullHistoryClick: () -> Unit) {
     var isExpanded by remember { mutableStateOf(false) }
     Card(
         modifier = Modifier
@@ -169,18 +169,19 @@ fun ExpandableLastDeals(deals: List<Deal>, onViewFullHistoryClick: () -> Unit) {
                 modifier = Modifier.clickable { isExpanded = !isExpanded }
             )
 
-            if (deals.isEmpty()) {
+            if (operations.isEmpty()) {
                 Text(
                     text = "There is no deals yet",
                     style = MaterialTheme.typography.bodyLarge,
                 )
             } else {
-                val amountDealsToShow = if (isExpanded) deals.size else AMOUNT_OPERATIONS_TO_SHOW
-                deals.takeLast(amountDealsToShow).reversed().forEach { deal ->
+                val amountDealsToShow =
+                    if (isExpanded) operations.size else AMOUNT_OPERATIONS_TO_SHOW
+                operations.takeLast(amountDealsToShow).reversed().forEach { deal ->
                     Deal(deal)
                 }
 
-                if (deals.size > AMOUNT_OPERATIONS_TO_SHOW) {
+                if (operations.size > AMOUNT_OPERATIONS_TO_SHOW) {
                     Button(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -204,7 +205,7 @@ fun ExpandableLastDeals(deals: List<Deal>, onViewFullHistoryClick: () -> Unit) {
 }
 
 @Composable
-fun Deal(deal: Deal) {
+fun Deal(operation: Operation) {
     Row(
         modifier = Modifier
             .wrapContentHeight()
@@ -228,12 +229,12 @@ fun Deal(deal: Deal) {
         )
         Spacer(Modifier.size(8.dp))
         Column {
-            Text(deal.asset.name)
-            Text(deal.date)
+            Text(operation.asset.name)
+            Text(operation.date)
         }
         Spacer(modifier = Modifier.weight(1f))
         Text(
-            deal.price.toString(),
+            operation.price.toString(),
             style = MaterialTheme.typography.bodyLarge,
         )
     }
@@ -350,14 +351,10 @@ private fun BotPreview() {
         first1dayCandleDate = "viris",
         first1minCandleDate = "sale",
         forIisFlag = false,
-        instrumentKind = "molestiae",
         instrumentType = "nobis",
-        isin = "ac",
         name = "Noah Hooper",
-        positionUid = "audire",
         ticker = "fames",
         uid = "gubergren",
-        weekendFlag = false,
         price = 22.23
     )
     BotOverviewView(
@@ -371,17 +368,17 @@ private fun BotPreview() {
                 marketEnvironment = MarketEnvironment.MARKET,
                 timeSettings = null,
                 result = null,
-                deals = listOf(
-                    Deal(
+                operations = listOf(
+                    Operation(
                         type = OrderType.SELL, asset = asset, price = 18.19, date = "nullam"
                     ),
-                    Deal(
+                    Operation(
                         type = OrderType.SELL, asset = asset, price = 18.19, date = "nullam"
                     ),
-                    Deal(
+                    Operation(
                         type = OrderType.BUY, asset = asset, price = 18.19, date = "nullam"
                     ),
-                    Deal(
+                    Operation(
                         type = OrderType.BUY, asset = asset, price = 18.19, date = "nullam"
                     ),
                 ),

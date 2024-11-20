@@ -14,9 +14,9 @@ import com.ioline.tradebot.features.bot.overview.presenation.BotOverviewReducer
 import com.ioline.tradebot.features.bot.overview.presenation.BotReviewEffect
 import com.ioline.tradebot.features.bot.overview.presenation.BotReviewState
 import com.ioline.tradebot.features.bot.overview.ui.BotOverviewView
-import com.ioline.tradebot.mockDeals
 import com.ioline.tradebot.mockInstruments
 import com.ioline.tradebot.mockNumbers
+import com.ioline.tradebot.mockOperations
 import com.ioline.tradebot.navigation.NavItem
 import vivid.money.elmslie.coroutines.ElmStoreCompat
 import vivid.money.elmslie.coroutines.effects
@@ -36,7 +36,7 @@ fun BotReviewScreen(navigateTo: (NavItem) -> Unit) {
             result = HistoricalResult(
                 finalBalance = 36.37, yield = 38.39, history = mockNumbers
             ),
-            deals = mockDeals,
+            operations = mockOperations,
             assets = mockInstruments
         )
     )

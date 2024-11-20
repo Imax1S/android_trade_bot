@@ -1,15 +1,11 @@
 package com.ioline.tradebot.data.models.strategy
 
-import java.io.Serializable
+import kotlinx.serialization.Serializable
 
-
+@Serializable
 data class Strategy(
     val type: StrategyType,
     val description: String,
     val param1: String,
     val param2: String,
-) : Serializable {
-    companion object {
-        const val serialVersionUID = 123L
-    }
-}
+)

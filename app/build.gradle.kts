@@ -2,6 +2,9 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
+    id("org.jetbrains.kotlin.plugin.serialization")
+    id("org.jetbrains.kotlin.plugin.compose") version "2.0.21"
+    id("kotlin-parcelize")
     kotlin("kapt")
 }
 
@@ -14,7 +17,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.8"
+        kotlinCompilerExtensionVersion = "2.0.21"
     }
 
     defaultConfig {
@@ -58,12 +61,9 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
-    implementation(libs.lifecycle.livedata.ktx)
-    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.kotlinx.serialization.json)
 
     //navigation
-    implementation(libs.navigation.fragment.ktx)
-    implementation(libs.navigation.ui.ktx)
     implementation(libs.androidx.navigation.compose)
 
     //hilt
@@ -73,8 +73,8 @@ dependencies {
     //elmslie
     implementation(libs.elmslie.core)
     implementation(libs.elmslie.android)
-    implementation (libs.elmslie.compose)
-    implementation (libs.elmslie.coroutines)
+    implementation(libs.elmslie.compose)
+    implementation(libs.elmslie.coroutines)
 
     //network
     implementation(libs.gson)

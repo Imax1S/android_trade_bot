@@ -15,7 +15,10 @@ internal class HomeReducer :
     override fun Result.ui(event: Event.Ui) {
         when (event) {
             Event.Ui.Init -> commands { +Command.LoadData }
-            Event.Ui.ReloadClick -> commands { +Command.LoadData }
+            Event.Ui.ReloadClick -> {
+                state { copy(isLoading = true) }
+                commands { +Command.LoadData }
+            }
             Event.Ui.CreateNewBotClick -> effects { +Effect.NavigateToBotCreation }
             Event.Ui.OpenAccount -> effects { +Effect.NavigateToAccount }
             is Event.Ui.OpenBot -> effects { +Effect.NavigateToBot(event.botId) }

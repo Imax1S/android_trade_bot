@@ -1,6 +1,9 @@
 package com.ioline.tradebot.data.models
 
-data class Deal(
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class Operation(
     val type: OrderType,
     val asset: Instrument,
     val price: Double,

@@ -20,7 +20,7 @@ import vivid.money.elmslie.coroutines.effects
 import vivid.money.elmslie.coroutines.states
 
 @Composable
-fun HomeScreen(botRepository: BotRepository, navigate: (String) -> Unit) {
+fun HomeScreen(botRepository: BotRepository, navigate: (NavItem) -> Unit) {
     val initialState = HomeState(
         data = mutableListOf(
             Bot(
@@ -54,9 +54,9 @@ fun HomeScreen(botRepository: BotRepository, navigate: (String) -> Unit) {
     effect?.let {
         LaunchedEffect(it) {
             when (it) {
-                HomeEffect.NavigateToAccount -> navigate(NavItem.Settings.route)
-                is HomeEffect.NavigateToBot -> navigate(NavItem.BotReview.route)
-                HomeEffect.NavigateToBotCreation -> navigate(NavItem.BotCreation.route)
+                HomeEffect.NavigateToAccount -> navigate(NavItem.Settings)
+                is HomeEffect.NavigateToBot -> navigate(NavItem.BotReview)
+                HomeEffect.NavigateToBotCreation -> navigate(NavItem.BotCreation)
             }
         }
     }

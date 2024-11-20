@@ -210,14 +210,10 @@ val instrumentsMock = listOf(
         first1dayCandleDate = "2000-01-01",
         first1minCandleDate = "2010-01-01",
         forIisFlag = true,
-        instrumentKind = "Stock",
         instrumentType = "Equity",
-        isin = "US0378331005",
         name = "Apple Inc.",
-        positionUid = "pos1",
         ticker = "AAPL",
         uid = "uid1",
-        weekendFlag = false,
         price = 150.0
     ),
     Instrument(
@@ -226,14 +222,10 @@ val instrumentsMock = listOf(
         first1dayCandleDate = "2004-08-19",
         first1minCandleDate = "2014-08-19",
         forIisFlag = false,
-        instrumentKind = "Stock",
         instrumentType = "Equity",
-        isin = "US02079K3059",
         name = "Alphabet Inc.",
-        positionUid = "pos2",
         ticker = "GOOGL",
         uid = "uid2",
-        weekendFlag = true,
         price = 2800.0
     ),
     Instrument(
@@ -242,14 +234,10 @@ val instrumentsMock = listOf(
         first1dayCandleDate = "2010-06-29",
         first1minCandleDate = "2015-06-29",
         forIisFlag = true,
-        instrumentKind = "Stock",
         instrumentType = "Equity",
-        isin = "US88160R1014",
         name = "Tesla Inc.",
-        positionUid = "pos3",
         ticker = "TSLA",
         uid = "uid3",
-        weekendFlag = false,
         price = 800.0
     ),
     Instrument(
@@ -258,14 +246,10 @@ val instrumentsMock = listOf(
         first1dayCandleDate = "1986-03-13",
         first1minCandleDate = "1990-01-01",
         forIisFlag = false,
-        instrumentKind = "Stock",
         instrumentType = "Equity",
-        isin = "US5949181045",
         name = "Microsoft Corp.",
-        positionUid = "pos4",
         ticker = "MSFT",
         uid = "uid4",
-        weekendFlag = true,
         price = 299.0
     ),
     Instrument(
@@ -274,14 +258,10 @@ val instrumentsMock = listOf(
         first1dayCandleDate = "1997-05-15",
         first1minCandleDate = "2000-05-15",
         forIisFlag = true,
-        instrumentKind = "Stock",
         instrumentType = "Equity",
-        isin = "US0231351067",
         name = "Amazon.com Inc.",
-        positionUid = "pos5",
         ticker = "AMZN",
         uid = "uid5",
-        weekendFlag = false,
         price = 3300.0
     )
 )

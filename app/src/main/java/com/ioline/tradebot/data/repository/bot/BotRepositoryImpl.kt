@@ -4,6 +4,7 @@ import com.ioline.tradebot.data.models.Bot
 import com.ioline.tradebot.data.source.local.LocalBotDataSource
 import com.ioline.tradebot.data.source.remote.RemoteBotDataSource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class BotRepositoryImpl @Inject constructor(
@@ -14,8 +15,8 @@ class BotRepositoryImpl @Inject constructor(
         return localDataSource.getBot()
     }
 
-    override fun getBots(): Flow<List<Bot>> {
-        return localDataSource.getBots()
+    override fun getBots(): Flow<List<Bot>> = flow {
+        emit(remoteDataSource.getBots())
     }
 
     override suspend fun createBot(bot: Bot) {

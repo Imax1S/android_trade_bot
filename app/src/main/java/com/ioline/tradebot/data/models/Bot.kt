@@ -1,8 +1,9 @@
 package com.ioline.tradebot.data.models
 
 import com.ioline.tradebot.data.models.strategy.Strategy
-import java.io.Serializable
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Bot(
     val id: String = "0",
     val name: String,
@@ -14,10 +15,6 @@ data class Bot(
     val timeSettings: TimeSettings? = null,
     val mode: OperationMode = OperationMode.MANUAL,
     val result: HistoricalResult? = null,
-    val deals: List<Deal> = emptyList(),
+    val operations: List<Operation> = emptyList(),
     val assets: List<Instrument> = emptyList()
-) : Serializable {
-    companion object {
-        const val serialVersionUID = 123L
-    }
-}
+)
