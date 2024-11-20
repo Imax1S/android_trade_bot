@@ -1,6 +1,6 @@
 package com.ioline.tradebot.features.bot.overview.presenation
 
-import com.ioline.tradebot.features.bot.overview.presenation.BotOverviewEvent.Internal
+import com.ioline.tradebot.features.bot.overview.presenation.BotOverviewEvent.Domain
 import com.ioline.tradebot.features.bot.overview.presenation.BotOverviewEvent.Ui
 import com.ioline.tradebot.features.bot.overview.presenation.ChartPeriod.ALL
 import com.ioline.tradebot.features.bot.overview.presenation.ChartPeriod.DAY
@@ -15,20 +15,25 @@ import com.ioline.tradebot.features.bot.overview.presenation.BotReviewEffect as 
 import com.ioline.tradebot.features.bot.overview.presenation.BotReviewState as State
 
 internal object BotOverviewReducer :
-    ScreenDslReducer<Event, Ui, Internal, State, Effect, Command>(Ui::class, Internal::class) {
-
-    override fun Result.internal(event: Internal) = when (event) {
-        else -> {}
-    }
+    ScreenDslReducer<Event, Ui, Domain, State, Effect, Command>(Ui::class, Domain::class) {
 
     override fun Result.ui(event: Ui) = when (event) {
-        is Ui.System.Init -> state {
-            copy(
-                dataForSelectedPeriod = getDataForSelectedPeriod(
-                    state.bot.result?.history ?: emptyList(), state.selectedPeriod
-                ),
-            )
+        is Ui.System.Init -> {
+            state {
+                copy()
+            }
+            commands {
+                +Command.Init(event.botId)
+            }
         }
+
+//            state {
+//            copy(
+//                dataForSelectedPeriod = getDataForSelectedPeriod(
+//                    state.bot.result?.history ?: emptyList(), state.selectedPeriod
+//                ),
+//            )
+//        }
         Ui.Click.Back -> effects {
             +Effect.Close
         }
@@ -40,11 +45,23 @@ internal object BotOverviewReducer :
             copy(
                 selectedPeriod = event.period,
                 dataForSelectedPeriod = getDataForSelectedPeriod(
-                    state.bot.result?.history ?: emptyList(), event.period
+                    state.bot?.result?.history ?: emptyList(), event.period
                 )
             )
         }
         Ui.Click.MakeHistoricalLaunch -> TODO()
+    }
+
+    override fun Result.internal(event: Domain) = when (event) {
+        is Domain.Error -> state {
+            copy(bot = null)
+        }
+        is Domain.LoadData -> state {
+            copy(bot = event.bot)
+        }
+        is Domain.UpdateBot -> state {
+            copy(bot = event.bot)
+        }
     }
 
     private fun getDataForSelectedPeriod(

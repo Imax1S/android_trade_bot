@@ -2,7 +2,6 @@ package com.ioline.tradebot.features.home.presentation
 
 import com.ioline.tradebot.data.repository.bot.BotRepository
 import com.ioline.tradebot.features.home.presentation.HomeCommand
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -23,7 +22,6 @@ internal class HomeActor @Inject constructor(
 
     private fun loadData(): Flow<DomainEvent> {
         return flow {
-            delay(1_000)
             botRepository.getBots()
                 .catch { emit(DomainEvent.Error(it)) }
                 .collect { emit(DomainEvent.LoadData(it)) }

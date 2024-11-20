@@ -73,7 +73,7 @@ internal fun BotOverviewView(state: BotReviewState, onEvent: (BotOverviewEvent) 
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             item {
-                BotHeader(name = state.bot.name, description = state.bot.description)
+                BotHeader(name = state.bot?.name ?: "", description = state.bot?.description ?: "")
             }
             item {
                 BotPerformanceGraph(
@@ -83,9 +83,9 @@ internal fun BotOverviewView(state: BotReviewState, onEvent: (BotOverviewEvent) 
             }
             item {
                 StrategyBanner(
-                    strategyName = state.bot.strategy?.type?.name ?: "Strategy",
+                    strategyName = state.bot?.strategy?.type?.name ?: "Strategy",
                     strategyDescription = getStrategyDescription(
-                        state.bot.strategy?.type ?: StrategyType.CUSTOM
+                        state.bot?.strategy?.type ?: StrategyType.CUSTOM
                     ),
                     onStrategyClick = { /* Переход на настройки стратегии */ }
                 )
@@ -93,14 +93,14 @@ internal fun BotOverviewView(state: BotReviewState, onEvent: (BotOverviewEvent) 
 
             item {
                 ExpandableLastDeals(
-                    operations = state.bot.operations,
+                    operations = state.bot?.operations ?: emptyList(),
                     onViewFullHistoryClick = { /* Переход на полную историю сделок */ }
                 )
             }
 
             item {
                 ExpandableAssetsInWork(
-                    assets = state.bot.assets
+                    assets = state.bot?.assets ?: emptyList()
                 )
             }
 

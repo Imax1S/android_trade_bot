@@ -3,7 +3,7 @@ package com.ioline.tradebot.features.bot.overview.presenation
 import com.ioline.tradebot.data.models.Bot
 
 internal data class BotReviewState(
-    val bot: Bot,
+    val bot: Bot? = null,
     val selectedPeriod: ChartPeriod = ChartPeriod.ALL,
     val dataForSelectedPeriod: List<Double> = emptyList()
 )
@@ -23,5 +23,5 @@ internal sealed class BotReviewEffect {
 }
 
 internal sealed class BotReviewCommand {
-    data class Init(val bot: Bot) : BotReviewCommand()
+    data class Init(val botId: String) : BotReviewCommand()
 }

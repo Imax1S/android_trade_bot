@@ -9,7 +9,6 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 
-
 interface TradeBotApi {
     @GET("/findInstrument/{id}")
     suspend fun findInstrument(@Path("id") id: String): Response<Instrument?>
@@ -25,4 +24,7 @@ interface TradeBotApi {
 
     @GET("/tradeBot/allBots")
     suspend fun getAllBots(): Response<List<Bot>>
+
+    @GET("/tradeBot/bot/{id}")
+    suspend fun getBot(@Path("id") id: String): Response<Bot>
 }

@@ -48,7 +48,10 @@ internal fun BotPerformanceGraph(
 ) {
     Box(modifier = Modifier.wrapContentSize()) {
         if (state.dataForSelectedPeriod.isEmpty()) {
-            EmptyChart(state.bot.marketEnvironment, onEvent)
+            EmptyChart(
+                state.bot?.marketEnvironment ?: MarketEnvironment.HISTORICAL_DATA,
+                onEvent
+            )
         } else {
             BotPerformanceChart(state, onEvent)
         }

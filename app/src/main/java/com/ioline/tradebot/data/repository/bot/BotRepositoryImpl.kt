@@ -11,8 +11,8 @@ class BotRepositoryImpl @Inject constructor(
     private val localDataSource: LocalBotDataSource,
     private val remoteDataSource: RemoteBotDataSource
 ) : BotRepository {
-    override fun getBot(botId: String): Flow<Bot> {
-        return localDataSource.getBot()
+    override fun getBot(botId: String): Flow<Bot?> = flow {
+        emit(remoteDataSource.getBot(botId))
     }
 
     override fun getBots(): Flow<List<Bot>> = flow {

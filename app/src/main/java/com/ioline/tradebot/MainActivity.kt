@@ -83,8 +83,10 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
-            composable(NavItem.BotReview.route) {
-                BotReviewScreen { screenName ->
+            composable<NavItem.BotReview> { argument ->
+                val botId = argument.toRoute<NavItem.StrategySelection>().botId
+
+                BotReviewScreen(botId, botRepository) { screenName ->
                     when (screenName) {
                         NavItem.HomeScreen -> {
                             navController.navigate(screenName.route) {

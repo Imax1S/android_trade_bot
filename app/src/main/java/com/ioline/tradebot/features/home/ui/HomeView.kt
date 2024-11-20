@@ -1,6 +1,5 @@
 package com.ioline.tradebot.features.home.ui
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -67,7 +66,6 @@ internal fun HomeView(state: HomeState, onEvent: (HomeEvent) -> Unit) {
                 .fillMaxSize()
                 .padding(padding),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
         ) {
             when {
                 state.isError -> {

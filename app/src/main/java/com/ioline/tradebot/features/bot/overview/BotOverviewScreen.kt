@@ -5,46 +5,26 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import com.ioline.tradebot.data.models.Bot
-import com.ioline.tradebot.data.models.HistoricalResult
-import com.ioline.tradebot.data.models.MarketEnvironment
+import com.ioline.tradebot.data.repository.bot.BotRepository
 import com.ioline.tradebot.features.bot.overview.presenation.BotOverviewActor
 import com.ioline.tradebot.features.bot.overview.presenation.BotOverviewEvent
 import com.ioline.tradebot.features.bot.overview.presenation.BotOverviewReducer
 import com.ioline.tradebot.features.bot.overview.presenation.BotReviewEffect
 import com.ioline.tradebot.features.bot.overview.presenation.BotReviewState
 import com.ioline.tradebot.features.bot.overview.ui.BotOverviewView
-import com.ioline.tradebot.mockInstruments
-import com.ioline.tradebot.mockNumbers
-import com.ioline.tradebot.mockOperations
 import com.ioline.tradebot.navigation.NavItem
 import vivid.money.elmslie.coroutines.ElmStoreCompat
 import vivid.money.elmslie.coroutines.effects
 import vivid.money.elmslie.coroutines.states
 
 @Composable
-fun BotReviewScreen(navigateTo: (NavItem) -> Unit) {
-    val initialState = BotReviewState(
-        bot = Bot(
-            id = "cum",
-            name = "Fanny Hoffman",
-            strategy = null,
-            isActive = false,
-            instrumentsFIGI = listOf(),
-            marketEnvironment = MarketEnvironment.MARKET,
-            timeSettings = null,
-            result = HistoricalResult(
-                finalBalance = 36.37, yield = 38.39, history = mockNumbers
-            ),
-            operations = mockOperations,
-            assets = mockInstruments
-        )
-    )
+fun BotReviewScreen(botId: String, botRepository: BotRepository, navigateTo: (NavItem) -> Unit) {
+    val initialState = BotReviewState()
     val store = remember {
         ElmStoreCompat(
             initialState,
             BotOverviewReducer,
-            BotOverviewActor()
+            BotOverviewActor(botRepository)
         )
     }
 
@@ -64,7 +44,7 @@ fun BotReviewScreen(navigateTo: (NavItem) -> Unit) {
     }
 
     LaunchedEffect(Unit) {
-        store.accept(BotOverviewEvent.Ui.System.Init(initialState.bot))
+        store.accept(BotOverviewEvent.Ui.System.Init(botId))
     }
 
     BotOverviewView(state) { event ->

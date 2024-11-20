@@ -55,7 +55,7 @@ fun HomeScreen(botRepository: BotRepository, navigate: (NavItem) -> Unit) {
         LaunchedEffect(it) {
             when (it) {
                 HomeEffect.NavigateToAccount -> navigate(NavItem.Settings)
-                is HomeEffect.NavigateToBot -> navigate(NavItem.BotReview)
+                is HomeEffect.NavigateToBot -> navigate(NavItem.BotReview(it.botId))
                 HomeEffect.NavigateToBotCreation -> navigate(NavItem.BotCreation)
             }
         }
