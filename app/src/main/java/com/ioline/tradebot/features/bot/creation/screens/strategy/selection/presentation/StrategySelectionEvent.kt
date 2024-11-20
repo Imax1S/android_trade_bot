@@ -1,11 +1,13 @@
 package com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation
 
+import com.ioline.tradebot.data.models.strategy.StrategyType
+
 internal sealed class StrategySelectionEvent {
     sealed class Domain : StrategySelectionEvent() {}
 
     sealed class Ui : StrategySelectionEvent() {
         object System {
-            object Init : Ui()
+            data object Init : Ui()
         }
 
         object Click {
@@ -13,6 +15,10 @@ internal sealed class StrategySelectionEvent {
             data object BackToPreviousScreen : Ui()
             data class ShowStrategyHint(val strategyId: String) : Ui()
             data object Next : Ui()
+            data class ChangePeriod1Param(val value: Float) : Ui()
+            data class ChangePeriod2Param(val value: Float) : Ui()
+            data object RegenerateRandomData : Ui()
+            data class SelectStrategy(val selectedStrategyType: StrategyType) : Ui()
         }
     }
 }

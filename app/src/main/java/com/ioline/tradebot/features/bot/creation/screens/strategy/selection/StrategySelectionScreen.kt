@@ -9,7 +9,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.ioline.tradebot.data.models.strategy.Strategy
 import com.ioline.tradebot.data.models.strategy.StrategyType
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionActor
-import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionEffect
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionReducer
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionState
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.ui.StrategySelectionView
@@ -17,6 +16,8 @@ import com.ioline.tradebot.navigation.NavItem
 import vivid.money.elmslie.coroutines.ElmStoreCompat
 import vivid.money.elmslie.coroutines.effects
 import vivid.money.elmslie.coroutines.states
+import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionEffect as Effect
+import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionEvent as Event
 
 @Composable
 fun StrategySelectionScreen(botId: String, navigateTo: (String) -> Unit) {
@@ -44,14 +45,18 @@ fun StrategySelectionScreen(botId: String, navigateTo: (String) -> Unit) {
     effect?.let {
         LaunchedEffect(it) {
             when (it) {
-                StrategySelectionEffect.OpenPreviousScreen -> TODO()
-                is StrategySelectionEffect.Next -> navigateTo(NavItem.EnvironmentSettings.route)
-                is StrategySelectionEffect.ShowStrategyHint -> TODO()
+                Effect.OpenPreviousScreen -> TODO()
+                is Effect.Next -> navigateTo(NavItem.EnvironmentSettings.route)
+                is Effect.ShowStrategyHint -> TODO()
             }
         }
     }
 
-    StrategySelectionView(state.strategies) { event ->
+    LaunchedEffect(null) {
+        store.accept(Event.Ui.System.Init)
+    }
+
+    StrategySelectionView(state) { event ->
         store.accept(event)
     }
 }
