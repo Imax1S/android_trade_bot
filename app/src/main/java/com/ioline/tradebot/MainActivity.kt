@@ -11,6 +11,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.ioline.tradebot.common_ui.theme.TradeBotTheme
 import com.ioline.tradebot.data.repository.bot.BotRepository
 import com.ioline.tradebot.data.repository.instrument.InstrumentRepository
@@ -53,24 +54,25 @@ class MainActivity : ComponentActivity() {
     private fun TradeBotNavHost(navController: NavHostController, padding: PaddingValues) {
         NavHost(
             navController = navController,
-            startDestination = NavItem.HomeScreen.route
+            startDestination = NavItem.HomeScreen
         ) {
-            composable(NavItem.HomeScreen.route) {
+            composable<NavItem.HomeScreen> {
                 HomeScreen(
                     botRepository
                 ) { screenName ->
                     navController.navigate(screenName)
                 }
             }
-            composable(NavItem.BotCreation.route) {
+            composable<NavItem.BotCreation> {
                 BotCreationScreen(
                     instrumentRepository = instrumentRepository
                 ) { screenName ->
                     navController.navigate(screenName)
                 }
             }
-            composable(NavItem.StrategySelection.route) {
-                StrategySelectionScreen { screenName ->
+            composable<NavItem.StrategySelection> { argument ->
+                val botId = argument.toRoute<NavItem.StrategySelection>().botId
+                StrategySelectionScreen(botId) { screenName ->
                     navController.navigate(screenName)
                 }
             }
@@ -93,7 +95,6 @@ class MainActivity : ComponentActivity() {
                             navController.navigate(screenName.route)
                         }
                     }
-
                 }
             }
             composable(NavItem.Settings.route) {

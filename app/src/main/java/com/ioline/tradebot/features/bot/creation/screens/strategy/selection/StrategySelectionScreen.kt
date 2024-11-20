@@ -6,8 +6,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
-import com.ioline.tradebot.data.models.Bot
-import com.ioline.tradebot.data.models.MarketEnvironment
 import com.ioline.tradebot.data.models.strategy.Strategy
 import com.ioline.tradebot.data.models.strategy.StrategyType
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionActor
@@ -21,18 +19,9 @@ import vivid.money.elmslie.coroutines.effects
 import vivid.money.elmslie.coroutines.states
 
 @Composable
-fun StrategySelectionScreen(navigateTo: (String) -> Unit) {
+fun StrategySelectionScreen(botId: String, navigateTo: (String) -> Unit) {
     val initialState = StrategySelectionState(
-        bot = Bot(
-            id = "inceptos",
-            name = "Marco Boyle",
-            strategy = null,
-            isActive = false,
-            instrumentsFIGI = listOf(),
-            marketEnvironment = MarketEnvironment.MARKET,
-            timeSettings = null,
-            result = null
-        ),
+        botId = botId,
         strategies = StrategyType.entries.map {
             Strategy(it, "", "", "")
         }
@@ -62,7 +51,7 @@ fun StrategySelectionScreen(navigateTo: (String) -> Unit) {
         }
     }
 
-    StrategySelectionView(initialState.strategies) { event ->
+    StrategySelectionView(state.strategies) { event ->
         store.accept(event)
     }
 }
@@ -70,5 +59,5 @@ fun StrategySelectionScreen(navigateTo: (String) -> Unit) {
 @Preview
 @Composable
 private fun StrategySelectionScreenPreview() {
-    StrategySelectionScreen { }
+    StrategySelectionScreen("botId") { }
 }

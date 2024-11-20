@@ -21,13 +21,13 @@ import vivid.money.elmslie.coroutines.states
 @Composable
 fun BotCreationScreen(
     instrumentRepository: InstrumentRepository,
-    navigate: (String) -> Unit
+    navigate: (NavItem.StrategySelection) -> Unit
 ) {
     val initState = BotCreationState(
         name = "",
-        description = "hendrerit",
-        marketEnvironment = MarketEnvironment.MARKET,
-        mode = OperationMode.MANUAL,
+        description = "",
+        marketEnvironment = MarketEnvironment.HISTORICAL_DATA,
+        mode = OperationMode.AUTO,
         searchInstruments = listOf(),
         selectedInstruments = listOf(),
         searchInstrumentsLoading = false,
@@ -52,7 +52,8 @@ fun BotCreationScreen(
         LaunchedEffect(it) {
             when (it) {
                 BotCreationEffect.Close -> TODO()
-                is BotCreationEffect.OpenStrategySelection -> navigate(NavItem.StrategySelection.route)
+                is BotCreationEffect.OpenStrategySelection ->
+                    navigate(NavItem.StrategySelection(it.bot.id))
             }
         }
     }

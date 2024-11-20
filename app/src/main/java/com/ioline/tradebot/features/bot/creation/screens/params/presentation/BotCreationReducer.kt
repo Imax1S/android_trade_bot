@@ -7,6 +7,7 @@ import com.ioline.tradebot.data.repository.instrument.SearchResult
 import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationEvent.Domain
 import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationEvent.Ui
 import vivid.money.elmslie.core.store.dsl_reducer.ScreenDslReducer
+import java.util.UUID
 import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationCommand as Command
 import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationEffect as Effect
 import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationEvent as Event
@@ -20,6 +21,7 @@ internal class BotCreationReducer :
         Ui.Click.Next -> effects {
             +Effect.OpenStrategySelection(
                 Bot(
+                    id = UUID.randomUUID().toString(),
                     name = state.name,
                     description = state.description,
                     isActive = false,

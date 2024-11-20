@@ -13,9 +13,9 @@ internal object StrategySelectionReducer : ScreenDslReducer<StrategySelectionEve
             //todo load strategies (optional)
         }
         Ui.Click.BackToPreviousScreen -> effects { +Effect.OpenPreviousScreen }
-        is Ui.Click.OpenStrategy -> effects { +Effect.Next(state.bot, event.strategyId) }
+        is Ui.Click.OpenStrategy -> effects { +Effect.Next(state.botId, event.strategyId) }
         is Ui.Click.ShowStrategyHint -> effects { +Effect.ShowStrategyHint(event.strategyId) }
-        Ui.Click.Next -> effects { +Effect.Next(state.bot, "") }
+        Ui.Click.Next -> effects { +Effect.Next(state.botId, "") }
     }
 
     override fun Result.internal(event: Domain) = when (event) {

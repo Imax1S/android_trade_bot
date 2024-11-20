@@ -18,7 +18,7 @@ import vivid.money.elmslie.coroutines.effects
 import vivid.money.elmslie.coroutines.states
 
 @Composable
-fun StrategySetupScreen(navigate: (String) -> Unit) {
+fun StrategySetupScreen(navigate: (Any) -> Unit) {
     val initialState = StrategySetupState(
         strategy = Strategy(
             type = StrategyType.EMA,
@@ -44,7 +44,7 @@ fun StrategySetupScreen(navigate: (String) -> Unit) {
     effect?.let {
         LaunchedEffect(it) {
             when (it) {
-                StrategySetupEffect.FinishBotCreation -> navigate(NavItem.HomeScreen.route)
+                StrategySetupEffect.FinishBotCreation -> navigate(NavItem.HomeScreen)
                 StrategySetupEffect.OpenPreviousScreen -> TODO()
             }
         }
