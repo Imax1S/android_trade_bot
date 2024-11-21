@@ -1,7 +1,7 @@
 package com.ioline.tradebot.data.source.remote
 
-import com.ioline.tradebot.data.generateStockData
 import com.ioline.tradebot.data.models.Bot
+import com.ioline.tradebot.data.models.HistoricalResult
 import com.ioline.tradebot.domain.TradeBotApi
 import javax.inject.Inject
 
@@ -38,7 +38,13 @@ class RemoteBotDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun runBot(id: String): List<Double> {
-        return generateStockData().map { it.toDouble() }
+    override suspend fun runBot(id: String): HistoricalResult? {
+        val result = tradeBotApi.runBot(id)
+
+        return if (result.isSuccessful) {
+            result.body()
+        } else {
+            null
+        }
     }
 }

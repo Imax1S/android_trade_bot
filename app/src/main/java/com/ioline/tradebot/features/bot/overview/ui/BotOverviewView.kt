@@ -123,7 +123,7 @@ internal fun BotOverviewView(state: BotReviewState, onEvent: (BotOverviewEvent) 
 
             item {
                 ExpandableLastDeals(
-                    operations = state.bot?.operations ?: emptyList()
+                    operations = state.operations
                 )
             }
 
@@ -219,7 +219,7 @@ fun ExpandableLastDeals(operations: List<Operation>) {
     ) {
         Column(
             modifier = Modifier.padding(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(
                 text = "Last operations",
@@ -259,42 +259,6 @@ fun ExpandableLastDeals(operations: List<Operation>) {
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Deal(operation: Operation) {
-    Row(
-        modifier = Modifier
-            .wrapContentHeight()
-            .fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Image(
-            painter = rememberAsyncImagePainter(
-                ImageRequest.Builder
-                    (LocalContext.current).data(data = "logoUrl")
-                    .apply(block = fun ImageRequest.Builder.() {
-                        placeholder(R.color.bot_card_background)
-                        error(R.color.bot_card_background)
-                        transformations(CircleCropTransformation())
-                    }).build()
-            ),
-            contentDescription = null,
-            modifier = Modifier
-                .size(40.dp)
-                .clip(CircleShape)
-        )
-        Spacer(Modifier.size(8.dp))
-        Column {
-            Text(operation.asset.name)
-            Text(operation.date)
-        }
-        Spacer(modifier = Modifier.weight(1f))
-        Text(
-            operation.price.toString(),
-            style = MaterialTheme.typography.bodyLarge,
-        )
     }
 }
 
@@ -428,16 +392,24 @@ private fun BotPreview() {
                 result = null,
                 operations = listOf(
                     Operation(
-                        type = OrderType.SELL, asset = asset, price = 18.19, date = "nullam"
+                        type = OrderType.SELL, asset = asset, price = 18.19, date = "nullam",
+                        size = 9403,
+                        pnlValue = 2.3,
                     ),
                     Operation(
-                        type = OrderType.SELL, asset = asset, price = 18.19, date = "nullam"
+                        type = OrderType.SELL, asset = asset, price = 18.19, date = "nullam",
+                        size = 9403,
+                        pnlValue = 2.3,
                     ),
                     Operation(
-                        type = OrderType.BUY, asset = asset, price = 18.19, date = "nullam"
+                        type = OrderType.BUY, asset = asset, price = 18.19, date = "nullam",
+                        size = 9403,
+                        pnlValue = 2.3,
                     ),
                     Operation(
-                        type = OrderType.BUY, asset = asset, price = 18.19, date = "nullam"
+                        type = OrderType.BUY, asset = asset, price = 18.19, date = "nullam",
+                        size = 9403,
+                        pnlValue = 2.3,
                     ),
                 ),
                 assets = listOf(asset, asset, asset, asset)

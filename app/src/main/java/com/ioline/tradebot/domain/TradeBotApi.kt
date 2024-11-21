@@ -19,7 +19,7 @@ interface TradeBotApi {
     @POST("/tradeBot/createBot")
     suspend fun createBot(@Body bot: Bot): Response<Bot>
 
-    @POST("/run/{id}")
+    @POST("/tradeBot/run/{id}")
     suspend fun runBot(@Path("id") id: String): Response<HistoricalResult>
 
     @GET("/tradeBot/allBots")

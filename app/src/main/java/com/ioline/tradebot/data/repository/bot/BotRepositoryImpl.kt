@@ -1,6 +1,7 @@
 package com.ioline.tradebot.data.repository.bot
 
 import com.ioline.tradebot.data.models.Bot
+import com.ioline.tradebot.data.models.HistoricalResult
 import com.ioline.tradebot.data.source.local.LocalBotDataSource
 import com.ioline.tradebot.data.source.remote.RemoteBotDataSource
 import kotlinx.coroutines.flow.Flow
@@ -49,7 +50,7 @@ class BotRepositoryImpl @Inject constructor(
         localDataSource.setBots(bots)
     }
 
-    override suspend fun runBot(botId: String): List<Double> {
+    override suspend fun runBot(botId: String): HistoricalResult? {
         return remoteDataSource.runBot(botId)
     }
 }

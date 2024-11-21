@@ -1,6 +1,7 @@
 package com.ioline.tradebot.data.repository.bot
 
 import com.ioline.tradebot.data.models.Bot
+import com.ioline.tradebot.data.models.HistoricalResult
 import kotlinx.coroutines.flow.Flow
 
 interface BotRepository {
@@ -16,5 +17,5 @@ interface BotRepository {
     suspend fun changeBotStatus(botId: String, isActive: Boolean): Bot?
     suspend fun refreshBots()
 
-    suspend fun runBot(botId: String): List<Double>
+    suspend fun runBot(botId: String): HistoricalResult?
 }

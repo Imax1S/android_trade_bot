@@ -1,13 +1,14 @@
 package com.ioline.tradebot.features.bot.overview.presenation
 
 import com.ioline.tradebot.data.models.Bot
+import com.ioline.tradebot.data.models.HistoricalResult
 
 internal sealed class BotOverviewEvent {
     sealed class Domain : BotOverviewEvent() {
         data class LoadData(val bot: Bot) : Domain()
         data class UpdateBot(val bot: Bot) : Domain()
         data class Error(val error: String) : Domain()
-        data class LoadRunResult(val profitData: List<Double>) : Domain()
+        data class LoadRunResult(val historicalResult: HistoricalResult?) : Domain()
     }
 
     sealed class Ui : BotOverviewEvent() {

@@ -20,7 +20,7 @@ internal object BotOverviewReducer :
     override fun Result.ui(event: Ui) = when (event) {
         is Ui.System.Init -> {
             state {
-                copy()
+                copy(operations = bot?.operations ?: emptyList())
             }
             commands {
                 +Command.Init(event.botId)
@@ -68,7 +68,12 @@ internal object BotOverviewReducer :
             copy(bot = event.bot)
         }
         is Domain.LoadRunResult -> state {
-            copy(runData = event.profitData, dataForSelectedPeriod = event.profitData)
+            copy(
+                runData = event.historicalResult?.history ?: emptyList(),
+                dataForSelectedPeriod = event.historicalResult?.history ?: emptyList(),
+                yield = event.historicalResult?.yield ?: 0.0,
+                operations = event.historicalResult?.operations ?: emptyList()
+            )
         }
     }
 

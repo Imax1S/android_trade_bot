@@ -40,60 +40,80 @@ val mockOperations = listOf(
         type = OrderType.SELL,
         asset = mockInstruments[0],
         price = 1968.89,
-        date = "2024-11-19"
+        date = "2024-11-19",
+        size = 9403,
+        pnlValue = 2.3,
     ),
     Operation(
         type = OrderType.SELL,
         asset = mockInstruments[2],
         price = 4365.52,
-        date = "2024-11-10"
+        date = "2024-11-10",
+        size = 9403,
+        pnlValue = 2.3,
     ),
     Operation(
         type = OrderType.SELL,
         asset = mockInstruments[1],
         price = 1413.71,
-        date = "2024-11-06"
+        date = "2024-11-06",
+        size = 9403,
+        pnlValue = 2.3,
     ),
     Operation(
         type = OrderType.SELL,
         asset = mockInstruments[3],
         price = 1778.08,
-        date = "2024-11-17"
+        date = "2024-11-17",
+        size = 9403,
+        pnlValue = 2.3,
     ),
     Operation(
         type = OrderType.SELL,
         asset = mockInstruments[5],
         price = 2786.24,
-        date = "2024-11-05"
+        date = "2024-11-05",
+        size = 9403,
+        pnlValue = 2.3,
     ),
     Operation(
         type = OrderType.BUY,
         asset = mockInstruments[1],
         price = 719.86,
-        date = "2024-10-23"
+        date = "2024-10-23",
+        size = 9403,
+        pnlValue = 2.3,
     ),
     Operation(
         type = OrderType.SELL,
         asset = mockInstruments[4],
         price = 1853.42,
-        date = "2024-11-17"
+        date = "2024-11-17",
+        size = 9403,
+        pnlValue = 2.3,
     ),
     Operation(
         type = OrderType.SELL,
         asset = mockInstruments[2],
         price = 2433.08,
-        date = "2024-11-16"
+        date = "2024-11-16",
+        size = 9403,
+        pnlValue = 2.3,
     ),
     Operation(
         type = OrderType.SELL,
         asset = mockInstruments[1],
         price = 1967.27,
-        date = "2024-11-01"
+        date = "2024-11-01",
+        size = 9403,
+        pnlValue = 2.3,
     ),
     Operation(
         type = OrderType.BUY,
         asset = mockInstruments[0],
         price = 3036.49,
-        date = "2024-10-30"
+        date = "2024-10-30",
+        size = 9403,
+        pnlValue = 2.3,
     )
 )
