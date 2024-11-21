@@ -6,6 +6,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.21"
     id("kotlin-parcelize")
     kotlin("kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
