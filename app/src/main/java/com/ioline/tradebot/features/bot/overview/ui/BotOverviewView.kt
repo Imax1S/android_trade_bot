@@ -17,12 +17,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -55,13 +57,30 @@ internal fun BotOverviewView(state: BotReviewState, onEvent: (BotOverviewEvent) 
     Scaffold(
         floatingActionButton = {
             Row {
-                FloatingActionButton(onClick = {}) {
-                    ActionButton(isBotRunning = false, onActionClick = {})
+                if (state.bot?.marketEnvironment != MarketEnvironment.HISTORICAL_DATA && !state.inEditMode) {
+                    FloatingActionButton(onClick = {}) {
+                        ActionButton(isBotRunning = false, onActionClick = {})
+                    }
                 }
                 Spacer(Modifier.size(16.dp))
                 FloatingActionButton(onClick = {
                 }) {
-                    Icon(Icons.Default.Edit, stringResource(R.string.add_a_bot))
+                    if (state.inEditMode) {
+                        Icon(Icons.Default.Done,
+                            "Done",
+                            modifier = Modifier.clickable {
+                                onEvent(BotOverviewEvent.Ui.Click.SaveChanges)
+                            }
+                        )
+                    } else {
+                        Icon(
+                            Icons.Default.Edit,
+                            "Edit bot",
+                            modifier = Modifier.clickable {
+                                onEvent(BotOverviewEvent.Ui.Click.EnterToEditMode)
+                            }
+                        )
+                    }
                 }
             }
         }
@@ -73,12 +92,23 @@ internal fun BotOverviewView(state: BotReviewState, onEvent: (BotOverviewEvent) 
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             item {
-                BotHeader(name = state.bot?.name ?: "", description = state.bot?.description ?: "")
+                if (state.inEditMode) {
+                    BotHeaderInEditMode(
+                        name = state.bot?.name ?: "",
+                        description = state.bot?.description ?: "",
+                        onEvent
+                    )
+                } else {
+                    BotHeader(
+                        name = state.bot?.name ?: "",
+                        description = state.bot?.description ?: ""
+                    )
+                }
             }
             item {
                 BotPerformanceGraph(
                     state,
-                    onEvent = { onEvent(it) }
+                    onEvent = onEvent
                 )
             }
             item {
@@ -93,8 +123,7 @@ internal fun BotOverviewView(state: BotReviewState, onEvent: (BotOverviewEvent) 
 
             item {
                 ExpandableLastDeals(
-                    operations = state.bot?.operations ?: emptyList(),
-                    onViewFullHistoryClick = { /* Переход на полную историю сделок */ }
+                    operations = state.bot?.operations ?: emptyList()
                 )
             }
 
@@ -120,9 +149,38 @@ private fun getStrategyDescription(selectedStrategy: StrategyType) =
 
 @Composable
 fun BotHeader(name: String, description: String) {
+    Spacer(Modifier.size(16.dp))
     Column(Modifier.padding(horizontal = 16.dp)) {
         Text(text = name, style = MaterialTheme.typography.headlineLarge)
         Text(text = description, style = MaterialTheme.typography.bodyLarge)
+    }
+}
+
+@Composable
+internal fun BotHeaderInEditMode(
+    name: String,
+    description: String,
+    onEvent: (BotOverviewEvent) -> Unit
+) {
+    Spacer(Modifier.size(16.dp))
+    Column(Modifier.padding(horizontal = 8.dp)) {
+        OutlinedTextField(
+            value = name,
+            onValueChange = {
+                onEvent(BotOverviewEvent.Ui.Click.ChangeBotName(it))
+            },
+            label = { Text(stringResource(R.string.bots_name_label)) },
+            modifier = Modifier.fillMaxWidth(),
+        )
+        Spacer(Modifier.size(8.dp))
+        OutlinedTextField(
+            value = description,
+            onValueChange = {
+                onEvent(BotOverviewEvent.Ui.Click.ChangeBotDescription(it))
+            },
+            label = { Text(stringResource(R.string.bot_description_label)) },
+            modifier = Modifier.fillMaxWidth(),
+        )
     }
 }
 
@@ -151,7 +209,7 @@ fun StrategyBanner(strategyName: String, strategyDescription: String, onStrategy
 private const val AMOUNT_OPERATIONS_TO_SHOW = 3
 
 @Composable
-fun ExpandableLastDeals(operations: List<Operation>, onViewFullHistoryClick: () -> Unit) {
+fun ExpandableLastDeals(operations: List<Operation>) {
     var isExpanded by remember { mutableStateOf(false) }
     Card(
         modifier = Modifier

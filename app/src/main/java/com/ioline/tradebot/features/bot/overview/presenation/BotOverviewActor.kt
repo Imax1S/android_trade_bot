@@ -27,6 +27,10 @@ internal class BotOverviewActor @Inject constructor(
                         }
                     }
             }
+            is BotReviewCommand.RunBotOnHistoricalData -> {
+                val result = botRepository.runBot(command.botId)
+                emit(Domain.LoadRunResult(result))
+            }
         }
     }
 }

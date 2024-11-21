@@ -1,18 +1,20 @@
 package com.ioline.tradebot.features.bot.overview.ui
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,9 +22,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ioline.tradebot.R
 import com.ioline.tradebot.data.models.Bot
 import com.ioline.tradebot.data.models.MarketEnvironment
 import com.ioline.tradebot.data.models.OperationMode
@@ -34,6 +37,8 @@ import com.patrykandpatrick.vico.compose.cartesian.axis.rememberStart
 import com.patrykandpatrick.vico.compose.cartesian.layer.rememberLineCartesianLayer
 import com.patrykandpatrick.vico.compose.cartesian.marker.rememberDefaultCartesianMarker
 import com.patrykandpatrick.vico.compose.cartesian.rememberCartesianChart
+import com.patrykandpatrick.vico.compose.cartesian.rememberVicoZoomState
+import com.patrykandpatrick.vico.core.cartesian.Zoom
 import com.patrykandpatrick.vico.core.cartesian.axis.HorizontalAxis
 import com.patrykandpatrick.vico.core.cartesian.axis.VerticalAxis
 import com.patrykandpatrick.vico.core.cartesian.data.CartesianChartModelProducer
@@ -46,7 +51,15 @@ internal fun BotPerformanceGraph(
     state: BotReviewState,
     onEvent: (Event) -> Unit
 ) {
-    Box(modifier = Modifier.wrapContentSize()) {
+    Card(
+        modifier = Modifier
+            .heightIn(min = 300.dp, max = 300.dp)
+            .fillMaxWidth()
+            .padding(horizontal = 8.dp),
+        colors = CardDefaults.cardColors().copy(
+            containerColor = colorResource(R.color.bot_card_background),
+        )
+    ) {
         if (state.dataForSelectedPeriod.isEmpty()) {
             EmptyChart(
                 state.bot?.marketEnvironment ?: MarketEnvironment.HISTORICAL_DATA,
@@ -64,18 +77,20 @@ private fun EmptyChart(
     onEvent: (Event) -> Unit
 ) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
+            .padding(8.dp)
             .fillMaxWidth()
-            .background(Color.Gray)
+            .fillMaxHeight(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-        Text("Нет данных для отображения")
+        Text("No data to show")
         Spacer(modifier = Modifier.height(8.dp))
         if (environment == MarketEnvironment.HISTORICAL_DATA) {
             Button(onClick = {
                 onEvent(Event.Ui.Click.MakeHistoricalLaunch)
             }) {
-                Text("Запустить бота на исторических данных")
+                Text("Run the bot on historical data")
             }
         }
     }
@@ -105,6 +120,13 @@ internal fun BotPerformanceChart(state: BotReviewState, onEvent: (Event) -> Unit
                 bottomAxis = HorizontalAxis.rememberBottom(),
             ),
             modelProducer,
+            zoomState = rememberVicoZoomState(
+                zoomEnabled = true,
+                initialZoom = remember {
+                    Zoom.min(
+                        Zoom.static(), Zoom.Content
+                    )
+                }),
         )
         Spacer(Modifier.size(8.dp))
         ChartPeriods(state.selectedPeriod) { period ->
@@ -171,5 +193,25 @@ private fun BotPerformanceGraphPreview() {
             1.4,
             2.3
         )
+    ), onEvent = {})
+}
+
+@Preview
+@Composable
+private fun BotPerformanceEmpty() {
+    BotPerformanceGraph(state = BotReviewState(
+        bot = Bot(
+            id = "principes",
+            name = "Agnes Alvarez",
+            description = "graeco",
+            strategy = null,
+            isActive = false,
+            instrumentsFIGI = listOf(),
+            marketEnvironment = MarketEnvironment.HISTORICAL_DATA,
+            timeSettings = null,
+            mode = OperationMode.MANUAL,
+            result = null
+        ),
+        selectedPeriod = ChartPeriod.ALL,
     ), onEvent = {})
 }

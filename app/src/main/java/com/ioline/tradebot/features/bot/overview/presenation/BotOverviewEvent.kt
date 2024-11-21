@@ -7,6 +7,7 @@ internal sealed class BotOverviewEvent {
         data class LoadData(val bot: Bot) : Domain()
         data class UpdateBot(val bot: Bot) : Domain()
         data class Error(val error: String) : Domain()
+        data class LoadRunResult(val profitData: List<Double>) : Domain()
     }
 
     sealed class Ui : BotOverviewEvent() {
@@ -20,6 +21,11 @@ internal sealed class BotOverviewEvent {
             data class SelectChartPeriod(val period: ChartPeriod) : Ui()
             data object Back : Ui()
             data object MakeHistoricalLaunch : Ui()
+            data object SaveChanges : Ui()
+            data object EnterToEditMode : Ui()
+
+            data class ChangeBotName(val name: String) : Ui()
+            data class ChangeBotDescription(val description: String) : Ui()
         }
     }
 }

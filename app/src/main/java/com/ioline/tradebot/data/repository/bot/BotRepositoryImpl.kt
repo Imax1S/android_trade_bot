@@ -48,4 +48,8 @@ class BotRepositoryImpl @Inject constructor(
         val bots = remoteDataSource.getBots()
         localDataSource.setBots(bots)
     }
+
+    override suspend fun runBot(botId: String): List<Double> {
+        return remoteDataSource.runBot(botId)
+    }
 }

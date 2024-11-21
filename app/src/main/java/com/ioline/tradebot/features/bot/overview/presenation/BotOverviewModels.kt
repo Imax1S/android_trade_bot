@@ -5,7 +5,9 @@ import com.ioline.tradebot.data.models.Bot
 internal data class BotReviewState(
     val bot: Bot? = null,
     val selectedPeriod: ChartPeriod = ChartPeriod.ALL,
-    val dataForSelectedPeriod: List<Double> = emptyList()
+    val dataForSelectedPeriod: List<Double> = emptyList(),
+    val runData: List<Double> = emptyList(),
+    val inEditMode: Boolean = false,
 )
 
 enum class ChartPeriod(name: String) {
@@ -24,4 +26,5 @@ internal sealed class BotReviewEffect {
 
 internal sealed class BotReviewCommand {
     data class Init(val botId: String) : BotReviewCommand()
+    data class RunBotOnHistoricalData(val botId: String) : BotReviewCommand()
 }

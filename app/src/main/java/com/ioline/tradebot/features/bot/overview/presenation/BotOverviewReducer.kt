@@ -26,14 +26,6 @@ internal object BotOverviewReducer :
                 +Command.Init(event.botId)
             }
         }
-
-//            state {
-//            copy(
-//                dataForSelectedPeriod = getDataForSelectedPeriod(
-//                    state.bot.result?.history ?: emptyList(), state.selectedPeriod
-//                ),
-//            )
-//        }
         Ui.Click.Back -> effects {
             +Effect.Close
         }
@@ -45,11 +37,24 @@ internal object BotOverviewReducer :
             copy(
                 selectedPeriod = event.period,
                 dataForSelectedPeriod = getDataForSelectedPeriod(
-                    state.bot?.result?.history ?: emptyList(), event.period
+                    state.runData,
+                    event.period
                 )
             )
         }
-        Ui.Click.MakeHistoricalLaunch -> TODO()
+        Ui.Click.MakeHistoricalLaunch -> {
+            commands { +state.bot?.id?.let { Command.RunBotOnHistoricalData(it) } }
+        }
+        Ui.Click.EnterToEditMode -> state { copy(inEditMode = true) }
+        Ui.Click.SaveChanges -> state { copy(inEditMode = false) }
+        is Ui.Click.ChangeBotDescription -> {
+            val updatedBot = state.bot?.copy(description = event.description)
+            state { copy(bot = updatedBot) }
+        }
+        is Ui.Click.ChangeBotName -> {
+            val updatedBot = state.bot?.copy(name = event.name)
+            state { copy(bot = updatedBot) }
+        }
     }
 
     override fun Result.internal(event: Domain) = when (event) {
@@ -62,6 +67,9 @@ internal object BotOverviewReducer :
         is Domain.UpdateBot -> state {
             copy(bot = event.bot)
         }
+        is Domain.LoadRunResult -> state {
+            copy(runData = event.profitData, dataForSelectedPeriod = event.profitData)
+        }
     }
 
     private fun getDataForSelectedPeriod(
@@ -70,11 +78,11 @@ internal object BotOverviewReducer :
     ): List<Double> {
         return when (selectedChartPeriod) {
             ALL -> data
-            YEAR -> data.takeLast(30)
-            SIX_MONTHS -> data.takeLast(20)
-            MONTH -> data.takeLast(10)
-            WEEK -> data.takeLast(5)
-            DAY -> data.takeLast(3)
+            YEAR -> data.takeLast(360)
+            SIX_MONTHS -> data.takeLast(180)
+            MONTH -> data.takeLast(30)
+            WEEK -> data.takeLast(14)
+            DAY -> data.takeLast(12)
         }
     }
 }
