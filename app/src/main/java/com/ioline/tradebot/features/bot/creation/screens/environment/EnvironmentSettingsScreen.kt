@@ -5,11 +5,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import com.ioline.tradebot.data.models.Bot
 import com.ioline.tradebot.data.models.MarketEnvironment
-import com.ioline.tradebot.data.models.OperationMode
+import com.ioline.tradebot.data.repository.bot.BotRepository
 import com.ioline.tradebot.features.bot.creation.screens.environment.presentation.EnvironmentSettingsActor
 import com.ioline.tradebot.features.bot.creation.screens.environment.presentation.EnvironmentSettingsEffect
+import com.ioline.tradebot.features.bot.creation.screens.environment.presentation.EnvironmentSettingsEvent
 import com.ioline.tradebot.features.bot.creation.screens.environment.presentation.EnvironmentSettingsReducer
 import com.ioline.tradebot.features.bot.creation.screens.environment.presentation.EnvironmentSettingsState
 import com.ioline.tradebot.features.bot.creation.screens.environment.ui.EnvironmentSettingsView
@@ -19,24 +19,17 @@ import vivid.money.elmslie.coroutines.effects
 import vivid.money.elmslie.coroutines.states
 
 @Composable
-fun EnvironmentSettingsScreen(navigate: (NavItem) -> Unit) {
+fun EnvironmentSettingsScreen(
+    botId: String,
+    botRepository: BotRepository,
+    navigate: (NavItem) -> Unit
+) {
     val initialState = remember {
         EnvironmentSettingsState(
-            type = MarketEnvironment.HISTORICAL_DATA, bot = Bot(
-                id = "dolorum",
-                name = "Eve O'Neil",
-                description = "oratio",
-                strategy = null,
-                isActive = false,
-                instrumentsFIGI = listOf(),
-                marketEnvironment = MarketEnvironment.HISTORICAL_DATA,
-                timeSettings = null,
-                mode = OperationMode.MANUAL,
-                result = null
-            ), startDate = null,
+            type = MarketEnvironment.HISTORICAL_DATA,
+            startDate = null,
             endDate = null,
             token = "persecuti"
-
         )
     }
 
@@ -44,7 +37,7 @@ fun EnvironmentSettingsScreen(navigate: (NavItem) -> Unit) {
         ElmStoreCompat(
             initialState = initialState,
             reducer = EnvironmentSettingsReducer,
-            actor = EnvironmentSettingsActor()
+            actor = EnvironmentSettingsActor(botRepository)
         )
     }
 
@@ -62,6 +55,10 @@ fun EnvironmentSettingsScreen(navigate: (NavItem) -> Unit) {
                 EnvironmentSettingsEffect.ShowInstruction -> TODO()
             }
         }
+    }
+
+    LaunchedEffect(null) {
+        store.accept(EnvironmentSettingsEvent.Ui.System.Init(botId = botId))
     }
 
     EnvironmentSettingsView(state) {

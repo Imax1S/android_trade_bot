@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import com.ioline.tradebot.data.models.MarketEnvironment
 import com.ioline.tradebot.data.models.OperationMode
+import com.ioline.tradebot.data.repository.bot.BotRepository
 import com.ioline.tradebot.data.repository.instrument.InstrumentRepository
 import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationActor
 import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationEffect
@@ -21,6 +22,7 @@ import vivid.money.elmslie.coroutines.states
 @Composable
 fun BotCreationScreen(
     instrumentRepository: InstrumentRepository,
+    botRepository: BotRepository,
     navigate: (NavItem.StrategySelection) -> Unit
 ) {
     val initState = BotCreationState(
@@ -38,7 +40,7 @@ fun BotCreationScreen(
         ElmStoreCompat(
             initialState = initState,
             reducer = BotCreationReducer(),
-            actor = BotCreationActor(instrumentRepository)
+            actor = BotCreationActor(instrumentRepository, botRepository)
         )
     }
 
@@ -53,7 +55,7 @@ fun BotCreationScreen(
             when (it) {
                 BotCreationEffect.Close -> TODO()
                 is BotCreationEffect.OpenStrategySelection ->
-                    navigate(NavItem.StrategySelection(it.bot.id))
+                    navigate(NavItem.StrategySelection(it.botId))
             }
         }
     }

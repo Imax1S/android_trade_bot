@@ -16,7 +16,7 @@ interface TradeBotApi {
     @GET("/getPrice/{id}")
     suspend fun getPrice(@Path("id") id: String): Response<String>
 
-    @POST("/createBot")
+    @POST("/tradeBot/createBot")
     suspend fun createBot(@Body bot: Bot): Response<Bot>
 
     @POST("/run/{id}")

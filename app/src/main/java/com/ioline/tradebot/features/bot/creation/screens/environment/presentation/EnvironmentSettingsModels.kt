@@ -6,7 +6,7 @@ import java.util.Date
 
 internal data class EnvironmentSettingsState(
     val type: MarketEnvironment,
-    val bot: Bot,
+    val bot: Bot? = null,
     val startDate: Date? = null,
     val endDate: Date? = null,
     val token: String
@@ -19,6 +19,8 @@ internal sealed class EnvironmentSettingsEffect {
 }
 
 internal sealed class EnvironmentSettingsCommand {
+    data class LoadData(val botId: String) : EnvironmentSettingsCommand()
     data class ValidateToken(val token: String) : EnvironmentSettingsCommand()
     data class ValidateDate(val date: Date) : EnvironmentSettingsCommand()
+    data class UpdateBotEnvironment(val bot: Bot) : EnvironmentSettingsCommand()
 }

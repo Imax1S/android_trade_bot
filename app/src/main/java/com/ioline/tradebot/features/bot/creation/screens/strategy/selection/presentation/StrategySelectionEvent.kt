@@ -3,7 +3,9 @@ package com.ioline.tradebot.features.bot.creation.screens.strategy.selection.pre
 import com.ioline.tradebot.data.models.strategy.StrategyType
 
 internal sealed class StrategySelectionEvent {
-    sealed class Domain : StrategySelectionEvent() {}
+    sealed class Domain : StrategySelectionEvent() {
+        data class Next(val botId: String) : Domain()
+    }
 
     sealed class Ui : StrategySelectionEvent() {
         object System {

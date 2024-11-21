@@ -1,5 +1,6 @@
 package com.ioline.tradebot.features.bot.creation.screens.environment.presentation
 
+import com.ioline.tradebot.data.models.Bot
 import java.util.Date
 
 internal sealed class EnvironmentSettingsEvent {
@@ -7,11 +8,13 @@ internal sealed class EnvironmentSettingsEvent {
         data object ShowTokenIsCorrect : Internal()
         data object ShowTokenIsWrong : Internal()
         data object ShowDateRangeIsIncorrect : Internal()
+        data class LoadedData(val bot: Bot?) : Internal()
+        data object CloseBotCreation : Internal()
     }
 
     sealed class Ui : EnvironmentSettingsEvent() {
         object System {
-            data object Init : Ui()
+            data class Init(val botId: String) : Ui()
         }
 
         object Click {

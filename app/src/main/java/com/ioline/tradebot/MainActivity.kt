@@ -65,14 +65,18 @@ class MainActivity : ComponentActivity() {
             }
             composable<NavItem.BotCreation> {
                 BotCreationScreen(
-                    instrumentRepository = instrumentRepository
+                    instrumentRepository = instrumentRepository,
+                    botRepository = botRepository
                 ) { screenName ->
                     navController.navigate(screenName)
                 }
             }
             composable<NavItem.StrategySelection> { argument ->
                 val botId = argument.toRoute<NavItem.StrategySelection>().botId
-                StrategySelectionScreen(botId) { screenName ->
+                StrategySelectionScreen(
+                    botRepository = botRepository,
+                    botId
+                ) { screenName ->
                     navController.navigate(screenName)
                 }
             }
@@ -104,10 +108,12 @@ class MainActivity : ComponentActivity() {
                     navController.navigate(screenName)
                 }
             }
-            composable(NavItem.EnvironmentSettings.route) {
-                EnvironmentSettingsScreen { screenName ->
-                    navController.navigate(screenName.route) {
-                        popUpTo(screenName.route) { inclusive = true }
+            composable<NavItem.EnvironmentSettings> { argument ->
+                val botId = argument.toRoute<NavItem.StrategySelection>().botId
+
+                EnvironmentSettingsScreen(botId, botRepository) { screenName ->
+                    navController.navigate(screenName) {
+                        popUpTo(screenName) { inclusive = true }
                     }
                 }
             }

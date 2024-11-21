@@ -13,7 +13,9 @@ sealed class NavItem(val route: String) {
 
     @Serializable
     data class StrategySelection(val botId: String) : NavItem("strategy_selection")
-    data object EnvironmentSettings : NavItem("environment_settings")
+
+    @Serializable
+    data class EnvironmentSettings(val botId: String) : NavItem("environment_settings")
 
     @Serializable
     data class BotReview(val botId: String) : NavItem("bot_review")

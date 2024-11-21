@@ -20,8 +20,8 @@ internal class BotCreationReducer :
         Ui.System.Init -> TODO()
         Ui.Click.Next -> {
             if (state.name.isNotEmpty() && state.selectedInstruments.isNotEmpty()) {
-                effects {
-                    +Effect.OpenStrategySelection(
+                commands {
+                    +Command.SaveBotLocally(
                         Bot(
                             id = UUID.randomUUID().toString(),
                             name = state.name,
@@ -96,6 +96,11 @@ internal class BotCreationReducer :
                     searchInstruments = event.searchResult.data
                 )
             }
+        }
+        is Domain.NextPage -> effects {
+            +Effect.OpenStrategySelection(
+                event.botId
+            )
         }
     }
 }

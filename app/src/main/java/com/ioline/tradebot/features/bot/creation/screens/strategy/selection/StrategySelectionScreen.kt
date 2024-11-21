@@ -5,9 +5,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.tooling.preview.Preview
 import com.ioline.tradebot.data.models.strategy.Strategy
 import com.ioline.tradebot.data.models.strategy.StrategyType
+import com.ioline.tradebot.data.repository.bot.BotRepository
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionActor
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionReducer
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionState
@@ -20,7 +20,11 @@ import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.pres
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionEvent as Event
 
 @Composable
-fun StrategySelectionScreen(botId: String, navigateTo: (String) -> Unit) {
+fun StrategySelectionScreen(
+    botRepository: BotRepository,
+    botId: String,
+    navigateTo: (NavItem) -> Unit
+) {
     val initialState = StrategySelectionState(
         botId = botId,
         strategies = StrategyType.entries.map {
@@ -32,7 +36,7 @@ fun StrategySelectionScreen(botId: String, navigateTo: (String) -> Unit) {
         ElmStoreCompat(
             initialState = initialState,
             reducer = StrategySelectionReducer,
-            actor = StrategySelectionActor()
+            actor = StrategySelectionActor(botRepository)
         )
     }
 
@@ -46,7 +50,7 @@ fun StrategySelectionScreen(botId: String, navigateTo: (String) -> Unit) {
         LaunchedEffect(it) {
             when (it) {
                 Effect.OpenPreviousScreen -> TODO()
-                is Effect.Next -> navigateTo(NavItem.EnvironmentSettings.route)
+                is Effect.Next -> navigateTo(NavItem.EnvironmentSettings(it.botId))
                 is Effect.ShowStrategyHint -> TODO()
             }
         }
@@ -59,10 +63,4 @@ fun StrategySelectionScreen(botId: String, navigateTo: (String) -> Unit) {
     StrategySelectionView(state) { event ->
         store.accept(event)
     }
-}
-
-@Preview
-@Composable
-private fun StrategySelectionScreenPreview() {
-    StrategySelectionScreen("botId") { }
 }

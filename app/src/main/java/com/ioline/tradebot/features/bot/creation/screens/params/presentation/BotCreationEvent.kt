@@ -10,6 +10,8 @@ internal sealed class BotCreationEvent {
         ) : Domain()
 
         data object SearchInstrumentError : Domain()
+
+        data class NextPage(val botId: String) : Domain()
     }
 
     sealed class Ui : BotCreationEvent() {

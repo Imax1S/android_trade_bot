@@ -17,8 +17,14 @@ class RemoteBotDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun addBot(bot: Bot): Bot {
-        TODO("Not yet implemented")
+    override suspend fun addBot(bot: Bot): Bot? {
+        val result = tradeBotApi.createBot(bot)
+
+        return if (result.isSuccessful) {
+            result.body()
+        } else {
+            null
+        }
     }
 
     override suspend fun getBot(id: String): Bot? {

@@ -6,12 +6,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class LocalBotDataSourceImpl : LocalBotDataSource {
-    override fun getBot(): Flow<Bot> = flow {
-        emit(botsMock.first())
-    }
+    override fun getBot(id: String): Bot? = botsMock.find { it.id == id }
 
     override fun getBots(): Flow<List<Bot>> = flow {
         emit(botsMock)
+    }
+
+    override suspend fun updateBot(bot: Bot) {
+        val botIndex = botsMock.indexOfFirst { it.id == bot.id }
+        botsMock[botIndex] = bot
     }
 
     override suspend fun setBots(bots: List<Bot>) {
