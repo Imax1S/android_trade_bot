@@ -62,7 +62,7 @@ internal fun BotCreationView(state: BotCreationState, onEvent: (BotCreationEvent
                 .padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            BotNameField(state.name, onEvent)
+            BotNameField(state.name, state.errorBotNameValidation, onEvent)
             BotDescriptionField(state.description, onEvent)
 
             DropdownField(
@@ -102,14 +102,15 @@ internal fun BotCreationView(state: BotCreationState, onEvent: (BotCreationEvent
 }
 
 @Composable
-internal fun BotNameField(name: String, onEvent: (BotCreationEvent) -> Unit) {
+internal fun BotNameField(name: String, isError: Boolean, onEvent: (BotCreationEvent) -> Unit) {
     OutlinedTextField(
         value = name,
         onValueChange = {
             onEvent(BotCreationEvent.Ui.ChangeBotName(it))
         },
         label = { Text(stringResource(R.string.bots_name_label)) },
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        isError = isError
     )
 }
 

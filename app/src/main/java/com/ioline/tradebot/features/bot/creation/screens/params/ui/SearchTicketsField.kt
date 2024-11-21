@@ -44,7 +44,7 @@ internal fun SearchTicketsField(state: BotCreationState, onEvent: (BotCreationEv
     var searchText by remember { mutableStateOf("") }
     val suggestions = state.searchInstruments.map { it.ticker }
 
-    Column(modifier = Modifier.background(Color.White)) {
+    Column() {
         OutlinedTextField(
             value = searchText,
             onValueChange = {
@@ -52,7 +52,8 @@ internal fun SearchTicketsField(state: BotCreationState, onEvent: (BotCreationEv
                 onEvent(BotCreationEvent.Ui.Click.SearchInstrument(it))
             },
             label = { Text(stringResource(R.string.search_tickets_label)) },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            isError = state.errorSelectedTickersValidation
         )
         Box(
             modifier = Modifier

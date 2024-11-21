@@ -18,18 +18,29 @@ internal class BotCreationReducer :
     ) {
     override fun Result.ui(event: Ui) = when (event) {
         Ui.System.Init -> TODO()
-        Ui.Click.Next -> effects {
-            +Effect.OpenStrategySelection(
-                Bot(
-                    id = UUID.randomUUID().toString(),
-                    name = state.name,
-                    description = state.description,
-                    isActive = false,
-                    instrumentsFIGI = state.selectedInstruments.map { it.figi },
-                    marketEnvironment = state.marketEnvironment,
-                    mode = state.mode
-                )
-            )
+        Ui.Click.Next -> {
+            if (state.name.isNotEmpty() && state.selectedInstruments.isNotEmpty()) {
+                effects {
+                    +Effect.OpenStrategySelection(
+                        Bot(
+                            id = UUID.randomUUID().toString(),
+                            name = state.name,
+                            description = state.description,
+                            isActive = false,
+                            instrumentsFIGI = state.selectedInstruments.map { it.figi },
+                            marketEnvironment = state.marketEnvironment,
+                            mode = state.mode
+                        )
+                    )
+                }
+            } else {
+                state {
+                    copy(
+                        errorBotNameValidation = state.name.isEmpty(),
+                        errorSelectedTickersValidation = state.selectedInstruments.isEmpty()
+                    )
+                }
+            }
         }
         is Ui.Click.SearchInstrument -> commands {
             state { copy(searchInstrumentsLoading = true) }
@@ -38,11 +49,11 @@ internal class BotCreationReducer :
         Ui.Click.RetrySearchInstrument -> TODO()
 
         is Ui.Click.SelectInstrument -> state {
-            copy(
-                selectedInstruments = (selectedInstruments +
-                        searchInstruments.find { it.ticker == event.ticker })
-                    .filterNotNull()
-            )
+            val newSelectedInstruments = (selectedInstruments + searchInstruments.find {
+                it.ticker == event.ticker
+            }).filterNotNull().distinct()
+
+            copy(selectedInstruments = newSelectedInstruments)
         }
         is Ui.Click.RemoveInstrument -> state {
             copy(

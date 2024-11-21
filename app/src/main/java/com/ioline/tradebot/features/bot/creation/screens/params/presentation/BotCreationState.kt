@@ -12,5 +12,7 @@ internal data class BotCreationState(
     val searchInstruments: List<Instrument> = emptyList(),
     val selectedInstruments: List<Instrument> = emptyList(),
     val searchInstrumentsLoading: Boolean = false,
-    val searchInstrumentError: Boolean = false
+    val searchInstrumentError: Boolean = false,
+    val errorBotNameValidation: Boolean = false,
+    val errorSelectedTickersValidation: Boolean = false,
 )
