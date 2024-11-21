@@ -40,7 +40,7 @@ internal class HomeReducer :
             }
 
             is Event.Domain.LoadData -> state {
-                copy(data = event.bots.toMutableList(), isLoading = false)
+                copy(data = event.bots.toMutableList(), isLoading = false, isError = false)
             }
             is HomeEvent.Domain.UpdateBot -> state {
                 val updatedBots: MutableList<Bot> = state.data.map { bot ->
