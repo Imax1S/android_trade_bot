@@ -103,7 +103,7 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
-            composable(NavItem.Settings.route) {
+            composable<NavItem.Settings> {
                 SettingsScreen { screenName ->
                     navController.navigate(screenName)
                 }

@@ -10,11 +10,9 @@ class RemoteBotDataSourceImpl @Inject constructor(
 ) : RemoteBotDataSource {
     override suspend fun getBots(): List<Bot> {
         val result = tradeBotApi.getAllBots()
-        return if (result.isSuccessful) {
-            result.body() ?: emptyList()
-        } else {
-            //TODO add error
-            emptyList()
+        return when {
+            result.isSuccessful -> result.body() ?: emptyList()
+            else -> emptyList()
         }
     }
 
