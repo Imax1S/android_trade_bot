@@ -24,6 +24,8 @@ internal sealed class StrategySelectionEvent {
             data class ChangeRSIPeriod(val period: Float) : Ui()
             data class ChangeOverboughtThreshold(val threshold: Float) : Ui()
             data class ChangeOversoldThreshold(val threshold: Float) : Ui()
+            data class ChangeStopLoss(val value: Float) : Ui()
+            data class ChangeStopGrowth(val value: Float) : Ui()
         }
     }
 }

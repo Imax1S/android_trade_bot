@@ -1,4 +1,4 @@
-package com.ioline.tradebot.features.bot.creation.screens.strategy.selection.ui
+package com.ioline.tradebot.features.bot.creation.screens.strategy.selection.ui.visualization
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -48,7 +48,11 @@ internal fun StrategyDemo(
                 ) { onEvent(it) }
             }
             StrategyType.CUSTOM -> {
-
+                StrategyCustomVisualization(
+                    prices = state.randomData,
+                    stopLoss = state.stopLoss,
+                    stopGrowth = state.stopGrowth
+                ) { onEvent(it) }
             }
         }
     }

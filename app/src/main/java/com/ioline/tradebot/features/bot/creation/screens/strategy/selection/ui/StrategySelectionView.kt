@@ -27,6 +27,8 @@ import com.ioline.tradebot.data.models.strategy.Strategy
 import com.ioline.tradebot.data.models.strategy.StrategyType
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionEvent
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionState
+import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.ui.params.StrategyParams
+import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.ui.visualization.StrategyDemo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,7 +39,12 @@ internal fun StrategySelectionView(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.set_up_strategy_title)) },
+                title = {
+                    Text(
+                        stringResource(R.string.select_strategy_title),
+                        style = MaterialTheme.typography.headlineLarge
+                    )
+                },
                 navigationIcon = {
                     IconButton(onClick = { }) {
                         Icon(
@@ -86,7 +93,9 @@ internal fun StrategySelectionView(
                     MAPeriod2 = state.MAPeriod2,
                     rsiPeriod = state.RSIPeriod,
                     oversoldThreshold = state.oversoldThreshold,
-                    overboughtThreshold = state.overboughtThreshold
+                    overboughtThreshold = state.overboughtThreshold,
+                    stopLoss = state.stopLoss,
+                    stopGrowth = state.stopGrowth
                 ) {
                     onEvent(it)
                 }

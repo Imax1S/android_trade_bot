@@ -12,5 +12,7 @@ internal data class StrategySelectionState(
     val MAPeriod2: Int = 0,
     val RSIPeriod: Int = 14,
     val overboughtThreshold: Int = 70,
-    val oversoldThreshold: Int = 30
+    val oversoldThreshold: Int = 30,
+    val stopLoss: Int = 10,
+    val stopGrowth: Int = 10
 )

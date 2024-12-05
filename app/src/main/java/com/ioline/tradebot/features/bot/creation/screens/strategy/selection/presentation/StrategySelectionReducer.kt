@@ -47,6 +47,8 @@ internal object StrategySelectionReducer :
         is Ui.Click.ChangeOverboughtThreshold -> state { copy(overboughtThreshold = event.threshold.toInt()) }
         is Ui.Click.ChangeOversoldThreshold -> state { copy(oversoldThreshold = event.threshold.toInt()) }
         is Ui.Click.ChangeRSIPeriod -> state { copy(RSIPeriod = event.period.toInt()) }
+        is Ui.Click.ChangeStopGrowth -> state { copy(stopGrowth = event.value.toInt()) }
+        is Ui.Click.ChangeStopLoss -> state { copy(stopLoss = event.value.toInt()) }
     }
 
     override fun Result.internal(event: Domain) = when (event) {

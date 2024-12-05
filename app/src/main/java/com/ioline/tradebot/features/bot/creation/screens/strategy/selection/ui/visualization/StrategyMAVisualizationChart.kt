@@ -1,4 +1,4 @@
-package com.ioline.tradebot.features.bot.creation.screens.strategy.selection.ui
+package com.ioline.tradebot.features.bot.creation.screens.strategy.selection.ui.visualization
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionEvent
+import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.ui.YieldText
 import com.patrykandpatrick.vico.compose.cartesian.CartesianChartHost
 import com.patrykandpatrick.vico.compose.cartesian.axis.rememberBottom
 import com.patrykandpatrick.vico.compose.cartesian.axis.rememberStart

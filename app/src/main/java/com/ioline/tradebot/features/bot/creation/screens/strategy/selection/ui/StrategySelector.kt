@@ -9,9 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.ioline.tradebot.R
 import com.ioline.tradebot.data.models.strategy.StrategyType
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionEvent
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionState
@@ -22,10 +20,6 @@ internal fun StrategySelector(
     selectedStrategy: StrategyType,
     onEvent: (StrategySelectionEvent) -> Unit
 ) {
-    Text(
-        stringResource(R.string.select_strategy_title),
-        style = MaterialTheme.typography.headlineLarge
-    )
     Row(
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         modifier = Modifier.fillMaxWidth()
