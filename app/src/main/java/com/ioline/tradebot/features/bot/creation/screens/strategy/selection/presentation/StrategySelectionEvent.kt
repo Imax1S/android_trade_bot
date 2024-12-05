@@ -21,6 +21,9 @@ internal sealed class StrategySelectionEvent {
             data class ChangePeriod2Param(val value: Float) : Ui()
             data object RegenerateRandomData : Ui()
             data class SelectStrategy(val selectedStrategyType: StrategyType) : Ui()
+            data class ChangeRSIPeriod(val period: Float) : Ui()
+            data class ChangeOverboughtThreshold(val threshold: Float) : Ui()
+            data class ChangeOversoldThreshold(val threshold: Float) : Ui()
         }
     }
 }

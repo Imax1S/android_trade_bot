@@ -18,9 +18,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,9 +34,6 @@ internal fun StrategySelectionView(
     state: StrategySelectionState,
     onEvent: (StrategySelectionEvent) -> Unit
 ) {
-    val overboughtThreshold by remember { mutableIntStateOf(70) }
-    val oversoldThreshold by remember { mutableIntStateOf(30) }
-
     Scaffold(
         topBar = {
             TopAppBar(
@@ -87,11 +81,12 @@ internal fun StrategySelectionView(
 
             item {
                 StrategyParams(
-                    state.selectedStrategy,
-                    state.MAPeriod1,
-                    state.MAPeriod2,
-                    oversoldThreshold,
-                    overboughtThreshold
+                    selectedStrategy = state.selectedStrategy,
+                    MAPeriod1 = state.MAPeriod1,
+                    MAPeriod2 = state.MAPeriod2,
+                    rsiPeriod = state.RSIPeriod,
+                    oversoldThreshold = state.oversoldThreshold,
+                    overboughtThreshold = state.overboughtThreshold
                 ) {
                     onEvent(it)
                 }

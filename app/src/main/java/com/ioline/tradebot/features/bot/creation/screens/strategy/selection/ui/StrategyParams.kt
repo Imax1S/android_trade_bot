@@ -14,49 +14,60 @@ import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.pres
 @Composable
 internal fun StrategyParams(
     selectedStrategy: StrategyType,
-    period1: Float,
-    period2: Float,
+    MAPeriod1: Int,
+    MAPeriod2: Int,
+    rsiPeriod: Int,
     oversoldThreshold: Int,
     overboughtThreshold: Int,
     onEvent: (StrategySelectionEvent) -> Unit
 ) {
-    var oversoldThreshold1 = oversoldThreshold
-    var overboughtThreshold1 = overboughtThreshold
     when (selectedStrategy) {
         StrategyType.EMA, StrategyType.MA -> {
-            Text("Period: ${period1.toInt()}", fontSize = 18.sp)
+            Text("Period: $MAPeriod1", fontSize = 18.sp)
             Slider(
-                value = period1,
+                value = MAPeriod1.toFloat(),
                 onValueChange = { onEvent(StrategySelectionEvent.Ui.Click.ChangePeriod1Param(it)) },
                 valueRange = 9f..26f
             )
 
-            Text("Period: ${period2.toInt()}", fontSize = 18.sp)
+            Text("Period: $MAPeriod2", fontSize = 18.sp)
             Slider(
-                value = period2,
+                value = MAPeriod2.toFloat(),
                 onValueChange = { onEvent(StrategySelectionEvent.Ui.Click.ChangePeriod2Param(it)) },
                 valueRange = 26f..50f
             )
         }
         StrategyType.RSI -> {
-            Text("RSI Period: ${period1.toInt()}", fontSize = 18.sp)
+            Text("RSI Period: $rsiPeriod", fontSize = 18.sp)
             Slider(
-                value = oversoldThreshold1.toFloat(),
-                onValueChange = { onEvent(StrategySelectionEvent.Ui.Click.ChangePeriod1Param(it)) },
-                valueRange = 1f..100f
+                value = rsiPeriod.toFloat(),
+                onValueChange = { onEvent(StrategySelectionEvent.Ui.Click.ChangeRSIPeriod(it)) },
+                valueRange = 1f..50f
             )
 
-            Text("Overbought Threshold: $overboughtThreshold1", fontSize = 18.sp)
+            Text("Overbought Threshold: $overboughtThreshold", fontSize = 18.sp)
             Slider(
-                value = overboughtThreshold1.toFloat(),
-                onValueChange = { overboughtThreshold1 = it.toInt() },
+                value = overboughtThreshold.toFloat(),
+                onValueChange = {
+                    onEvent(
+                        StrategySelectionEvent.Ui.Click.ChangeOverboughtThreshold(
+                            it
+                        )
+                    )
+                },
                 valueRange = 50f..100f
             )
 
-            Text("Oversold Threshold: $oversoldThreshold1", fontSize = 18.sp)
+            Text("Oversold Threshold: $oversoldThreshold", fontSize = 18.sp)
             Slider(
-                value = oversoldThreshold1.toFloat(),
-                onValueChange = { oversoldThreshold1 = it.toInt() },
+                value = oversoldThreshold.toFloat(),
+                onValueChange = {
+                    onEvent(
+                        StrategySelectionEvent.Ui.Click.ChangeOversoldThreshold(
+                            it
+                        )
+                    )
+                },
                 valueRange = 0f..50f
             )
         }

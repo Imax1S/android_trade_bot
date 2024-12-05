@@ -1,21 +1,11 @@
 package com.ioline.tradebot.features.bot.creation.screens.strategy.selection.ui
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -62,21 +52,21 @@ private const val TAKE_LAST = 180
 @Composable
 internal fun StrategyMAVisualizationGraph(
     prices: List<Int>,
-    periodForSecondEMA: Float,
+    periodForSecondEMA: Int,
     isExponential: Boolean,
-    periodForFirstEMA: Float,
+    periodForFirstEMA: Int,
     onEvent: (StrategySelectionEvent) -> Unit
 ) {
     val modelProducer = remember { CartesianChartModelProducer() }
     val marker = rememberDefaultCartesianMarker(label = TextComponent())
     val shortMA = getDataForLine(
         prices,
-        periodForFirstEMA.toInt(),
+        periodForFirstEMA,
         isExponential
     ).takeLast(TAKE_LAST)
     val longMA = getDataForLine(
         prices,
-        periodForSecondEMA.toInt(),
+        periodForSecondEMA,
         isExponential
     ).takeLast(TAKE_LAST)
     val (actionsPointsToBuy, actionsPointsToSell) = getBuyAndSellActionList(
@@ -109,32 +99,6 @@ internal fun StrategyMAVisualizationGraph(
         YieldText(profit, onEvent)
 
         Chart(modelProducer, marker)
-    }
-}
-
-@Composable
-internal fun YieldText(profit: Double, onEvent: (StrategySelectionEvent) -> Unit) {
-    Column {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(text = "Demo on random data", style = MaterialTheme.typography.headlineMedium)
-            Spacer(Modifier.size(8.dp))
-            Icon(
-                imageVector = Icons.Filled.Refresh,
-                contentDescription = "Reload",
-                modifier = Modifier
-                    .size(24.dp)
-                    .clickable { onEvent(StrategySelectionEvent.Ui.Click.RegenerateRandomData) }
-            )
-        }
-        Text(
-            text = "Profit: ${if (profit > 0) "+%.2f".format(profit * 100) else "%.2f".format(profit * 100)}%",
-            style = MaterialTheme.typography.bodyMedium,
-            color = if (profit > 0.0) {
-                Color(0xFF1C8F22)
-            } else {
-                Color(0xFFE91E63)
-            }
-        )
     }
 }
 
@@ -182,8 +146,7 @@ private fun Chart(
             ),
             startAxis = VerticalAxis.rememberStart(
                 horizontalLabelPosition = VerticalAxis.HorizontalLabelPosition.Inside,
-
-                ),
+            ),
             bottomAxis = HorizontalAxis.rememberBottom(
                 itemPlacer = remember {
                     HorizontalAxis.ItemPlacer.aligned(spacing = 1)
@@ -205,7 +168,7 @@ private fun Chart(
 }
 
 @Composable
-fun rememberLegend(): Legend<CartesianMeasuringContext, CartesianDrawingContext> {
+private fun rememberLegend(): Legend<CartesianMeasuringContext, CartesianDrawingContext> {
     val labelComponent = rememberTextComponent(vicoTheme.textColor)
     return rememberHorizontalLegend(
         items = rememberExtraLambda {
@@ -342,14 +305,14 @@ fun calculateProfit(prices: List<Int>, tradingPoints: List<Pair<Int, String>>): 
 }
 
 private val chartColors = listOf(
-    Color(0xFFF44336),
-    Color(0xFF673AB7),
-    Color(0xff8fdaff),
+    Color(0xFFF44336), //price color
+    Color(0xFF673AB7), //short MA
+    Color(0xff8fdaff), //long MA
 )
 
 private val actionPointsColor = listOf(
-    Color(0xFFE91E63),
-    Color(0xFF1C8F22),
+    Color(0xFFE91E63), //buy
+    Color(0xFF1C8F22), //sell
 )
 
 private fun calculateEMA(data: List<Int>, period: Int): List<Double> {

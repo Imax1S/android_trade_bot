@@ -41,9 +41,12 @@ internal object StrategySelectionReducer :
 
         }
         Ui.Click.RegenerateRandomData -> state { copy(randomData = generateStockData()) }
-        is Ui.Click.ChangePeriod1Param -> state { copy(MAPeriod1 = event.value) }
-        is Ui.Click.ChangePeriod2Param -> state { copy(MAPeriod2 = event.value) }
+        is Ui.Click.ChangePeriod1Param -> state { copy(MAPeriod1 = event.value.toInt()) }
+        is Ui.Click.ChangePeriod2Param -> state { copy(MAPeriod2 = event.value.toInt()) }
         is Ui.Click.SelectStrategy -> state { copy(selectedStrategy = event.selectedStrategyType) }
+        is Ui.Click.ChangeOverboughtThreshold -> state { copy(overboughtThreshold = event.threshold.toInt()) }
+        is Ui.Click.ChangeOversoldThreshold -> state { copy(oversoldThreshold = event.threshold.toInt()) }
+        is Ui.Click.ChangeRSIPeriod -> state { copy(RSIPeriod = event.period.toInt()) }
     }
 
     override fun Result.internal(event: Domain) = when (event) {
@@ -51,7 +54,7 @@ internal object StrategySelectionReducer :
     }
 
 
-    private fun getDefaultParams(selectedStrategy: StrategyType): Pair<Float, Float> {
-        return 12f to 25f
+    private fun getDefaultParams(selectedStrategy: StrategyType): Pair<Int, Int> {
+        return 12 to 25
     }
 }

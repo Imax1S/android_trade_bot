@@ -8,6 +8,9 @@ internal data class StrategySelectionState(
     val strategies: List<Strategy> = emptyList(),
     val randomData: List<Int> = emptyList(),
     val selectedStrategy: StrategyType = StrategyType.EMA,
-    val MAPeriod1: Float = 0f,
-    val MAPeriod2: Float = 0f,
+    val MAPeriod1: Int = 0,
+    val MAPeriod2: Int = 0,
+    val RSIPeriod: Int = 14,
+    val overboughtThreshold: Int = 70,
+    val oversoldThreshold: Int = 30
 )

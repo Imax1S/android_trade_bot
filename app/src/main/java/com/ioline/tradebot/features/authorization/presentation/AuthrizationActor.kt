@@ -13,7 +13,8 @@ internal class AuthrizationActor @Inject constructor(
     override fun execute(
         command: AuthorizationCommand
     ): Flow<Internal> = flow {
-        when (command) {
+        when (
+            command) {
             else -> {}
         }
     }

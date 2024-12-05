@@ -42,9 +42,10 @@ internal fun StrategyDemo(
             StrategyType.RSI -> {
                 StrategyRSIVisualizationChart(
                     prices = state.randomData,
-                    periodForFirstEMA = state.MAPeriod1,
-                    periodForSecondEMA = state.MAPeriod2,
-                )
+                    period = state.RSIPeriod,
+                    overboughtThreshold = state.overboughtThreshold,
+                    oversoldThreshold = state.oversoldThreshold,
+                ) { onEvent(it) }
             }
             StrategyType.CUSTOM -> {
 
