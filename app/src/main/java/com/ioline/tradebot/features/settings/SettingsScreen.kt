@@ -6,16 +6,18 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import com.ioline.tradebot.features.settings.presentation.SettingsActor
+import com.ioline.tradebot.features.settings.presentation.SettingsEffect
 import com.ioline.tradebot.features.settings.presentation.SettingsReducer
 import com.ioline.tradebot.features.settings.presentation.SettingsState
 import com.ioline.tradebot.features.settings.ui.SettingsView
+import com.ioline.tradebot.navigation.NavItem
 import vivid.money.elmslie.coroutines.ElmStoreCompat
 import vivid.money.elmslie.coroutines.effects
 import vivid.money.elmslie.coroutines.states
 
 @Composable
-fun SettingsScreen(param: (Any) -> Unit) {
-    val initialState = SettingsState("")
+fun SettingsScreen(navigate: (NavItem) -> Unit) {
+    val initialState = SettingsState()
     val store = remember {
         ElmStoreCompat(
             initialState,
@@ -33,10 +35,13 @@ fun SettingsScreen(param: (Any) -> Unit) {
     effect?.let {
         LaunchedEffect(it) {
             when (it) {
-                else -> {}
+                SettingsEffect.Close -> TODO()
+                SettingsEffect.NavigateToAuthorizationInScreen -> navigate(NavItem.Authorization)
             }
         }
     }
 
-    SettingsView(state)
+    SettingsView(state) {
+        store.accept(it)
+    }
 }

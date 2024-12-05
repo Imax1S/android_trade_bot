@@ -1,17 +1,17 @@
 package com.ioline.tradebot.features.settings.presentation
 
+import com.ioline.tradebot.data.models.User
+
 internal data class SettingsState(
-    val params: String
+    val user: User? = null,
+    val tokenError: Boolean = false,
+    val isDarkTheme: Boolean = true
 )
 
-internal sealed class SettingsEffect {
-    // your code
-}
+internal sealed interface SettingsCommand {
+    data class ValidateToken(val token: String) : SettingsCommand
 
-internal sealed class SettingsCommand {
-    // your code
-}
-
-internal sealed class SettingsEvent {
-    // your code
+    data object ChangeUiTheme : SettingsCommand
+    data object LogOutUser : SettingsCommand
+    data object LoadData : SettingsCommand
 }

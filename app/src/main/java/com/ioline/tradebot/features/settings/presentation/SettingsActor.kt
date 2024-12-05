@@ -13,7 +13,10 @@ internal class SettingsActor @Inject constructor(
         command: SettingsCommand
     ): Flow<SettingsEvent> = flow {
         when (command) {
-            else -> {}
+            SettingsCommand.ChangeUiTheme -> {}
+            SettingsCommand.LoadData -> {}
+            SettingsCommand.LogOutUser -> {}
+            is SettingsCommand.ValidateToken -> {}
         }
     }
 }

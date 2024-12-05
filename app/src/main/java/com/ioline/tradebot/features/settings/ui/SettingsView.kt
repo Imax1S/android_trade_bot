@@ -31,14 +31,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.ioline.tradebot.features.settings.presentation.SettingsState
+import com.ioline.tradebot.R
+import com.ioline.tradebot.features.settings.presentation.SettingsEvent as Event
+import com.ioline.tradebot.features.settings.presentation.SettingsState as State
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun SettingsView(state: SettingsState) {
+internal fun SettingsView(state: State, onEvent: (Event) -> Unit) {
     var token by remember { mutableStateOf("") }
     var tokenError by remember { mutableStateOf(false) }
     Scaffold(
@@ -65,7 +68,7 @@ internal fun SettingsView(state: SettingsState) {
                 fontWeight = FontWeight.Bold
             )
             Spacer(modifier = Modifier.height(8.dp))
-            ThemeToggle()
+            ThemeToggle(state.isDarkTheme, onEvent)
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -87,15 +90,25 @@ internal fun SettingsView(state: SettingsState) {
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = "Logged in as SuperUser"
-                )
-                Spacer(Modifier.weight(1f))
-                Icon(
-                    Icons.Default.AccountCircle,
-                    "Avatar icon",
-                    modifier = Modifier.size(36.dp)
-                )
+                if (state.user == null) {
+                    Text(
+                        text = "You are not logged in",
+                        fontWeight = FontWeight.Bold,
+                        color = colorResource(R.color.bot_card_background)
+                    )
+                } else {
+                    Text(
+                        text = "Logged in as ${state.user.name}",
+                        fontWeight = FontWeight.Bold,
+                        color = colorResource(R.color.bot_card_background)
+                    )
+                    Spacer(Modifier.weight(1f))
+                    Icon(
+                        Icons.Default.AccountCircle,
+                        "Avatar icon",
+                        modifier = Modifier.size(36.dp)
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -103,20 +116,31 @@ internal fun SettingsView(state: SettingsState) {
                 text = "Token",
                 fontWeight = FontWeight.Bold
             )
-            OutlinedTextField(
-                value = token,
-                onValueChange = { token = it; tokenError = false },
-                label = { Text("token") },
-                isError = tokenError
-            )
+            if (state.user == null) {
+                Text(
+                    text = "You should log in to enter the token",
+                    fontWeight = FontWeight.Bold,
+                    color = colorResource(R.color.bot_card_background)
+                )
+            } else {
+                OutlinedTextField(
+                    value = state.user.token,
+                    onValueChange = {
+                        onEvent(Event.Ui.EnterToken(it))
+                        tokenError = false
+                    },
+                    label = { Text("token") },
+                    isError = state.tokenError
+                )
+            }
             Spacer(modifier = Modifier.weight(1f))
-            AuthButton()
+            AuthButton(state, onEvent)
         }
     }
 }
 
 @Composable
-fun ThemeToggle() {
+internal fun ThemeToggle(isDarkTheme: Boolean, onEvent: (Event) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -128,8 +152,8 @@ fun ThemeToggle() {
             modifier = Modifier.weight(1f)
         )
         Switch(
-            checked = false, // Добавьте сохраненное значение темы
-            onCheckedChange = { /* Handle theme change */ },
+            checked = isDarkTheme,
+            onCheckedChange = { onEvent(Event.Ui.ChangeUiTheme) },
             colors = SwitchDefaults.colors(
                 checkedThumbColor = Color.White,
                 checkedTrackColor = Color(0xFF6A4FA0)
@@ -162,19 +186,29 @@ fun NotificationToggle() {
 }
 
 @Composable
-fun AuthButton() {
+internal fun AuthButton(state: State, onEvent: (Event) -> Unit) {
     Button(
-        onClick = { /* Handle authorization */ },
+        onClick = {
+            if (state.user == null) {
+                onEvent(Event.Ui.LogIn)
+            } else {
+                onEvent(Event.Ui.LogOut)
+            }
+        },
         modifier = Modifier.fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(contentColor = Color(0xFF6A4FA0)),
         shape = RoundedCornerShape(24.dp)
     ) {
-        Text("Log In / Log Out", color = Color.White)
+        if (state.user == null) {
+            Text("Log In", color = Color.White)
+        } else {
+            Text("Log Out", color = Color.White)
+        }
     }
 }
 
 @Preview
 @Composable
 private fun SettingsPreview() {
-    SettingsView(state = SettingsState(params = "oporteat"))
+    SettingsView(state = State()) {}
 }
