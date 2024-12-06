@@ -13,9 +13,11 @@ internal class AuthrizationActor @Inject constructor(
     override fun execute(
         command: AuthorizationCommand
     ): Flow<Internal> = flow {
-        when (
-            command) {
-            else -> {}
+        when (command) {
+            is AuthorizationCommand.LogIn -> {}
+            is AuthorizationCommand.CreateAccount -> {
+                emit(Internal.CreateAccount(command.email))
+            }
         }
     }
 }

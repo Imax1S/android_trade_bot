@@ -164,6 +164,8 @@ internal fun ThemeToggle(isDarkTheme: Boolean, onEvent: (Event) -> Unit) {
 
 @Composable
 fun NotificationToggle() {
+    var enableNotification by remember { mutableStateOf(false) }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -175,8 +177,8 @@ fun NotificationToggle() {
             modifier = Modifier.weight(1f)
         )
         Switch(
-            checked = true, // Добавьте сохраненное значение уведомлений
-            onCheckedChange = { /* Handle notification toggle */ },
+            checked = enableNotification,
+            onCheckedChange = { enableNotification = !enableNotification },
             colors = SwitchDefaults.colors(
                 checkedThumbColor = Color.White,
                 checkedTrackColor = Color(0xFF6A4FA0)

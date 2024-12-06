@@ -104,7 +104,6 @@ internal fun AuthorizationView(state: AuthorizationState, onEvent: (Authorizatio
             }
         }
 
-
         Button(
             onClick = {
                 if (state.registrationMode) {

@@ -21,8 +21,11 @@ internal object SettingsReducer : ScreenDslReducer<
 
     override fun Result.ui(event: SettingsEvent.Ui) {
         when (event) {
-            SettingsEvent.Ui.ChangeUiTheme -> commands {
-                +SettingsCommand.ChangeUiTheme
+            SettingsEvent.Ui.ChangeUiTheme -> {
+                state { copy(isDarkTheme = !isDarkTheme) }
+                effects {
+                    +SettingsEffect.ChangeTheme
+                }
             }
             is SettingsEvent.Ui.EnterToken -> commands {
                 +SettingsCommand.ValidateToken(event.token)
@@ -31,7 +34,7 @@ internal object SettingsReducer : ScreenDslReducer<
                 +SettingsEffect.NavigateToAuthorizationInScreen
             }
             SettingsEvent.Ui.LogOut -> commands {
-                +SettingsCommand.LogOutUser
+                state { copy(user = null) }
             }
         }
     }

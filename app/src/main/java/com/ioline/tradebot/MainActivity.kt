@@ -5,6 +5,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.navigation.compose.rememberNavController
 import com.ioline.tradebot.common_ui.theme.TradeBotTheme
 import com.ioline.tradebot.data.repository.bot.BotRepository
@@ -22,15 +26,25 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var instrumentRepository: InstrumentRepository
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
+            var darkTheme by rememberSaveable { mutableStateOf(false) }
 
-            TradeBotTheme {
+            TradeBotTheme(darkTheme = darkTheme) {
                 Surface {
                     Scaffold { padding ->
-                        TradeBotNavHost(navController, padding, botRepository, instrumentRepository)
+                        TradeBotNavHost(
+                            navController,
+                            padding,
+                            botRepository,
+                            instrumentRepository,
+                            darkTheme
+                        ) {
+                            darkTheme = !darkTheme
+                        }
                     }
                 }
             }

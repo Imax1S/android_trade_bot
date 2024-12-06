@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import com.ioline.tradebot.features.authorization.presentation.AuthorizationEffect
 import com.ioline.tradebot.features.authorization.presentation.AuthorizationReducer
 import com.ioline.tradebot.features.authorization.presentation.AuthorizationState
 import com.ioline.tradebot.features.authorization.presentation.AuthrizationActor
@@ -14,7 +15,7 @@ import vivid.money.elmslie.coroutines.effects
 import vivid.money.elmslie.coroutines.states
 
 @Composable
-fun AuthorizationScreen() {
+fun AuthorizationScreen(navigate: (String) -> Boolean) {
     val initialState = AuthorizationState("")
 
     val store = remember {
@@ -34,7 +35,7 @@ fun AuthorizationScreen() {
     effect?.let {
         LaunchedEffect(it) {
             when (it) {
-                else -> {}
+                AuthorizationEffect.Close -> navigate("")
             }
         }
     }

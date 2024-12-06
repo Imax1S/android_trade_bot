@@ -23,7 +23,9 @@ fun TradeBotNavHost(
     navController: NavHostController,
     padding: PaddingValues,
     botRepository: BotRepository,
-    instrumentRepository: InstrumentRepository
+    instrumentRepository: InstrumentRepository,
+    darkThemeIsOn: Boolean,
+    changeTheme: () -> Unit
 ) {
     NavHost(
         navController = navController,
@@ -77,7 +79,7 @@ fun TradeBotNavHost(
             }
         }
         composable<NavItem.Settings> {
-            SettingsScreen { screenName ->
+            SettingsScreen(changeTheme, darkThemeIsOn) { screenName ->
                 navController.navigate(screenName)
             }
         }
@@ -85,13 +87,15 @@ fun TradeBotNavHost(
             val botId = argument.toRoute<NavItem.StrategySelection>().botId
 
             EnvironmentSettingsScreen(botId, botRepository) { screenName ->
-                navController.navigate(screenName) {
+                navController.navigate(NavItem.StrategySettings) {
                     popUpTo(screenName) { inclusive = true }
                 }
             }
         }
         composable<NavItem.Authorization> {
-            AuthorizationScreen()
+            AuthorizationScreen() { screenName ->
+                navController.popBackStack()
+            }
         }
     }
 }

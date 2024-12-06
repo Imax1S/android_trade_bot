@@ -10,8 +10,9 @@ internal object AuthorizationReducer :
             AuthorizationEffect, AuthorizationCommand>(Ui::class, Internal::class) {
 
     override fun Result.internal(event: Internal) = when (event) {
-
-        else -> {}
+        is Internal.CreateAccount -> effects {
+            +AuthorizationEffect.Close
+        }
     }
 
     override fun Result.ui(event: Ui) = when (event) {

@@ -15,16 +15,17 @@ internal data class AuthorizationState(
 }
 
 internal sealed class AuthorizationEffect {
-    // your code
+    data object Close : AuthorizationEffect()
 }
 
 internal sealed class AuthorizationCommand {
     data class LogIn(val email: String, val password: String) : AuthorizationCommand()
+    data class CreateAccount(val email: String, val password: String) : AuthorizationCommand()
 }
 
 internal sealed class AuthorizationEvent {
     sealed class Internal : AuthorizationEvent() {
-        // your code
+        data class CreateAccount(val email: String) : Internal()
     }
 
     sealed class Ui : AuthorizationEvent() {
