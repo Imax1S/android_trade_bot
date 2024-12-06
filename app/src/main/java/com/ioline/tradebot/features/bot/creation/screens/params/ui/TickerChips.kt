@@ -27,16 +27,21 @@ import com.ioline.tradebot.R
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun SelectedTickers(tags: List<String>, onRemoveTag: (String) -> Unit) {
+fun SelectedTickers(tags: List<Pair<String, Int>>, onRemoveTag: (String) -> Unit) {
     FlowRow(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight(),
     ) {
         tags.forEach { tag ->
+            val text = if (tag.second > 1) {
+                "${tag.first} ${tag.second}"
+            } else {
+                tag.first
+            }
             Chip(
-                text = tag,
-                onRemove = { onRemoveTag(tag) }
+                text = text,
+                onRemove = { onRemoveTag(tag.first) }
             )
         }
     }
@@ -71,12 +76,12 @@ fun Chip(text: String, onRemove: () -> Unit) {
 private fun TickerChipsPreview() {
     SelectedTickers(
         tags = listOf(
-            "APPLE",
-            "YNDX",
-            "YNDX",
-            "YNDX",
-            "YNDX",
-            "GOOGL"
+            "APPLE" to 2,
+            "YNDX" to 1,
+            "YNDX" to 1,
+            "YNDX" to 4,
+            "YNDX" to 10,
+            "GOOGL" to 1
         )
     ) { }
 }

@@ -72,19 +72,24 @@ internal fun BotCreationView(state: BotCreationState, onEvent: (BotCreationEvent
             ) { value ->
                 onEvent(BotCreationEvent.Ui.ChangeMarket(value))
             }
-            DropdownField(
-                label = stringResource(R.string.mode_drop_down_label),
-                options = OperationMode.entries.map { it.value },
-                selectedOption = state.mode.value
-            ) { value ->
-                onEvent(BotCreationEvent.Ui.ChangeMode(value))
+
+            if (state.marketEnvironment != MarketEnvironment.HISTORICAL_DATA) {
+                DropdownField(
+                    label = stringResource(R.string.mode_drop_down_label),
+                    options = OperationMode.entries.map { it.value },
+                    selectedOption = state.mode.value
+                ) { value ->
+                    onEvent(BotCreationEvent.Ui.ChangeMode(value))
+                }
             }
 
             SearchTicketsField(state, onEvent)
             SelectedTickers(
-                tags = state.selectedInstruments.map { it.ticker },
+                tags = state.selectedInstruments.groupBy { it.name }.entries.map { it.key to it.value.size },
                 onRemoveTag = { onEvent(BotCreationEvent.Ui.Click.RemoveInstrument(it)) }
             )
+
+            Text("Total amount: ${state.selectedInstruments.map { it.price }.sum()}")
 
             Spacer(Modifier.weight(1f))
 

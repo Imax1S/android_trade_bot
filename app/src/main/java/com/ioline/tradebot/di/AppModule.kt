@@ -38,7 +38,8 @@ object AppModule {
         RemoteBotDataSourceImpl(tradeBotApi)
 
     @Provides
-    fun provideInstrumentRepository(): InstrumentRepository = InstrumentRepositoryImpl()
+    fun provideInstrumentRepository(tradeBotApi: TradeBotApi): InstrumentRepository =
+        InstrumentRepositoryImpl(tradeBotApi)
 
     @Provides
     fun provideTradeBotApi(): TradeBotApi =

@@ -27,7 +27,7 @@ internal class BotCreationReducer :
                             name = state.name,
                             description = state.description,
                             isActive = false,
-                            instrumentsFIGI = state.selectedInstruments.map { it.figi },
+                            instrumentsFIGI = state.selectedInstruments.map { it?.figi ?: "" },
                             marketEnvironment = state.marketEnvironment,
                             mode = state.mode
                         )
@@ -43,21 +43,24 @@ internal class BotCreationReducer :
             }
         }
         is Ui.Click.SearchInstrument -> commands {
-            state { copy(searchInstrumentsLoading = true) }
-            +Command.SearchInstrument(event.text)
+            if (event.text.isNotEmpty() && event.text.isNotBlank()) {
+                state { copy(searchInstrumentsLoading = true) }
+                +Command.SearchInstrument(event.text)
+            }
         }
         Ui.Click.RetrySearchInstrument -> TODO()
 
         is Ui.Click.SelectInstrument -> state {
             val newSelectedInstruments = (selectedInstruments + searchInstruments.find {
                 it.ticker == event.ticker
-            }).filterNotNull().distinct()
+            }).filterNotNull()
 
             copy(selectedInstruments = newSelectedInstruments)
         }
         is Ui.Click.RemoveInstrument -> state {
             copy(
-                selectedInstruments = selectedInstruments.filterNot { it.ticker == event.ticker }
+                selectedInstruments = selectedInstruments.filter { it.ticker != event.ticker } + selectedInstruments.filter { it.ticker == event.ticker }
+                    .takeLast(selectedInstruments.count { it.ticker == event.ticker })
             )
         }
 
@@ -93,7 +96,8 @@ internal class BotCreationReducer :
             is SearchResult.Success -> state {
                 copy(
                     searchInstrumentsLoading = false,
-                    searchInstruments = event.searchResult.data
+                    searchInstruments = event.searchResult.data ?: emptyList(),
+                    searchInstrumentError = event.searchResult.data == null
                 )
             }
         }

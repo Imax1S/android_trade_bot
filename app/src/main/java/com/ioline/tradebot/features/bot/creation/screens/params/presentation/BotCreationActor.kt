@@ -17,7 +17,8 @@ internal class BotCreationActor @Inject constructor(
     override fun execute(
         command: BotCreationCommand
     ): Flow<Domain> = when (command) {
-        is BotCreationCommand.SearchInstrument -> searchInstrument(command.text)
+        is BotCreationCommand.SearchInstrument ->
+            searchInstrument(command.text)
         is BotCreationCommand.SaveBotLocally -> flow {
             botRepository.saveBotLocally(command.bot)
             emit(Domain.NextPage(command.bot.id))

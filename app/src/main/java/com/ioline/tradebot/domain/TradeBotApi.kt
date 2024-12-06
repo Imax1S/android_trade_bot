@@ -13,6 +13,9 @@ interface TradeBotApi {
     @GET("/findInstrument/{id}")
     suspend fun findInstrument(@Path("id") id: String): Response<Instrument?>
 
+    @GET("/findInstruments/{text}")
+    suspend fun findInstruments(@Path("text") text: String): Response<List<Instrument>>
+
     @GET("/getPrice/{id}")
     suspend fun getPrice(@Path("id") id: String): Response<String>
 

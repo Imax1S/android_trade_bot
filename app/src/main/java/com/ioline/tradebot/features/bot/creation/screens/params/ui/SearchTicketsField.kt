@@ -38,11 +38,10 @@ import com.ioline.tradebot.data.models.OperationMode
 import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationEvent
 import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationState
 
-
 @Composable
 internal fun SearchTicketsField(state: BotCreationState, onEvent: (BotCreationEvent) -> Unit) {
     var searchText by remember { mutableStateOf("") }
-    val suggestions = state.searchInstruments.map { it.ticker }
+    val suggestions = state.searchInstruments
 
     Column() {
         OutlinedTextField(
@@ -77,13 +76,13 @@ internal fun SearchTicketsField(state: BotCreationState, onEvent: (BotCreationEv
                     ) {
                         items(suggestions) { suggestion ->
                             Text(
-                                text = suggestion,
+                                text = "${suggestion.ticker} ${suggestion.price}р.",
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .clickable {
                                         onEvent(
                                             BotCreationEvent.Ui.Click.SelectInstrument(
-                                                suggestion
+                                                suggestion.ticker
                                             )
                                         )
                                     }
