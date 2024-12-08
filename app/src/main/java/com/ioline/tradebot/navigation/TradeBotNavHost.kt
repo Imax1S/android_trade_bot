@@ -1,6 +1,5 @@
 package com.ioline.tradebot.navigation
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -21,7 +20,6 @@ import com.ioline.tradebot.features.settings.SettingsScreen
 @Composable
 fun TradeBotNavHost(
     navController: NavHostController,
-    padding: PaddingValues,
     botRepository: BotRepository,
     instrumentRepository: InstrumentRepository,
     darkThemeIsOn: Boolean,
@@ -55,7 +53,7 @@ fun TradeBotNavHost(
                 navController.navigate(screenName)
             }
         }
-        composable(NavItem.StrategySettings.route) {
+        composable<NavItem.StrategySettings> {
             StrategySetupScreen { screenName ->
                 navController.navigate(screenName) {
                     popUpTo(screenName) { inclusive = true }
@@ -87,7 +85,7 @@ fun TradeBotNavHost(
             val botId = argument.toRoute<NavItem.StrategySelection>().botId
 
             EnvironmentSettingsScreen(botId, botRepository) { screenName ->
-                navController.navigate(NavItem.StrategySettings) {
+                navController.navigate(screenName) {
                     popUpTo(screenName) { inclusive = true }
                 }
             }

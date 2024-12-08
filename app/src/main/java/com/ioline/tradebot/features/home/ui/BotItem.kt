@@ -66,7 +66,7 @@ internal fun BotItem(bot: Bot, onEvent: (HomeEvent) -> Unit) {
             Spacer(modifier = Modifier.height(4.dp))
 
             Text(
-                text = "${bot.result?.yield}%",
+                text = "${bot.result?.yield ?: 0.0}%",
                 color = if ((bot.result?.yield ?: 0.0) >= 0.0) {
                     Color(0xFF77DD77)
                 } else {

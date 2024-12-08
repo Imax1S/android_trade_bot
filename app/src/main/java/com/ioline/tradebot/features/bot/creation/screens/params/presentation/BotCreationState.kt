@@ -15,4 +15,5 @@ internal data class BotCreationState(
     val searchInstrumentError: Boolean = false,
     val errorBotNameValidation: Boolean = false,
     val errorSelectedTickersValidation: Boolean = false,
+    val searchText: String = ""
 )

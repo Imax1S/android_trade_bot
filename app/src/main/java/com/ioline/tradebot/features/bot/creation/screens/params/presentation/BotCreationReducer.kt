@@ -6,6 +6,15 @@ import com.ioline.tradebot.data.models.OperationMode
 import com.ioline.tradebot.data.repository.instrument.SearchResult
 import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationEvent.Domain
 import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationEvent.Ui
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import vivid.money.elmslie.core.store.dsl_reducer.ScreenDslReducer
 import java.util.UUID
 import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationCommand as Command
@@ -16,8 +25,14 @@ internal class BotCreationReducer :
     ScreenDslReducer<Event, Ui, Domain, BotCreationState, Effect, Command>(
         Ui::class, Domain::class
     ) {
+    private val job = Job()
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + job)
+    private val searchQueryFlow = MutableStateFlow("")
+
     override fun Result.ui(event: Ui) = when (event) {
-        Ui.System.Init -> TODO()
+        Ui.System.Init -> {
+            subSearch()
+        }
         Ui.Click.Next -> {
             if (state.name.isNotEmpty() && state.selectedInstruments.isNotEmpty()) {
                 commands {
@@ -27,7 +42,7 @@ internal class BotCreationReducer :
                             name = state.name,
                             description = state.description,
                             isActive = false,
-                            instrumentsFIGI = state.selectedInstruments.map { it?.figi ?: "" },
+                            instrumentsFIGI = state.selectedInstruments.map { it.figi },
                             marketEnvironment = state.marketEnvironment,
                             mode = state.mode
                         )
@@ -44,11 +59,15 @@ internal class BotCreationReducer :
         }
         is Ui.Click.SearchInstrument -> commands {
             if (event.text.isNotEmpty() && event.text.isNotBlank()) {
-                state { copy(searchInstrumentsLoading = true) }
+//                searchQueryFlow.value = event.text
                 +Command.SearchInstrument(event.text)
+                state { copy(searchInstrumentsLoading = true, searchText = event.text) }
             }
         }
-        Ui.Click.RetrySearchInstrument -> TODO()
+        Ui.Click.RetrySearchInstrument -> commands {
+            state { copy(searchInstrumentsLoading = true) }
+            +Command.SearchInstrument(state.searchText)
+        }
 
         is Ui.Click.SelectInstrument -> state {
             val newSelectedInstruments = (selectedInstruments + searchInstruments.find {
@@ -76,6 +95,18 @@ internal class BotCreationReducer :
             copy(mode = OperationMode.entries.find { it.value == event.value }
                 ?: OperationMode.MANUAL)
         }
+    }
+
+    @OptIn(FlowPreview::class)
+    private fun Result.subSearch() {
+        searchQueryFlow
+            .debounce(3000)
+            .distinctUntilChanged()
+            .onEach { query ->
+                commands {
+                    +Command.SearchInstrument(query)
+                }
+            }.launchIn(coroutineScope)
     }
 
     override fun Result.internal(event: Domain) = when (event) {

@@ -9,6 +9,8 @@ sealed class NavItem(val route: String) {
 
     @Serializable
     data object BotCreation : NavItem("bot_creation")
+
+    @Serializable
     data object StrategySettings : NavItem("strategy_settings")
 
     @Serializable

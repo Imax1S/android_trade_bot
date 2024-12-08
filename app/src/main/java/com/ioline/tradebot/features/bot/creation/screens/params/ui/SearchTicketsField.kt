@@ -1,5 +1,6 @@
 package com.ioline.tradebot.features.bot.creation.screens.params.ui
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -38,12 +39,13 @@ import com.ioline.tradebot.data.models.OperationMode
 import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationEvent
 import com.ioline.tradebot.features.bot.creation.screens.params.presentation.BotCreationState
 
+@SuppressLint("FlowOperatorInvokedInComposition")
 @Composable
 internal fun SearchTicketsField(state: BotCreationState, onEvent: (BotCreationEvent) -> Unit) {
     var searchText by remember { mutableStateOf("") }
     val suggestions = state.searchInstruments
 
-    Column() {
+    Column {
         OutlinedTextField(
             value = searchText,
             onValueChange = {
