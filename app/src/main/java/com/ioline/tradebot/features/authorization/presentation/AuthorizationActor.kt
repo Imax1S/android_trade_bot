@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.flow
 import vivid.money.elmslie.coroutines.Actor
 import javax.inject.Inject
 
-internal class AuthrizationActor @Inject constructor(
+internal class AuthorizationActor @Inject constructor(
     // your dependencies
 ) : Actor<AuthorizationCommand, Internal> {
 

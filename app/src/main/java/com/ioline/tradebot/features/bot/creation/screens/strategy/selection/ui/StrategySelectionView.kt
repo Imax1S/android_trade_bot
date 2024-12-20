@@ -89,9 +89,9 @@ internal fun StrategySelectionView(
             item {
                 StrategyParams(
                     selectedStrategy = state.selectedStrategy,
-                    MAPeriod1 = state.MAPeriod1,
-                    MAPeriod2 = state.MAPeriod2,
-                    rsiPeriod = state.RSIPeriod,
+                    maPeriod1 = state.maPeriod1,
+                    maPeriod2 = state.maPeriod2,
+                    rsiPeriod = state.rsiPeriod,
                     oversoldThreshold = state.oversoldThreshold,
                     overboughtThreshold = state.overboughtThreshold,
                     stopLoss = state.stopLoss,
@@ -126,7 +126,7 @@ private fun getStrategyDescription(selectedStrategy: StrategyType) =
         StrategyType.MA -> stringResource(R.string.ma_description)
     }
 
-@Preview()
+@Preview
 @Composable
 fun StrategySelectionScreenPreview() {
     StrategySelectionView(

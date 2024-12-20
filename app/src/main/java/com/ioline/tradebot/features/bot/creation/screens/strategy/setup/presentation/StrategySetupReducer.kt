@@ -29,7 +29,6 @@ internal object StrategySetupReducer :
     }
 
     override fun Result.internal(event: Internal) = when (event) {
-
         else -> {}
     }
 }

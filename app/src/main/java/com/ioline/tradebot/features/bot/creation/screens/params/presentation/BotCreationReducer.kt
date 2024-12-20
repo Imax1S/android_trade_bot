@@ -59,7 +59,6 @@ internal class BotCreationReducer :
         }
         is Ui.Click.SearchInstrument -> commands {
             if (event.text.isNotEmpty() && event.text.isNotBlank()) {
-//                searchQueryFlow.value = event.text
                 +Command.SearchInstrument(event.text)
                 state { copy(searchInstrumentsLoading = true, searchText = event.text) }
             }

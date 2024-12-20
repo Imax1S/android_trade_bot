@@ -89,7 +89,7 @@ internal fun BotCreationView(state: BotCreationState, onEvent: (BotCreationEvent
                 onRemoveTag = { onEvent(BotCreationEvent.Ui.Click.RemoveInstrument(it)) }
             )
 
-            Text("Total amount: ${state.selectedInstruments.map { it.price }.sum()}")
+            Text("Total amount: ${state.selectedInstruments.sumOf { it.price }}")
 
             Spacer(Modifier.weight(1f))
 

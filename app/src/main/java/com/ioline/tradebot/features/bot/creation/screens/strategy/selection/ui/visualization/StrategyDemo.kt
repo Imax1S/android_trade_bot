@@ -26,23 +26,23 @@ internal fun StrategyDemo(
             StrategyType.EMA -> {
                 StrategyMAVisualizationGraph(
                     prices = state.randomData,
-                    periodForFirstEMA = state.MAPeriod1,
-                    periodForSecondEMA = state.MAPeriod2,
+                    periodForFirstEMA = state.maPeriod1,
+                    periodForSecondEMA = state.maPeriod2,
                     isExponential = true
                 ) { onEvent(it) }
             }
             StrategyType.MA -> {
                 StrategyMAVisualizationGraph(
                     prices = state.randomData,
-                    periodForSecondEMA = state.MAPeriod2,
+                    periodForSecondEMA = state.maPeriod2,
                     isExponential = false,
-                    periodForFirstEMA = state.MAPeriod1
+                    periodForFirstEMA = state.maPeriod1
                 ) { onEvent(it) }
             }
             StrategyType.RSI -> {
                 StrategyRSIVisualizationChart(
                     prices = state.randomData,
-                    period = state.RSIPeriod,
+                    period = state.rsiPeriod,
                     overboughtThreshold = state.overboughtThreshold,
                     oversoldThreshold = state.oversoldThreshold,
                 ) { onEvent(it) }

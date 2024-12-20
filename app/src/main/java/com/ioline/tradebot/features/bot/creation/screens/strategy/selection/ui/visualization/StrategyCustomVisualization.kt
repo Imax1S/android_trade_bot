@@ -1,6 +1,5 @@
 package com.ioline.tradebot.features.bot.creation.screens.strategy.selection.ui.visualization
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -64,7 +63,6 @@ internal fun StrategyCustomVisualization(
     }
     val growthNumber = startPrice + startPrice / 100.0 * stopGrowth
 
-    Log.d("TAGA", "startPrice:$startPrice, loss: $lossNumber, growth: $growthNumber")
     val stopGrowthLineData = List(TAKE_LAST) {
         growthNumber
     }

@@ -1,18 +1,14 @@
 package com.ioline.tradebot.features.bot.creation.screens.environment.ui
 
 import android.icu.text.SimpleDateFormat
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -23,7 +19,6 @@ import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -35,15 +30,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Popup
 import com.ioline.tradebot.data.models.Bot
 import com.ioline.tradebot.data.models.MarketEnvironment
 import com.ioline.tradebot.data.models.OperationMode
@@ -60,7 +52,7 @@ internal fun EnvironmentSettingsView(
     var token by remember { mutableStateOf("") }
     var tokenError by remember { mutableStateOf(false) }
     var isValidatingToken by remember { mutableStateOf(false) }
-    var showLargeRangeWarning by remember { mutableStateOf(false) }
+    val showLargeRangeWarning by remember { mutableStateOf(false) }
 
     Scaffold { padding ->
         Column(
@@ -171,59 +163,6 @@ internal fun EnvironmentSettingsView(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun DatePickerDocked(title: String) {
-    var showDatePicker by remember { mutableStateOf(false) }
-    val datePickerState = rememberDatePickerState()
-    val selectedDate = datePickerState.selectedDateMillis?.let {
-        convertMillisToDate(it)
-    } ?: ""
-
-    Box(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        OutlinedTextField(
-            value = selectedDate,
-            onValueChange = { },
-            label = { Text(title) },
-            readOnly = true,
-            trailingIcon = {
-                IconButton(onClick = { showDatePicker = !showDatePicker }) {
-                    Icon(
-                        imageVector = Icons.Default.DateRange,
-                        contentDescription = "Select date"
-                    )
-                }
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(64.dp)
-        )
-
-        if (showDatePicker) {
-            Popup(
-                onDismissRequest = { showDatePicker = false },
-                alignment = Alignment.TopStart
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .offset(y = 64.dp)
-                        .shadow(elevation = 4.dp)
-                        .background(MaterialTheme.colorScheme.surface)
-                        .padding(16.dp)
-                ) {
-                    DatePicker(
-                        state = datePickerState,
-                        showModeToggle = false
-                    )
-                }
-            }
-        }
-    }
-}
-
 @Composable
 fun DatePickerFieldToModal(title: String) {
     var selectedDate by remember { mutableStateOf<Long?>(null) }
@@ -311,9 +250,8 @@ private fun EnvironmentSettingsMarketPreview() {
                 mode = OperationMode.MANUAL,
                 result = null
             ), startDate = Date(2), endDate = Date(2), token = "varius"
-        ),
-        {}
-    )
+        )
+    ) {}
 }
 
 @Preview
@@ -333,9 +271,8 @@ private fun EnvironmentSettingsSandboxPreview() {
                 mode = OperationMode.MANUAL,
                 result = null
             ), startDate = Date(2), endDate = Date(2), token = "varius"
-        ),
-        {}
-    )
+        )
+    ) {}
 }
 
 @Preview
@@ -355,7 +292,6 @@ private fun EnvironmentSettingsPreview() {
                 mode = OperationMode.MANUAL,
                 result = null
             ), startDate = Date(2), endDate = Date(2), token = "varius"
-        ),
-        {}
-    )
+        )
+    ) {}
 }

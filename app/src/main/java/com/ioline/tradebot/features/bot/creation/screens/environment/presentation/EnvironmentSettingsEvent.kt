@@ -24,9 +24,5 @@ internal sealed class EnvironmentSettingsEvent {
             data class ValidateToken(val token: String) : Ui()
             data object ShowInstruction : Ui()
         }
-
-        object Action {
-            // your code
-        }
     }
 }

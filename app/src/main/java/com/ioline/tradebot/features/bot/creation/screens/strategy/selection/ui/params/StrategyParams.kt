@@ -10,8 +10,8 @@ import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.pres
 @Composable
 internal fun StrategyParams(
     selectedStrategy: StrategyType,
-    MAPeriod1: Int,
-    MAPeriod2: Int,
+    maPeriod1: Int,
+    maPeriod2: Int,
     rsiPeriod: Int,
     oversoldThreshold: Int,
     overboughtThreshold: Int,
@@ -21,16 +21,16 @@ internal fun StrategyParams(
 ) {
     when (selectedStrategy) {
         StrategyType.EMA, StrategyType.MA -> {
-            Text("Period: $MAPeriod1", fontSize = 18.sp)
+            Text("Period: $maPeriod1", fontSize = 18.sp)
             Slider(
-                value = MAPeriod1.toFloat(),
+                value = maPeriod1.toFloat(),
                 onValueChange = { onEvent(StrategySelectionEvent.Ui.Click.ChangePeriod1Param(it)) },
                 valueRange = 9f..26f
             )
 
-            Text("Period: $MAPeriod2", fontSize = 18.sp)
+            Text("Period: $maPeriod2", fontSize = 18.sp)
             Slider(
-                value = MAPeriod2.toFloat(),
+                value = maPeriod2.toFloat(),
                 onValueChange = { onEvent(StrategySelectionEvent.Ui.Click.ChangePeriod2Param(it)) },
                 valueRange = 26f..50f
             )

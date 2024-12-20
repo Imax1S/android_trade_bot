@@ -1,6 +1,5 @@
 package com.ioline.tradebot.features.bot.creation.screens.strategy.setup.presentation
 
-import com.ioline.tradebot.data.models.Bot
 import com.ioline.tradebot.data.models.strategy.Strategy
 
 internal data class StrategySetupState(
@@ -8,13 +7,11 @@ internal data class StrategySetupState(
 )
 
 internal sealed class StrategySetupEffect {
-    object OpenPreviousScreen : StrategySetupEffect()
-    object FinishBotCreation : StrategySetupEffect()
+    data object OpenPreviousScreen : StrategySetupEffect()
+    data object FinishBotCreation : StrategySetupEffect()
 }
 
-internal sealed class StrategySetupCommand {
-    data class CreateBot(val bot: Bot) : StrategySetupCommand()
-}
+internal sealed class StrategySetupCommand
 
 internal sealed class StrategySetupEvent {
     sealed class Internal : StrategySetupEvent() {
@@ -27,13 +24,9 @@ internal sealed class StrategySetupEvent {
         }
 
         object Click {
-            object ShowHint : Ui()
-            object Launch : Ui()
-            object Create : Ui()
-        }
-
-        object Action {
-            // your code
+            data object ShowHint : Ui()
+            data object Launch : Ui()
+            data object Create : Ui()
         }
     }
 }

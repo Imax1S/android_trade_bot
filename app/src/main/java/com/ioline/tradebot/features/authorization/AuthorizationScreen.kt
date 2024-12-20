@@ -5,10 +5,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import com.ioline.tradebot.features.authorization.presentation.AuthorizationActor
 import com.ioline.tradebot.features.authorization.presentation.AuthorizationEffect
 import com.ioline.tradebot.features.authorization.presentation.AuthorizationReducer
 import com.ioline.tradebot.features.authorization.presentation.AuthorizationState
-import com.ioline.tradebot.features.authorization.presentation.AuthrizationActor
 import com.ioline.tradebot.features.authorization.ui.AuthorizationView
 import vivid.money.elmslie.coroutines.ElmStoreCompat
 import vivid.money.elmslie.coroutines.effects
@@ -22,7 +22,7 @@ fun AuthorizationScreen(navigate: (String) -> Boolean) {
         ElmStoreCompat(
             initialState,
             AuthorizationReducer,
-            AuthrizationActor()
+            AuthorizationActor()
         )
     }
 

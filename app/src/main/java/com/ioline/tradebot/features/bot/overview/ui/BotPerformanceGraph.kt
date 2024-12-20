@@ -35,7 +35,6 @@ import com.patrykandpatrick.vico.compose.cartesian.CartesianChartHost
 import com.patrykandpatrick.vico.compose.cartesian.axis.rememberBottom
 import com.patrykandpatrick.vico.compose.cartesian.axis.rememberStart
 import com.patrykandpatrick.vico.compose.cartesian.layer.rememberLineCartesianLayer
-import com.patrykandpatrick.vico.compose.cartesian.marker.rememberDefaultCartesianMarker
 import com.patrykandpatrick.vico.compose.cartesian.rememberCartesianChart
 import com.patrykandpatrick.vico.compose.cartesian.rememberVicoZoomState
 import com.patrykandpatrick.vico.core.cartesian.Zoom
@@ -43,7 +42,6 @@ import com.patrykandpatrick.vico.core.cartesian.axis.HorizontalAxis
 import com.patrykandpatrick.vico.core.cartesian.axis.VerticalAxis
 import com.patrykandpatrick.vico.core.cartesian.data.CartesianChartModelProducer
 import com.patrykandpatrick.vico.core.cartesian.data.lineSeries
-import com.patrykandpatrick.vico.core.common.component.TextComponent
 import com.ioline.tradebot.features.bot.overview.presenation.BotOverviewEvent as Event
 
 @Composable
@@ -99,7 +97,6 @@ private fun EmptyChart(
 @Composable
 internal fun BotPerformanceChart(state: BotReviewState, onEvent: (Event) -> Unit) {
     val modelProducer = remember { CartesianChartModelProducer() }
-    val marker = rememberDefaultCartesianMarker(label = TextComponent())
 
     LaunchedEffect(state.selectedPeriod) {
         modelProducer.runTransaction {

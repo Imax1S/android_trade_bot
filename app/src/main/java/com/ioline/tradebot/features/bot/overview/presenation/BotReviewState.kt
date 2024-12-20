@@ -13,21 +13,11 @@ internal data class BotReviewState(
     val inEditMode: Boolean = false,
 )
 
-enum class ChartPeriod(name: String) {
-    ALL("All"),
-    YEAR("Year"),
-    SIX_MONTHS("6 Months"),
-    MONTH("Month"),
-    WEEK("Week"),
-    DAY("Day");
-}
-
-internal sealed class BotReviewEffect {
-    data object Close : BotReviewEffect()
-    data object OpenStrategy : BotReviewEffect()
-}
-
-internal sealed class BotReviewCommand {
-    data class Init(val botId: String) : BotReviewCommand()
-    data class RunBotOnHistoricalData(val botId: String) : BotReviewCommand()
+enum class ChartPeriod {
+    ALL,
+    YEAR,
+    SIX_MONTHS,
+    MONTH,
+    WEEK,
+    DAY;
 }

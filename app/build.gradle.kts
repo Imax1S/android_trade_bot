@@ -91,6 +91,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.coil.compose)
     debugImplementation(libs.androidx.ui.tooling)
+    implementation(libs.androidx.material.icons.extended)
 
     //charts
     implementation(libs.vico.compose)

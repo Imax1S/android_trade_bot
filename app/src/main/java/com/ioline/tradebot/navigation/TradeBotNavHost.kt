@@ -1,5 +1,6 @@
 package com.ioline.tradebot.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -23,6 +24,7 @@ fun TradeBotNavHost(
     botRepository: BotRepository,
     instrumentRepository: InstrumentRepository,
     darkThemeIsOn: Boolean,
+    padding: PaddingValues,
     changeTheme: () -> Unit
 ) {
     NavHost(
@@ -91,7 +93,7 @@ fun TradeBotNavHost(
             }
         }
         composable<NavItem.Authorization> {
-            AuthorizationScreen() { screenName ->
+            AuthorizationScreen { screenName ->
                 navController.popBackStack()
             }
         }

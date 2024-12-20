@@ -38,10 +38,10 @@ class MainActivity : ComponentActivity() {
                     Scaffold { padding ->
                         TradeBotNavHost(
                             navController,
-                            padding,
                             botRepository,
                             instrumentRepository,
-                            darkTheme
+                            darkTheme,
+                            padding
                         ) {
                             darkTheme = !darkTheme
                         }

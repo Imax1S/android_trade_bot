@@ -33,8 +33,7 @@ class BotRepositoryImpl @Inject constructor(
     }
 
     override suspend fun createBot(bot: Bot) {
-        val botWithId = remoteDataSource.addBot(bot)
-//        localDataSource.addBot(botWithId)
+        remoteDataSource.addBot(bot)
     }
 
     override suspend fun deleteBot(bot: Bot) {

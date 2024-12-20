@@ -5,7 +5,6 @@ import com.ioline.tradebot.data.models.TimePeriod
 import com.ioline.tradebot.data.models.TimeSettings
 import com.ioline.tradebot.features.bot.creation.screens.environment.presentation.EnvironmentSettingsEvent.Internal
 import com.ioline.tradebot.features.bot.creation.screens.environment.presentation.EnvironmentSettingsEvent.Ui
-import vivid.money.elmslie.core.store.Result
 import vivid.money.elmslie.core.store.dsl_reducer.ScreenDslReducer
 import com.ioline.tradebot.features.bot.creation.screens.environment.presentation.EnvironmentSettingsCommand as Command
 import com.ioline.tradebot.features.bot.creation.screens.environment.presentation.EnvironmentSettingsEffect as Effect

@@ -1,25 +1,8 @@
 <resources>
     <string name="app_name">Trade Bot</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="home_empty">You don\'t have any bot yet(</string>
     <string name="home_loading">Loading something…</string>
     <string name="error_text">Error( \ntry reload…</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="done">Done</string>
-    <string name="sell_conditions_headline">Sell conditions</string>
-    <string name="enter_percentages_text">Enter percentages</string>
-    <string name="sell_conditions_subtitle_drop">Sell all if price dropped more than:</string>
-    <string name="buy_conditions_subtitle_drop">Buy all if price dropped more than:</string>
-    <string name="sell_conditions_subtitle_increase">Sell all if price increased more than</string>
-    <string name="buy_conditions_headline">Buy conditions</string>
-    <string name="creation_bot_hint_name">Enter bot\'s name</string>
-    <string name="bot_creation_instruments_hint">Enter instruments</string>
-    <string name="enter_param_1">Enter param 1</string>
-    <string name="enter_param_2">Enter param 2</string>
-    <string name="enter_number">Enter Number</string>
     <string name="add_a_bot">Add a bot</string>
     <string name="error_try">Try</string>
     <string name="bot_creation_title">Create bot</string>
@@ -37,6 +20,10 @@
     <string name="rsi_description">An indicator that reveals whether an asset is overbought or oversold.</string>
     <string name="custom_description">Create your own strategy with personalized settings.</string>
     <string name="ma_description">A simple average that shows the general trend without accounting for recent fluctuations.</string>
-    <string name="bots_review_yield_title">Bot’s yield</string>
     <string name="strategy_selection_button_text">Select strategy</string>
+    <string name="authorization_email_label">Email</string>
+    <string name="authorization_button_create_account">Create account</string>
+    <string name="authorization_button_log_in">Log in</string>
+    <string name="authorization_second_button_registration">Have an account? Go to login</string>
+    <string name="authorization_second_button_login">Do not have an account? Get a registration</string>
 </resources>

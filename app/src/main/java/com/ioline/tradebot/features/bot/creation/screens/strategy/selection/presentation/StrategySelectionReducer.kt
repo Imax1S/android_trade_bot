@@ -2,7 +2,6 @@ package com.ioline.tradebot.features.bot.creation.screens.strategy.selection.pre
 
 import com.ioline.tradebot.data.generateStockData
 import com.ioline.tradebot.data.models.strategy.Strategy
-import com.ioline.tradebot.data.models.strategy.StrategyType
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionEvent.Domain
 import com.ioline.tradebot.features.bot.creation.screens.strategy.selection.presentation.StrategySelectionEvent.Ui
 import vivid.money.elmslie.core.store.dsl_reducer.ScreenDslReducer
@@ -19,8 +18,8 @@ internal object StrategySelectionReducer :
             state {
                 copy(
                     randomData = generateStockData(),
-                    MAPeriod1 = getDefaultParams(state.selectedStrategy).first,
-                    MAPeriod2 = getDefaultParams(state.selectedStrategy).second
+                    maPeriod1 = getDefaultParams().first,
+                    maPeriod2 = getDefaultParams().second
                 )
             }
         }
@@ -33,20 +32,20 @@ internal object StrategySelectionReducer :
                     botId = state.botId,
                     strategy = Strategy(
                         type = state.selectedStrategy,
-                        param1 = state.MAPeriod1.toString(),
-                        param2 = state.MAPeriod2.toString(),
+                        param1 = state.maPeriod1.toString(),
+                        param2 = state.maPeriod2.toString(),
                     )
                 )
             }
 
         }
         Ui.Click.RegenerateRandomData -> state { copy(randomData = generateStockData()) }
-        is Ui.Click.ChangePeriod1Param -> state { copy(MAPeriod1 = event.value.toInt()) }
-        is Ui.Click.ChangePeriod2Param -> state { copy(MAPeriod2 = event.value.toInt()) }
+        is Ui.Click.ChangePeriod1Param -> state { copy(maPeriod1 = event.value.toInt()) }
+        is Ui.Click.ChangePeriod2Param -> state { copy(maPeriod2 = event.value.toInt()) }
         is Ui.Click.SelectStrategy -> state { copy(selectedStrategy = event.selectedStrategyType) }
         is Ui.Click.ChangeOverboughtThreshold -> state { copy(overboughtThreshold = event.threshold.toInt()) }
         is Ui.Click.ChangeOversoldThreshold -> state { copy(oversoldThreshold = event.threshold.toInt()) }
-        is Ui.Click.ChangeRSIPeriod -> state { copy(RSIPeriod = event.period.toInt()) }
+        is Ui.Click.ChangeRSIPeriod -> state { copy(rsiPeriod = event.period.toInt()) }
         is Ui.Click.ChangeStopGrowth -> state { copy(stopGrowth = event.value.toInt()) }
         is Ui.Click.ChangeStopLoss -> state { copy(stopLoss = event.value.toInt()) }
     }
@@ -56,7 +55,7 @@ internal object StrategySelectionReducer :
     }
 
 
-    private fun getDefaultParams(selectedStrategy: StrategyType): Pair<Int, Int> {
+    private fun getDefaultParams(): Pair<Int, Int> {
         return 12 to 25
     }
 }
